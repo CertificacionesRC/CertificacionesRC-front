@@ -1,5 +1,5 @@
 function RootPage() {
-  return null;
+  return null
 }
 
-export default RootPage;
+export default RootPage

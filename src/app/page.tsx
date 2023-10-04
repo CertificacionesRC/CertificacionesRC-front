@@ -1,5 +1,7 @@
+import Page from '@/components/page'
+
 function RootPage() {
-  return null
+  return <Page />
 }
 
 export default RootPage

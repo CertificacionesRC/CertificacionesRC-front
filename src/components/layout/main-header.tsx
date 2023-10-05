@@ -3,18 +3,7 @@ import { BiHome, BiBell } from 'react-icons/bi'
 
 function MainHeader() {
   return (
-    <Flex
-      alignItems="center"
-      as="header"
-      bg="white"
-      borderBottom="2px"
-      borderColor="gray.100"
-      gap="8"
-      position="sticky"
-      px="6"
-      py="2"
-      top="0"
-    >
+    <Flex flex="1" alignItems="center" gap="8" position="sticky" px="6" py="2" top="0">
       <Box fontSize="2xl">
         <BiHome />
       </Box>

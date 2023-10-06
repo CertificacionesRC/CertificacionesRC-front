@@ -23,7 +23,7 @@ function MainLayout({ children }: Props) {
       <GridItem as="header" bg="white" area="header" borderBottom="2px" borderColor="gray.100" display="flex">
         <MainHeader />
       </GridItem>
-      <GridItem as="main" bg="gray.50" overflowY="auto" area="main">
+      <GridItem as="main" bg="gray.50" overflowY="auto" area="main" padding={'20px'}>
         {children}
       </GridItem>
     </Grid>

@@ -1,4 +1,5 @@
-import Page from '@/components/page'
+
+import Page from "@/components/page"
 
 function RootPage() {
   return <Page />

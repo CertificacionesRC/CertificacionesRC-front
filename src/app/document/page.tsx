@@ -3,7 +3,7 @@ import Page from '@/components/page'
 function DocumentPage() {
   return (
     <>
-      return <Page />
+      <Page />
     </>
   )
 }

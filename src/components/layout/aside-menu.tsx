@@ -11,6 +11,7 @@ function MainAsideMenu() {
       <AsideMenuItem href={ROUTES.HOME} name="Inicio" />
       <AsideMenuItem href={ROUTES.DOCUMENT} name="Documento" />
       <AsideMenuItem href={ROUTES.HISTORY} name="Historial" />
+      <AsideMenuItem href={ROUTES.USERS} name="Usuarios" />
     </Stack>
   )
 }

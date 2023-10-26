@@ -7,6 +7,9 @@ function page() {
   return (
     <Center h="calc(100vh - 70px)">
       <StartDocument/>
+          
     </Center>
+
+
   )
 }export default page

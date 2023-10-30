@@ -1,12 +1,17 @@
 "use client"
 import React from 'react'
-import {Center} from '@chakra-ui/react'
-import StartDocument from '../app/document/components/start-document'
+import TableDocument from '../app/document/components/table-document'
+import { ChakraProvider } from "@chakra-ui/react";
 
 function page() {
   return (
-    <Center h="calc(100vh - 70px)">
-      <StartDocument/>
-    </Center>
+    
+    <ChakraProvider>
+      <TableDocument  />
+    </ChakraProvider>
+    
   )
 }export default page
+
+
+

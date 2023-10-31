@@ -22,7 +22,7 @@
     "react": "latest",
     "react-dom": "latest",
     "react-icons": "^4.11.0",
-    "react-paginate": "^8.2.0"
+    "react-paginate": "^8.2.0",
     "react-table": "^7.8.0"
   },
   "devDependencies": {

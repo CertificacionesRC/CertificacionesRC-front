@@ -1,8 +1,5 @@
-
-import EditorTiny from '@/components/editor/editor-tiny'
-
 function RootPage() {
-  return <EditorTiny />
+  return <h1>INICIO</h1>
 }
 
 export default RootPage

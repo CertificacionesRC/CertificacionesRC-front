@@ -30,10 +30,17 @@ const ItemsComponent: React.FC<MyComponentProps> = ({ subItems, nameItem, id }) 
   const pathname = usePathname()
 
   return (
-    <Accordion defaultIndex={defaultIndex} allowMultiple backgroundColor={'white'}>
-      <AccordionItem>
+    <Accordion
+      defaultIndex={defaultIndex}
+      allowMultiple
+      backgroundColor={'white'}
+      borderRadius={'8px'}
+      position={'relative'}
+    >
+      <Box w="8px" h="100%" backgroundColor="#183b6b" position="absolute" left="0" top="0" borderRadius="8px 0 0 8px" />
+      <AccordionItem borderRadius={'8px'}>
         <h2>
-          <AccordionButton>
+          <AccordionButton height={'68px'}>
             <Box as="span" flex="1" textAlign="left">
               {id}. {nameItem}
             </Box>

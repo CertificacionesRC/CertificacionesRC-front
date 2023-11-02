@@ -1,8 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import './css-table-document.css'
+import { AiOutlineSearch, AiOutlineFileSearch } from 'react-icons/ai'
+import { BiComment } from 'react-icons/bi'
+import { datos } from './data-document'
+import React, { useState } from 'react'
+import ReactPaginate from 'react-paginate'
 import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
@@ -14,14 +20,8 @@ import {
   ButtonGroup,
   Box,
 } from '@chakra-ui/react'
-import { AiOutlineSearch, AiOutlineFileSearch } from 'react-icons/ai'
-import { BiComment } from 'react-icons/bi'
-import React, { useState } from 'react'
-import ReactPaginate from 'react-paginate'
-import './css-table-document.css'
-import { datos } from './data-document'
 
-function handleButtonClick() {
+function handleButtonClick(): void {
   alert('Se hizo clic en el botón')
 }
 
@@ -31,13 +31,13 @@ function TableDocument() {
 
   const pageCount = Math.ceil(datos.length / perPage)
 
-  const handlePageChange = ({ selected }: { selected: number }) => {
+  const handlePageChange = ({ selected }: { selected: number }): void => {
     setCurrentPage(selected)
   }
 
   const offset = currentPage * perPage
 
-  /* Se filtran los datos que se obtienen en el input.*/
+  /* Se filtran los datos que se obtienen en el input. */
   const [filter, setFilter] = useState('')
   const documentoFiltrado = datos.filter(
     (dato) =>
@@ -45,10 +45,10 @@ function TableDocument() {
       dato.idDocumento.toString().toLowerCase().includes(filter.toLowerCase())
   )
 
-  /*Se distribuyen los datos en las paginas calculadas.*/
+  /* Se distribuyen los datos en las paginas calculadas. */
   const currentData = documentoFiltrado.slice(offset, offset + perPage)
 
-  const handleInputChange = (e: any) => {
+  const handleInputChange = (e: any): void => {
     setFilter(e.target.value)
   }
 
@@ -92,7 +92,6 @@ function TableDocument() {
               </Tbody>
             </Table>
           </Box>
-
           <Box
             sx={{
               display: 'flex',

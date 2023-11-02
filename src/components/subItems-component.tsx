@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 import { GET_SUBINDEX_BY_PARENTID } from '@/service/api'
 import {
@@ -12,11 +13,11 @@ import {
 } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 
-interface ApiResponse {
-  [key: string]: any
-}
-const fetchGetSubItem = (id: any) => {
-  return fetch(GET_SUBINDEX_BY_PARENTID + `?parentId=${id}`, { cache: 'no-store' }).then((res) => res.json())
+type ApiResponse = Record<string, any>
+const fetchGetSubItem = async (id: any) => {
+  return await fetch(GET_SUBINDEX_BY_PARENTID + `?parentId=${id}`, { cache: 'no-store' }).then(
+    async (res) => await res.json()
+  )
 }
 const SubItemsComponent = ({ name, id, pathname, router }: { name: any; id: any; pathname: any; router: any }) => {
   const defaultIndex = [1]

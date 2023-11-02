@@ -1,31 +1,32 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 import React, { useEffect, useState } from 'react'
 import { Editor } from '@tinymce/tinymce-react'
 import { useToast } from '@chakra-ui/react'
 import { UPDATE_SUBINDEX, UPDATE_INDEX } from '@/service/api'
 
-interface ApiResponse {
-  [key: string]: any
-}
+type ApiResponse = Record<string, any>
 
-const fetchUpdateItem = (id: string, data: ApiResponse, item: boolean) => {
+const fetchUpdateItem = async (id: string, data: ApiResponse, item: boolean): Promise<any> => {
   const url = item ? UPDATE_INDEX : UPDATE_SUBINDEX
-  return fetch(url + `/${id}`, {
+  return await fetch(url + `/${id}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(data),
-  }).then((res) => res.json())
+  }).then(async (res) => await res.json())
 }
 
 export default function EditorTiny({ value, item }: { value: ApiResponse; item: boolean }) {
   const [body, setBody] = useState(value.contenido ?? '')
   const toast = useToast()
 
-  useEffect(() => setBody(value.contenido ?? ''), [value.contenido])
+  useEffect(() => {
+    setBody(value.contenido ?? '')
+  }, [value.contenido])
 
-  const updateSubItem = async () => {
+  const updateSubItem = async (): Promise<void> => {
     try {
       let data
       if (body !== null) data = { contenido: body, nombre: value.nombre }
@@ -57,7 +58,9 @@ export default function EditorTiny({ value, item }: { value: ApiResponse; item: 
         apiKey="5vkptq5dwbqyxtlmn6jqt9nfglvidk82oigjm57ody4uytpg"
         initialValue={value.contenido ?? ''}
         value={body}
-        onEditorChange={(newValue, editor) => setBody(newValue)}
+        onEditorChange={(newValue) => {
+          setBody(newValue)
+        }}
         init={{
           height: 500,
           menubar: false,
@@ -80,7 +83,15 @@ export default function EditorTiny({ value, item }: { value: ApiResponse; item: 
           // },
         }}
       />
-      <button onClick={() => updateSubItem()}>Guardar</button>
+      <button
+        onClick={() => {
+          updateSubItem()
+            .then(() => {})
+            .catch(() => {})
+        }}
+      >
+        Guardar
+      </button>
     </>
   )
 }

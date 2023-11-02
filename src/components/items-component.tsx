@@ -1,20 +1,19 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
-import { GET_SUBINDEX_BY_INDEX, GET_SUBINDEX_BY_PARENTID } from '@/service/api'
+import { GET_SUBINDEX_BY_INDEX } from '@/service/api'
 import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, List } from '@chakra-ui/react'
 import { useRouter, usePathname } from 'next/navigation'
 import { useState } from 'react'
 import SubItemsComponent from './subItems-component'
 
-interface ApiResponse {
-  [key: string]: any
-}
+type ApiResponse = Record<string, any>
 interface MyComponentProps {
   nameItem: string
   id: number
 }
 
-const fetchGetItem = (id: number) => {
-  return fetch(GET_SUBINDEX_BY_INDEX + `/${id}`, { cache: 'no-store' }).then((res) => res.json())
+const fetchGetItem = async (id: number) => {
+  return await fetch(GET_SUBINDEX_BY_INDEX + `/${id}`, { cache: 'no-store' }).then(async (res) => await res.json())
 }
 
 const ItemsComponent: React.FC<MyComponentProps> = ({ nameItem, id }) => {
@@ -43,7 +42,9 @@ const ItemsComponent: React.FC<MyComponentProps> = ({ nameItem, id }) => {
           textAlign={'left'}
           marginBottom={'7px'}
           position={'relative'}
-          onClick={() => router.push(`${pathname}/item/${id}`)}
+          onClick={() => {
+            router.push(`${pathname}/item/${id}`)
+          }}
         >
           <Box
             w="8px"
@@ -75,7 +76,12 @@ const ItemsComponent: React.FC<MyComponentProps> = ({ nameItem, id }) => {
           />
           <AccordionItem borderRadius={'8px'}>
             <h2>
-              <AccordionButton height={'68px'} onClick={() => getItem()}>
+              <AccordionButton
+                height={'68px'}
+                onClick={async () => {
+                  await getItem()
+                }}
+              >
                 <Box as="span" flex="1" textAlign="left">
                   {id}. {nameItem}
                 </Box>

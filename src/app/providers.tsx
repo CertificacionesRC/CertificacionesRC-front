@@ -8,7 +8,7 @@ interface Props {
   children: React.ReactNode
 }
 
-function Providers({ children }: Props) {
+function Providers({ children }: Props){
   return (
     <CacheProvider>
       <ChakraProvider theme={theme}>{children}</ChakraProvider>

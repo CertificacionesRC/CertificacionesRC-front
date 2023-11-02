@@ -16,7 +16,7 @@ export default function FormModal() {
 
   const FormModalComponent = () => (
     <BasicModal
-      okFunction={() => router.push(`${ROUTES.DOCUMENT}/sistemas`)}
+      okFunction={() => { router.push(`${ROUTES.DOCUMENT}/sistemas`); }}
       okButtonText="Iniciar el documento"
       title="Antes de continuar ayudanos a completar el siguiente formulario"
     >

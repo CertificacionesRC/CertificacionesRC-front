@@ -3,10 +3,7 @@ import { GET_ALL_INDEX, GET_ALL_SUBINDEX } from '@/service/api'
 import { filterObjectsById } from '@/utils/filters'
 
 const fetchGetIndex = () => {
-  return fetch(GET_ALL_INDEX).then((res) => res.json())
-}
-const fecthGetSubIndex = () => {
-  return fetch(GET_ALL_SUBINDEX, { cache: 'no-store' }).then((res) => res.json())
+  return fetch(GET_ALL_INDEX, { cache: 'no-store' }).then((res) => res.json())
 }
 
 export default async function ItemPage() {
@@ -14,7 +11,6 @@ export default async function ItemPage() {
     [key: string]: any
   }
   const indexs = await fetchGetIndex()
-  const subIndexs = await fecthGetSubIndex()
   return (
     <>
       <h2 style={{ fontWeight: '600', fontSize: '24px', lineHeight: '32px' }}>
@@ -22,12 +18,7 @@ export default async function ItemPage() {
       </h2>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '20px' }}>
         {indexs.map((index: ApiResponse, i: number) => (
-          <ItemsComponent
-            key={i}
-            subItems={filterObjectsById(subIndexs, index.id)}
-            nameItem={index.nombre}
-            id={index.id}
-          />
+          <ItemsComponent key={i} nameItem={index.nombre} id={index.id} />
         ))}
       </div>
     </>

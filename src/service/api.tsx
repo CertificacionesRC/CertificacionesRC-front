@@ -9,5 +9,6 @@ export const UPDATE_SUBINDEX = base_url + 'subItem/updateSubitem'
 export const GET_INDEX_BY_ID = base_url + 'item/getItemById'
 export const UPDATE_INDEX = base_url + 'item/update'
 
-
+export const GET_SUBINDEX_BY_INDEX = base_url + 'subItem/getAllSubItemsByItem'
+export const GET_SUBINDEX_BY_PARENTID = base_url + 'subItem/getSubitemsbyParentId'
 

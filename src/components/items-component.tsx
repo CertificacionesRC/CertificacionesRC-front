@@ -1,33 +1,39 @@
 'use client'
-import {
-  Accordion,
-  AccordionButton,
-  AccordionIcon,
-  AccordionItem,
-  AccordionPanel,
-  Box,
-  List,
-  ListItem,
-} from '@chakra-ui/react'
+import { GET_SUBINDEX_BY_INDEX, GET_SUBINDEX_BY_PARENTID } from '@/service/api'
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, List } from '@chakra-ui/react'
 import { useRouter, usePathname } from 'next/navigation'
+import { useState } from 'react'
+import SubItemsComponent from './subItems-component'
 
 interface ApiResponse {
   [key: string]: any
 }
 interface MyComponentProps {
-  subItems: ApiResponse[]
   nameItem: string
   id: number
 }
 
-const ItemsComponent: React.FC<MyComponentProps> = ({ subItems, nameItem, id }) => {
+const fetchGetItem = (id: number) => {
+  return fetch(GET_SUBINDEX_BY_INDEX + `/${id}`, { cache: 'no-store' }).then((res) => res.json())
+}
+
+const ItemsComponent: React.FC<MyComponentProps> = ({ nameItem, id }) => {
+  const [subItems, setSubItems] = useState<ApiResponse[]>([])
   const defaultIndex = [1]
   const router = useRouter()
   const pathname = usePathname()
+  const getItem = async () => {
+    try {
+      const response = await fetchGetItem(id)
+      setSubItems(response)
+    } catch (err) {
+      setSubItems([])
+    }
+  }
 
   return (
     <>
-      {subItems.length === 0 ? (
+      {id === 10 ? (
         <Box
           w={'100%'}
           padding={'20px 24px 20px 24px'}
@@ -69,7 +75,7 @@ const ItemsComponent: React.FC<MyComponentProps> = ({ subItems, nameItem, id }) 
           />
           <AccordionItem borderRadius={'8px'}>
             <h2>
-              <AccordionButton height={'68px'}>
+              <AccordionButton height={'68px'} onClick={() => getItem()}>
                 <Box as="span" flex="1" textAlign="left">
                   {id}. {nameItem}
                 </Box>
@@ -79,19 +85,13 @@ const ItemsComponent: React.FC<MyComponentProps> = ({ subItems, nameItem, id }) 
             <AccordionPanel pb={4}>
               <List spacing={3}>
                 {subItems.map((subItem, i) => (
-                  <ListItem
-                    w={'100%'}
-                    padding={'20px 24px 20px 24px'}
-                    borderRadius={'8px'}
-                    bgColor={'#EDF2F7'}
-                    _hover={{ backgroundColor: '#E9EBF8' }}
-                    textAlign={'left'}
+                  <SubItemsComponent
                     key={i}
-                    marginBottom={'7px'}
-                    onClick={() => router.push(`${pathname}/${subItem.id}`)}
-                  >
-                    {subItem.nombre}
-                  </ListItem>
+                    id={subItem.id}
+                    name={subItem.nombre}
+                    pathname={pathname}
+                    router={router}
+                  />
                 ))}
               </List>
             </AccordionPanel>

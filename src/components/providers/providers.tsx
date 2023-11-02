@@ -2,16 +2,15 @@
 
 import { CacheProvider } from '@chakra-ui/next-js'
 import { ChakraProvider } from '@chakra-ui/react'
+import { SessionProvider } from 'next-auth/react'
 import { theme } from '@/utils/theme'
 
-interface Props {
-  children: React.ReactNode
-}
-
-function Providers({ children }: Props){
+function Providers({ children }: React.PropsWithChildren) {
   return (
     <CacheProvider>
-      <ChakraProvider theme={theme}>{children}</ChakraProvider>
+      <ChakraProvider theme={theme}>
+        <SessionProvider>{children}</SessionProvider>
+      </ChakraProvider>
     </CacheProvider>
   )
 }

@@ -1,5 +1,5 @@
+import FormModal from '@/components/modals/form-modal'
 import { Card, CardHeader, CardBody, Button } from '@chakra-ui/react'
-import FormModal from '../../../components/modals/form-modal'
 
 function StartDocument() {
   const [FormModalComponent, openModal] = FormModal()

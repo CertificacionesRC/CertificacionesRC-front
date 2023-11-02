@@ -1,6 +1,6 @@
 export const ROUTES = {
-  HOME: '/',
-  DOCUMENT: '/document',
-  HISTORY: '/history',
-  USERS: '/usuarios',
+  HOME: '/certificaciones',
+  DOCUMENT: '/certificaciones/document',
+  HISTORY: '/certificaciones/history',
+  USERS: '/certificaciones/usuarios',
 }

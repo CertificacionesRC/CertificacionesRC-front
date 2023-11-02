@@ -1,7 +1,6 @@
 import './globals.css'
-import { MainLayout } from '@/components/layout'
 import { Inter } from 'next/font/google'
-import Providers from './providers'
+import Providers from '@/components/providers/providers'
 import type { Metadata } from 'next'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -19,9 +18,7 @@ function RootLayout({ children }: Props) {
   return (
     <html lang="es">
       <body className={inter.className}>
-        <Providers>
-          <MainLayout>{children}</MainLayout>
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   )

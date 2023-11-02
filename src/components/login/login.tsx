@@ -1,15 +1,9 @@
-import React from 'react';
-import { Flex, Box, Input, Button } from '@chakra-ui/react';
+import React from 'react'
+import { Flex, Box, Input, Button } from '@chakra-ui/react'
 
 function Login() {
   return (
-    <Flex
-      flex="1"
-      flexDirection="column"
-      alignItems="center"
-      justifyContent="center"
-      p="4"
-    >
+    <Flex flex="1" flexDirection="column" alignItems="center" justifyContent="center" p="4">
       <Box fontSize="2xl" mb="4">
         Iniciar sesión
       </Box>
@@ -21,7 +15,7 @@ function Login() {
         </Button>
       </Box>
     </Flex>
-  );
+  )
 }
 
-export default Login;
+export default Login

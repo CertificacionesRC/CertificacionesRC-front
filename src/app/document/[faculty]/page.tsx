@@ -1,16 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import ItemsComponent from '@/components/items-component'
-import { GET_ALL_INDEX, GET_ALL_SUBINDEX } from '@/service/api'
-import { filterObjectsById } from '@/utils/filters'
+import { GET_ALL_INDEX } from '@/service/api'
 
-const fetchGetIndex = () => {
-  return fetch(GET_ALL_INDEX, { cache: 'no-store' }).then((res) => res.json())
+const fetchGetIndex = async () => {
+  return await fetch(GET_ALL_INDEX, { cache: 'no-store' }).then(async (res) => await res.json())
 }
 
 export default async function ItemPage() {
-  interface ApiResponse {
-    [key: string]: any
-  }
+  type ApiResponse = Record<string, any>
   const indexs = await fetchGetIndex()
+
   return (
     <>
       <h2 style={{ fontWeight: '600', fontSize: '24px', lineHeight: '32px' }}>

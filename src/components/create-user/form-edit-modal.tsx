@@ -1,35 +1,24 @@
 // EditFormModal.jsx
 
-import React from 'react';
-import { useModal } from './basic-modal';
-import {
-  FormControl,
-  FormLabel,
-  Input,
-  Select,
-  Stack,
-} from '@chakra-ui/react';
+import React from 'react'
+import { useModal } from './basic-modal'
+import { FormControl, FormLabel, Input, Select, Stack } from '@chakra-ui/react'
 
 interface EditFormModalProps {
   userData: {
-    codigo: number;
-    usuario: string;
-    nombre: string;
-    correo: string;
-    estado: string;
-    rol: string;
-  };
+    codigo: number
+    usuario: string
+    nombre: string
+    correo: string
+    estado: string
+    rol: string
+  }
 }
 
 export default function EditFormModal({ userData }: EditFormModalProps) {
-  console.log('userData in EditFormModal:', userData);
-  const [BasicModal, openModal, closeModal] = useModal();
+  const [BasicModal, openModal, closeModal] = useModal()
   const FormModalComponent = () => (
-    <BasicModal
-      okFunction={() => {}}
-      okButtonText="Editar"
-      title="Editar Usuario"
-    >
+    <BasicModal okFunction={() => {}} okButtonText="Editar" title="Editar Usuario">
       <FormControl>
         <Stack mb={5} spacing={2}>
           <FormLabel>Código *</FormLabel>
@@ -58,13 +47,13 @@ export default function EditFormModal({ userData }: EditFormModalProps) {
           <FormLabel>Rol *</FormLabel>
           <Select value={userData.rol}>
             <option value="Seleccionar">Seleccionar</option>
-            <option value= "Administrador">Administrador</option>
-            <option value= "Coordinador">Coordinador</option>
+            <option value="Administrador">Administrador</option>
+            <option value="Coordinador">Coordinador</option>
           </Select>
         </Stack>
       </FormControl>
     </BasicModal>
-  );
+  )
 
-  return [FormModalComponent, openModal, closeModal] as const;
+  return [FormModalComponent, openModal, closeModal] as const
 }

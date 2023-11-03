@@ -13,6 +13,8 @@ import {
   Button,
   Select,
   useToast,
+  Stack,
+  FormLabel,
 } from '@chakra-ui/react'
 import { createColumnHelper } from '@tanstack/react-table'
 import StateComponent from './state-component'
@@ -20,6 +22,7 @@ import { FaEdit, FaPlus } from 'react-icons/fa'
 import { useEffect, useState } from 'react'
 import { UPDATE_USER } from '@/service/api'
 import CreatUserModal from './create-user-modal'
+import Pagination from './pagination'
 
 const stateOptions = [
   { name: 'Habilitado', value: true },
@@ -117,7 +120,7 @@ export default function ManageTableUserComponent({ data, token }: { data: ApiRes
   const columns = [
     columnHelper.accessor('id', {
       cell: (info) => info.getValue(),
-      header: 'ID',
+      header: 'Código',
       meta: {
         isNumeric: true,
       },
@@ -154,35 +157,72 @@ export default function ManageTableUserComponent({ data, token }: { data: ApiRes
     <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Edit Row</ModalHeader>
+        <center>
+         <ModalHeader>Editar usuario</ModalHeader>
+        </center>
         <ModalCloseButton />
         <ModalBody>
+        <Stack mb={3} spacing={2}>
+          <FormLabel>Nombre</FormLabel>
           <Input placeholder="Nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} />
+        </Stack> 
+        <Stack mb={3} spacing={2}>
+          <FormLabel>Correo</FormLabel>
           <Input placeholder="Correo" value={correo} onChange={(e) => setCorreo(e.target.value)} />
+        </Stack>
+        <Stack mb={3} spacing={2}>
+          <FormLabel>Contraseña</FormLabel>
           <Input placeholder="Contraseña" value={password} onChange={(e) => setPassword(e.target.value)} />
+        </Stack>
+        <Stack mb={3} spacing={2}>
+          <FormLabel>Estado</FormLabel>
           <Select placeholder="Estado" value={state ? 'Habilitado' : 'Inhabilitado'} onChange={handleStateChange}>
-            {stateOptions.map((option, i) => (
-              <option key={i} value={option.name}>
-                {option.name}
-              </option>
-            ))}
+              {stateOptions.map((option, i) => (
+                <option key={i} value={option.name}>
+                  {option.name}
+                </option>
+              ))}
           </Select>
+        </Stack>
+        <Stack mb={3} spacing={2}>
+        <FormLabel>Rol</FormLabel>
           <Select
-            placeholder="Rol"
-            value={rol === 'ADMIN' ? 'Administrador' : 'Coordinador'}
-            onChange={handleRolChange}
-          >
-            {rolOptions.map((option, i) => (
-              <option key={i} value={option.name}>
-                {option.name}
-              </option>
-            ))}
+              placeholder="Rol"
+              value={rol === 'ADMIN' ? 'Administrador' : 'Coordinador'}
+              onChange={handleRolChange}
+            >
+              {rolOptions.map((option, i) => (
+                <option key={i} value={option.name}>
+                  {option.name}
+                </option>
+              ))}
+              
           </Select>
-          <Button onClick={handleSave}>Save</Button>
+        </Stack>
+        <center>
+          <Button onClick={handleSave}>Editar Usuario</Button>
+        </center>
         </ModalBody>
       </ModalContent>
     </Modal>
   )
+    // Estado para el número de página actual
+    const [currentPage, setCurrentPage] = useState(1);
+
+    // Función para manejar el cambio de página
+    const handlePageChange = (page: number) => {
+      setCurrentPage(page);
+    };
+      // Número total de páginas (en este caso, supongo que hay 10 usuarios por página)
+  const itemsPerPage = 10;
+  //const totalPages = Math.ceil(users.length / itemsPerPage);
+  const totalPages = 5;
+
+  // Lógica para obtener los usuarios en la página actual
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  //const usersInCurrentPage = users.slice(startIndex, endIndex);
+  
   return (
     <>
       {modal}
@@ -193,10 +233,26 @@ export default function ManageTableUserComponent({ data, token }: { data: ApiRes
         rolOptions={rolOptions}
         token={token}
       />
+      <h1 style={{ marginBottom: '20px' }}><b>Usuarios</b></h1>
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
+            <Input placeholder='Buscar' />
+            <Button 
+              leftIcon={< FaPlus />} 
+              bg="#001f3f" 
+              color="#ffffff" 
+              size="md" 
+              marginLeft="5"  
+              onClick={() => setIsOpenSave(true)}
+              >
+            </Button>
+        </div >
       <ChakraProvider>
         <TableComponent columns={columns} data={dataTable} />
       </ChakraProvider>
-      <button onClick={() => setIsOpenSave(true)}>crear</button>
+        {/* Componente Pagination */}
+      <Pagination totalPages={totalPages} currentPage={currentPage} onPageChange={handlePageChange} />
+        
+
     </>
   )
 }

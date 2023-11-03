@@ -14,4 +14,7 @@ export const GET_SUBINDEX_BY_PARENTID = base_url + 'subItem/getSubitemsbyParentI
 
 export const GET_ALL_USERS = base_url + 'usuario/findAllUsuarios'
 export const UPDATE_USER = base_url + 'usuario/updateUsuario'
+export const GET_BY_ID = base_url + 'usuario/findUsuarioById'
+export const SAVE_USER = base_url + 'usuario/saveUsuario'
+export const DISABLE_USER = base_url + 'usuario/disableUsuario'
 

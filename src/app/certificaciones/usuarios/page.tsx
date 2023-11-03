@@ -6,7 +6,7 @@ import { GET_ALL_USERS } from '@/service/api'
 const fetchGetUsers = async (token: string) => {
   try {
     return await fetch(GET_ALL_USERS, {
-      cache: 'no-store',
+      next: { tags: ['all_users'] },
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -22,7 +22,6 @@ async function UserPage() {
   const objSession = await getServerSession(config)
   const token = objSession?.user.token
   const users = await fetchGetUsers(token)
-  console.log(users)
   return (
     <>
       <ManageTableUserComponent data={users.data} token={token} />

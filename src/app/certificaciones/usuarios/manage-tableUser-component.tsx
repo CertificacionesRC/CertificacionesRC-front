@@ -19,6 +19,7 @@ import StateComponent from './state-component'
 import { FaEdit, FaPlus } from 'react-icons/fa'
 import { useEffect, useState } from 'react'
 import { UPDATE_USER } from '@/service/api'
+import CreatUserModal from './create-user-modal'
 
 const stateOptions = [
   { name: 'Habilitado', value: true },
@@ -38,6 +39,7 @@ const fetchUpdateUser = async (token: string, data: ApiResponse, id: number) => 
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
       },
       body: JSON.stringify(data),
     }).then(async (res) => await res.json())
@@ -52,6 +54,7 @@ export default function ManageTableUserComponent({ data, token }: { data: ApiRes
   const toast = useToast()
 
   const [isOpen, setIsOpen] = useState(false)
+  const [isOpenSave, setIsOpenSave] = useState(false)
   const [currentRow, setCurrentRow] = useState<ApiResponse>(null)
   const [nombre, setNombre] = useState('')
   const [correo, setCorreo] = useState('')
@@ -88,7 +91,7 @@ export default function ManageTableUserComponent({ data, token }: { data: ApiRes
       correo,
       contrasena: password,
       estado: state,
-      rol: { idRol: rol === 'ADMIN' ? 1 : 2, rolNombre: rol },
+      rol: { rolId: rol === 'ADMIN' ? 1 : 2, rolNombre: rol },
     }
     try {
       const response = await fetchUpdateUser(token, data, currentRow.id)
@@ -183,9 +186,17 @@ export default function ManageTableUserComponent({ data, token }: { data: ApiRes
   return (
     <>
       {modal}
+      <CreatUserModal
+        isOpen={isOpenSave}
+        setIsOpen={setIsOpenSave}
+        stateOptions={stateOptions}
+        rolOptions={rolOptions}
+        token={token}
+      />
       <ChakraProvider>
         <TableComponent columns={columns} data={dataTable} />
       </ChakraProvider>
+      <button onClick={() => setIsOpenSave(true)}>crear</button>
     </>
   )
 }

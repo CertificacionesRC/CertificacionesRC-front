@@ -5,6 +5,7 @@ import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPane
 import { useRouter, usePathname } from 'next/navigation'
 import { useState } from 'react'
 import SubItemsComponent from './subItems-component'
+// import { useSession } from 'next-auth/react'
 
 type ApiResponse = Record<string, any>
 interface MyComponentProps {
@@ -17,6 +18,8 @@ const fetchGetItem = async (id: number) => {
 }
 
 const ItemsComponent: React.FC<MyComponentProps> = ({ nameItem, id }) => {
+  // const { data } = useSession()
+  // console.log(data?.user.token)
   const [subItems, setSubItems] = useState<ApiResponse[]>([])
   const defaultIndex = [1]
   const router = useRouter()

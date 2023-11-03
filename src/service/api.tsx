@@ -12,3 +12,6 @@ export const UPDATE_INDEX = base_url + 'item/update'
 export const GET_SUBINDEX_BY_INDEX = base_url + 'subItem/getAllSubItemsByItem'
 export const GET_SUBINDEX_BY_PARENTID = base_url + 'subItem/getSubitemsbyParentId'
 
+export const GET_ALL_USERS = base_url + 'usuario/findAllUsuarios'
+export const UPDATE_USER = base_url + 'usuario/updateUsuario'
+

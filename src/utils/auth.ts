@@ -17,7 +17,7 @@ export const config: NextAuthOptions = {
           type: 'password',
         },
       },
-      authorize: async () => {
+      authorize: async (credentials) => {
         try {
           const response = await fetch('http://localhost:8081/api/login', {
             method: 'POST',
@@ -25,8 +25,8 @@ export const config: NextAuthOptions = {
               contentType: 'application/json',
             },
             body: JSON.stringify({
-              correo: 'aaa@gmail.com',
-              contrasena: 'usuario',
+              correo: credentials?.email,
+              contrasena: credentials?.password,
             }),
           })
 
@@ -47,11 +47,11 @@ export const config: NextAuthOptions = {
   ],
   callbacks: {
     async jwt({ token, user }) {
-      return { ...token, ...user };
+      return { ...token, ...user }
     },
     async session({ session, token }) {
-      session.user = token as any;
-      return session;
+      session.user = token as any
+      return session
     },
   },
   pages: {

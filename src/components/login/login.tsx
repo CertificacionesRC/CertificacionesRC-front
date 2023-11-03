@@ -2,11 +2,11 @@
 
 import { Flex, Box, Input, Button } from '@chakra-ui/react'
 import { signIn } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
-import React from 'react'
+import React, { useState } from 'react'
 
 function Login() {
-  const router = useRouter()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   return (
     <Flex flex="1" flexDirection="column" alignItems="center" justifyContent="center" p="4">
@@ -14,16 +14,29 @@ function Login() {
         Iniciar sesión
       </Box>
       <Box w="100%" maxW="md">
-        <Input placeholder="Correo electrónico" size="lg" mb="4" />
-        <Input placeholder="Contraseña" type="password" size="lg" mb="4" />
+        <Input
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Correo electrónico"
+          size="lg"
+          mb="4"
+        />
+        <Input
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Contraseña"
+          type="password"
+          size="lg"
+          mb="4"
+        />
         <Button
           onClick={async () => {
             await signIn('credentials', {
-              email: '312312',
-              password: '32312',
-              redirect: false,
+              callbackUrl: '/certificaciones',
+              email: email,
+              password: password,
+              redirect: true,
             })
-            router.replace('/certificaciones')
           }}
           colorScheme="teal"
           size="lg"

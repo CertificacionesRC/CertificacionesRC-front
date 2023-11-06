@@ -1,19 +1,17 @@
-import { Avatar, AvatarBadge, Box, Flex, Spacer } from '@chakra-ui/react'
-import { BiHome, BiBell } from 'react-icons/bi'
+'use client'
+
+import { Avatar, AvatarBadge, Flex, Icon, Spacer } from '@chakra-ui/react'
+import { FiBell, FiHome } from 'react-icons/fi'
 
 function MainHeader() {
   return (
-    <Flex flex="1" alignItems="center" gap="8" position="sticky" px="6" py="2" top="0">
-      <Box fontSize="2xl">
-        <BiHome />
-      </Box>
+    <Flex flex="1" alignItems="center" gap="4" px="4">
+      <Icon fontSize="lg" as={FiHome} />
       <Spacer />
       <Flex gap="8" alignItems="center">
-        <Box fontSize="2xl">
-          <BiBell />
-        </Box>
-        <Avatar name="GRT">
-          <AvatarBadge boxSize="1.25em" bg="green.500" />
+        <Icon fontSize="lg" as={FiBell} />
+        <Avatar w="40px" h="40px" bg="blue.500" name="G">
+          <AvatarBadge boxSize="20px" bg="green.500" />
         </Avatar>
       </Flex>
     </Flex>

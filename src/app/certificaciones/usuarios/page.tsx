@@ -1,5 +1,4 @@
-import { config } from '@/utils/auth'
-import { getServerSession } from 'next-auth/next'
+import { getSession } from '@/utils/actions'
 import ManageTableUserComponent from './manage-tableUser-component'
 import { GET_ALL_USERS } from '@/service/api'
 
@@ -19,12 +18,12 @@ const fetchGetUsers = async (token: string) => {
 }
 
 async function UserPage() {
-  const objSession = await getServerSession(config)
-  const token = objSession?.user.token
-  const users = await fetchGetUsers(token)
+  const session = await getSession()
+  const users = await fetchGetUsers(session?.token ?? '')
+
   return (
     <>
-      <ManageTableUserComponent data={users.data} token={token} />
+      <ManageTableUserComponent data={users?.data} token={session?.token ?? ''} />
     </>
   )
 }

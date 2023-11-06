@@ -1,19 +1,16 @@
-import Login from '@/components/login/login'
-import { config } from '@/utils/auth'
-import { Center } from '@chakra-ui/react'
-import { getServerSession } from 'next-auth/next'
-import { RedirectType, redirect } from 'next/navigation'
+import { Button, Center, Heading, Stack } from '@chakra-ui/react'
+import { ROUTES } from '@/utils/routes'
+import Link from 'next/link'
 
-async function RootPage() {
-  const session = await getServerSession(config)
-
-  if (session) {
-    redirect('/certificaciones', RedirectType.replace)
-  }
-
+function RootPage() {
   return (
     <Center h="100vh">
-      <Login />
+      <Stack alignItems="center" spacing="4">
+        <Heading>Certificaciones RC</Heading>
+        <Button w="fit-content" as={Link} href={ROUTES.DOCUMENT}>
+          Entrar
+        </Button>
+      </Stack>
     </Center>
   )
 }

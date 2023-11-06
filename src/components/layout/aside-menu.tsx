@@ -1,31 +1,46 @@
-'use client'
-
-import { signOut } from 'next-auth/react'
 import { AsideMenuItem } from '@/components/layout'
+import { Stack, Text } from '@chakra-ui/react'
+import { FiHome, FiList, FiUsers, FiFile } from 'react-icons/fi'
 import { ROUTES } from '@/utils/routes'
-import { Button, Stack, Text } from '@chakra-ui/react'
-import { useRouter } from 'next/navigation'
+import SignOut from './signout'
+
+const routes = [
+  {
+    href: ROUTES.HOME,
+    name: 'Inicio',
+    icon: <FiHome />,
+  },
+  {
+    href: ROUTES.DOCUMENT,
+    name: 'Documento',
+    icon: <FiFile />,
+  },
+  {
+    href: ROUTES.HISTORY,
+    name: 'Historial',
+    icon: <FiList />,
+  },
+  {
+    href: ROUTES.USERS,
+    name: 'Usuarios',
+    icon: <FiUsers />,
+  },
+]
 
 function MainAsideMenu() {
-  const router = useRouter()
-
   return (
-    <Stack p="4" gap="4">
-      <Text as="h1" fontSize="2xl" lineHeight="8" fontWeight="extrabold">
-        NameApp
-      </Text>
-      <AsideMenuItem href={ROUTES.HOME} name="Inicio" />
-      <AsideMenuItem href={ROUTES.DOCUMENT} name="Documento" />
-      <AsideMenuItem href={ROUTES.HISTORY} name="Historial" />
-      <AsideMenuItem href={ROUTES.USERS} name="Usuarios" />
-      <Button
-        onClick={() => {
-          signOut({ redirect: false })
-          router.replace('/')
-        }}
-      >
-        Cerrar sesión
-      </Button>
+    <Stack spacing="4">
+      <Stack px="4" justifyContent="center" h="58px">
+        <Text as="span" fontWeight="bold" fontSize="xl">
+          Certificaciones RC
+        </Text>
+      </Stack>
+      <Stack px="4" spacing="4">
+        {routes.map((route, index) => (
+          <AsideMenuItem key={index} href={route.href} name={route.name} icon={route.icon} />
+        ))}
+        <SignOut />
+      </Stack>
     </Stack>
   )
 }

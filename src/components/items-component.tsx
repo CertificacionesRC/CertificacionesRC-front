@@ -18,8 +18,6 @@ const fetchGetItem = async (id: number) => {
 }
 
 const ItemsComponent: React.FC<MyComponentProps> = ({ nameItem, id }) => {
-  // const { data } = useSession()
-  // console.log(data?.user.token)
   const [subItems, setSubItems] = useState<ApiResponse[]>([])
   const defaultIndex = [1]
   const router = useRouter()

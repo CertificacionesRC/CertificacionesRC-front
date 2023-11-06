@@ -1,24 +1,25 @@
-import './globals.css'
+import { getSession } from '@/utils/actions'
 import { Inter } from 'next/font/google'
-import Providers from '@/components/providers/providers'
+import Providers from '@/providers/providers'
+import SessionProvider from '@/providers/auth'
 import type { Metadata } from 'next'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  description: 'Unicauca - Certificaciones RC',
+  description: 'Certificaciones RC',
   title: 'Certificaciones RC',
 }
 
-interface Props {
-  children: React.ReactNode
-}
+async function RootLayout({ children }: React.PropsWithChildren) {
+  const session = await getSession()
 
-function RootLayout({ children }: Props) {
   return (
     <html lang="es">
       <body className={inter.className}>
-        <Providers>{children}</Providers>
+        <Providers>
+          <SessionProvider session={session}>{children}</SessionProvider>
+        </Providers>
       </body>
     </html>
   )

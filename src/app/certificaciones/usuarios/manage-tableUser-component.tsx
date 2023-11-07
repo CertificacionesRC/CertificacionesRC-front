@@ -59,12 +59,12 @@ export default function ManageTableUserComponent({ data, token }: { data: ApiRes
 
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenSave, setIsOpenSave] = useState(false)
-  const [currentRow, setCurrentRow] = useState<ApiResponse>(null)
+  const [currentRow, setCurrentRow] = useState<ApiResponse>()
   const [nombre, setNombre] = useState('')
   const [correo, setCorreo] = useState('')
-  const [rol, setRol] = useState('')
+  const [rol, setRol] = useState<boolean | undefined>(false)
   const [password, setPassword] = useState('')
-  const [state, setState] = useState('')
+  const [state, setState] = useState<boolean | undefined>(false)
   useEffect(() => {
     if (currentRow) {
       setNombre(currentRow.nombre)
@@ -77,12 +77,12 @@ export default function ManageTableUserComponent({ data, token }: { data: ApiRes
   const handleStateChange = (event: any) => {
     const selectedValue = event.target.value
     const selectedState = stateOptions.find((option) => option.name === selectedValue)
-    setState(selectedState.value)
+    setState(selectedState?.value)
   }
   const handleRolChange = (event: any) => {
     const selectedValue = event.target.value
     const selectedState = stateOptions.find((option) => option.name === selectedValue)
-    setRol(selectedState.value)
+    setRol(selectedState?.value)
   }
 
   const openModal = (row: ApiResponse) => {
@@ -95,10 +95,10 @@ export default function ManageTableUserComponent({ data, token }: { data: ApiRes
       correo,
       contrasena: password,
       estado: state,
-      rol: { rolId: rol === 'ADMIN' ? 1 : 2, rolNombre: rol },
+      rol: { rolId: rol ? 1 : 2, rolNombre: rol },
     }
     try {
-      const response = await fetchUpdateUser(token, data, currentRow.id)
+      const response = await fetchUpdateUser(token, data, currentRow?.id)
       toast({
         title: response.userMessage,
         status: 'success',
@@ -187,11 +187,7 @@ export default function ManageTableUserComponent({ data, token }: { data: ApiRes
           </Stack>
           <Stack mb={3} spacing={2}>
             <FormLabel>Rol</FormLabel>
-            <Select
-              placeholder="Rol"
-              value={rol === 'ADMIN' ? 'Administrador' : 'Coordinador'}
-              onChange={handleRolChange}
-            >
+            <Select placeholder="Rol" value={rol ? 'Administrador' : 'Coordinador'} onChange={handleRolChange}>
               {rolOptions.map((option, i) => (
                 <option key={i} value={option.name}>
                   {option.name}
@@ -214,13 +210,12 @@ export default function ManageTableUserComponent({ data, token }: { data: ApiRes
     setCurrentPage(page)
   }
   // Número total de páginas (en este caso, supongo que hay 10 usuarios por página)
-  const itemsPerPage = 10
+
   //const totalPages = Math.ceil(users.length / itemsPerPage);
   const totalPages = 5
 
   // Lógica para obtener los usuarios en la página actual
-  const startIndex = (currentPage - 1) * itemsPerPage
-  const endIndex = startIndex + itemsPerPage
+
   //const usersInCurrentPage = users.slice(startIndex, endIndex);
 
   return (

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Select } from '@chakra-ui/react'
 import { useState } from 'react'
 
@@ -7,12 +8,12 @@ const stateOptions = [
 ]
 
 export default function StateComponent({ value }: { value: boolean }) {
-  const [state, setState] = useState(value)
+  const [state, setState] = useState<boolean | undefined>(value)
 
   const handleStateChange = (event: any) => {
     const selectedValue = event.target.value
     const selectedState = stateOptions.find((option) => option.name === selectedValue)
-    setState(selectedState.value)
+    setState(selectedState?.value)
   }
 
   return (

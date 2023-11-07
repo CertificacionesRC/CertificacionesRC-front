@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 import { SAVE_USER } from '@/service/api'
 import {
@@ -89,54 +90,54 @@ const CreatUserModal: FunctionComponent<CreateUserModalProps> = ({
 
     setIsOpen(false)
   }
-  
+
   return (
     <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
       <ModalOverlay />
       <ModalContent>
         <center>
-        <ModalHeader> Crear Usuario </ModalHeader>
+          <ModalHeader> Crear Usuario </ModalHeader>
         </center>
         <ModalCloseButton />
         <ModalBody>
-        <Stack mb={3} spacing={2}>
-          <FormLabel>Nombre *</FormLabel>
-          <Input placeholder="Nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} />
-        </Stack>
-        <Stack mb={3} spacing={2}>
-          <FormLabel>Correo *</FormLabel>
-          <Input placeholder="Correo" value={correo} onChange={(e) => setCorreo(e.target.value)} />
+          <Stack mb={3} spacing={2}>
+            <FormLabel>Nombre *</FormLabel>
+            <Input placeholder="Nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} />
           </Stack>
-        <Stack mb={3} spacing={2}>
-          <FormLabel>Contraseña *</FormLabel>
-          <Input placeholder="Contraseña" value={password} onChange={(e) => setPassword(e.target.value)} /> 
-        </Stack>
-        <Stack mb={3} spacing={2}>
-          <FormLabel>Estado *</FormLabel>
-          <Select placeholder="Estado" value={state} onChange={handleStateChange}>
-            {stateOptions.map((option, i) => (
-              <option key={i} value={option.value}>
-                {option.name}
-              </option>
-            ))}
-          </Select>
-        </Stack>
-        
-        <Stack mb={3} spacing={2}>
-          <FormLabel>Rol *</FormLabel>
-          <Select placeholder="Rol" value={rol} onChange={handleRolChange}>
-            {rolOptions.map((option, i) => (
-              <option key={i} value={option.value}>
-                {option.name}
-              </option>
-            ))}
-          </Select>
-        </Stack >
-        <Stack mt={5} mb={5} spacing={2}>
-          <center>
-          <Button onClick={handleSave} >Crear usuario</Button>
-          </center>
-        </Stack>   
+          <Stack mb={3} spacing={2}>
+            <FormLabel>Correo *</FormLabel>
+            <Input placeholder="Correo" value={correo} onChange={(e) => setCorreo(e.target.value)} />
+          </Stack>
+          <Stack mb={3} spacing={2}>
+            <FormLabel>Contraseña *</FormLabel>
+            <Input placeholder="Contraseña" value={password} onChange={(e) => setPassword(e.target.value)} />
+          </Stack>
+          <Stack mb={3} spacing={2}>
+            <FormLabel>Estado *</FormLabel>
+            <Select placeholder="Estado" value={state} onChange={handleStateChange}>
+              {stateOptions.map((option, i) => (
+                <option key={i} value={option.value}>
+                  {option.name}
+                </option>
+              ))}
+            </Select>
+          </Stack>
+
+          <Stack mb={3} spacing={2}>
+            <FormLabel>Rol *</FormLabel>
+            <Select placeholder="Rol" value={rol} onChange={handleRolChange}>
+              {rolOptions.map((option, i) => (
+                <option key={i} value={option.value}>
+                  {option.name}
+                </option>
+              ))}
+            </Select>
+          </Stack>
+          <Stack mt={5} mb={5} spacing={2}>
+            <center>
+              <Button onClick={handleSave}>Crear usuario</Button>
+            </center>
+          </Stack>
         </ModalBody>
       </ModalContent>
     </Modal>

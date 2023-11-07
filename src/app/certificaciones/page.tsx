@@ -1,8 +1,4 @@
-import { config } from '@/utils/auth'
-import { getServerSession } from 'next-auth/next'
-
-async function HomePage() {
-  await getServerSession(config)
+function HomePage() {
   return <div>Inicio</div>
 }
 

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { IDeepItem, IItem, ISession, ISubItem } from '@/utils/models'
+import { ICustomUser, IDeepItem, IItem, IRole, ISession, ISubItem } from '@/utils/models'
 
 export const adaptItem = (response: any): IItem => {
   return {
@@ -53,7 +53,27 @@ export const adaptSession = (response: any): ISession => {
   }
 }
 
+export const adaptRol = (response: any): IRole => {
+  return {
+    roleId: response.rolId,
+    roleName: response.rolNombre,
+  }
+}
+
+export const adaptCustomUser = (response: any): ICustomUser => {
+  return {
+    email: response.correo,
+    id: response.id,
+    name: response.nombre,
+    role: adaptRol(response.rol),
+    password: response.contrasena,
+    status: response.estado,
+  }
+}
+
 export const adapters = {
+  adaptRol,
+  adaptCustomUser,
   adaptItem,
   adaptSession,
   adaptSubItem,

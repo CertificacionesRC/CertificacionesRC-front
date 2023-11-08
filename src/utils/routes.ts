@@ -4,7 +4,7 @@ export const ROUTES = {
   START_DOCUMENT: '/document/start',
   DOCUMENT: '/document',
   HISTORY: '/certificaciones/history',
-  USERS: '/certificaciones/usuarios',
   SIGNIN: '/signin',
+  USERS: '/users',
   HOME: '/',
 }

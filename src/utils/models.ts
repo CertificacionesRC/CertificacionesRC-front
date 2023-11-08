@@ -40,3 +40,16 @@ export interface IDeepItem {
   name: string
   file: string
 }
+
+export interface IRole {
+  roleId: number
+  roleName: string
+}
+export interface ICustomUser {
+  email: string
+  id: string
+  name: string
+  role: IRole
+  status: string
+  password: string
+}

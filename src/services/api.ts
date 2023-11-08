@@ -1,5 +1,6 @@
-import { IDeepItem, IItem, ISession, ISubItem } from '@/utils/models'
+import { ICustomUser, IDeepItem, IItem, ISession, ISubItem } from '@/utils/models'
 import { adapters } from './adapters'
+import { getSession } from '@/utils/actions'
 
 const BASE_URL = 'http://localhost:8081/api/'
 
@@ -93,7 +94,60 @@ const updateContentSubItem = async ({ id, content }: { id: string; content: stri
   return data
 }
 
+const getAllCustomUsers = async (): Promise<ICustomUser[]> => {
+  const session = await getSession()
+  const response = await fetch(PATHS.GET_ALL_USERS, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${session?.token}`,
+    },
+  })
+
+  const data = await response.json()
+  return data.data.map(adapters.adaptCustomUser)
+}
+
+const updateCustomUser = async ({
+  email,
+  id,
+  name,
+  password,
+  roleId,
+  roleName,
+  status,
+}: {
+  email: string
+  id: string
+  name: string
+  password: string
+  roleId: number
+  roleName: string
+  status: string
+}) => {
+  const session = await getSession()
+  const response = await fetch(PATHS.UPDATE_USER + `/${id}`, {
+    method: 'PATCH',
+    headers: {
+      Authorization: `Bearer ${session?.token}`,
+    },
+    body: JSON.stringify({
+      contrasena: password,
+      correo: email,
+      estado: status,
+      nombre: name,
+      rol: {
+        rolId: roleId,
+        rolNombre: roleName,
+      },
+    }),
+  })
+
+  const data = await response.json()
+  return data
+}
+
 export const api = {
+  getAllCustomUsers,
   getDeepItems,
   getItem,
   getItems,
@@ -101,4 +155,5 @@ export const api = {
   getSubItems,
   signIn,
   updateContentSubItem,
+  updateCustomUser,
 }

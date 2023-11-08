@@ -26,29 +26,27 @@ const getItems = async (): Promise<IItem[]> => {
   })
 
   const data = await response.json()
-  return data.map(adapters.adaptItems)
+  return data.map(adapters.adaptItem)
 }
 
 const getSubItems = async ({ id }: { id: string }): Promise<ISubItem[]> => {
   const url = PATHS.GET_SUBINDEX_BY_INDEX + `/${id}`
-
   const response = await fetch(url, {
     method: 'GET',
   })
 
   const data = await response.json()
-  return data.map(adapters.adaptSubItems)
+  return data.map(adapters.adaptSubItem)
 }
 
 const getDeepItems = async ({ id }: { id: string }): Promise<IDeepItem[]> => {
   const url = PATHS.GET_SUBINDEX_BY_INDEX + `/${id}`
-
   const response = await fetch(url, {
     method: 'GET',
   })
 
   const data = await response.json()
-  return data.map(adapters.adaptDeepItems)
+  return data.map(adapters.adaptDeepItem)
 }
 
 const signIn = async ({ username, password }: { username: string; password: string }): Promise<ISession> => {
@@ -64,9 +62,43 @@ const signIn = async ({ username, password }: { username: string; password: stri
   return adapters.adaptSession(data)
 }
 
+const getSubItem = async ({ id }: { id: string }) => {
+  const url = PATHS.GET_SUBINDEX_BY_ID + `?idSubItem=${id}`
+  const response = await fetch(url, {
+    method: 'GET',
+  })
+
+  const data = await response.json()
+  return adapters.adaptSubItem(data.data)
+}
+
+const getItem = async ({ id }: { id: string }) => {
+  const url = PATHS.GET_INDEX_BY_ID + `?idItem=${id}`
+  const response = await fetch(url, {
+    method: 'GET',
+  })
+
+  const data = await response.json()
+  return adapters.adaptItem(data.data)
+}
+
+const updateContentSubItem = async ({ id, content }: { id: string; content: string }) => {
+  const url = PATHS.UPDATE_SUBINDEX + `/${id}`
+  const response = await fetch(url, {
+    method: 'PATCH',
+    body: JSON.stringify(content),
+  })
+
+  const data = await response.json()
+  return data
+}
+
 export const api = {
-  signIn,
-  getItems,
-  getSubItems,
   getDeepItems,
+  getItem,
+  getItems,
+  getSubItem,
+  getSubItems,
+  signIn,
+  updateContentSubItem,
 }

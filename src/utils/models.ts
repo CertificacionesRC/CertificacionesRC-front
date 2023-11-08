@@ -19,18 +19,18 @@ export interface ISession {
 
 export interface IItem {
   id: string
-  content: string
-  guide: string
+  content?: string
+  guide?: string
   name: string
   subItems: []
 }
 
 export interface ISubItem {
   id: string
-  content: string
-  guide: string
+  content?: string
+  guide?: string
   name: string
-  file: string
+  file?: string
 }
 
 export interface IDeepItem {

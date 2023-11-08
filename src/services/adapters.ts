@@ -2,7 +2,7 @@
 
 import { IDeepItem, IItem, ISession, ISubItem } from '@/utils/models'
 
-export const adaptItems = (response: any): IItem => {
+export const adaptItem = (response: any): IItem => {
   return {
     id: response.id,
     content: response.contenido,
@@ -12,7 +12,7 @@ export const adaptItems = (response: any): IItem => {
   }
 }
 
-export const adaptSubItems = (response: any): ISubItem => {
+export const adaptSubItem = (response: any): ISubItem => {
   return {
     id: response.id,
     content: response.contenido,
@@ -22,7 +22,7 @@ export const adaptSubItems = (response: any): ISubItem => {
   }
 }
 
-export const adaptDeepItems = (response: any): IDeepItem => {
+export const adaptDeepItem = (response: any): IDeepItem => {
   return {
     id: response.id,
     content: response.contenido,
@@ -32,7 +32,7 @@ export const adaptDeepItems = (response: any): IDeepItem => {
   }
 }
 
-export const adaptAuthorities = (response: any) => {
+export const adaptAuthoritie = (response: any) => {
   return {
     authority: response.authority,
   }
@@ -47,15 +47,15 @@ export const adaptSession = (response: any): ISession => {
       enabled: response.user.enabled,
       accountNonLocked: response.user.accountNonLocked,
       accountNonExpired: response.user.accountNonExpired,
-      authorities: response.user.authorities.map(adaptAuthorities),
+      authorities: response.user.authorities.map(adaptAuthoritie),
       credentialsNonExpired: response.user.credentialsNonExpired,
     },
   }
 }
 
 export const adapters = {
-  adaptItems,
+  adaptItem,
   adaptSession,
-  adaptSubItems,
-  adaptDeepItems,
+  adaptSubItem,
+  adaptDeepItem,
 }

@@ -20,8 +20,6 @@ function SubItems({ id, index }: { id: string; index: number }) {
   const param = searchParams.get('subitem')
   const currentIndex = param ? [Number(param)] : []
 
-  console.log(data)
-  
   return (
     <Accordion index={currentIndex}>
       <List spacing="4">

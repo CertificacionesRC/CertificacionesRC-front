@@ -28,7 +28,7 @@ function DeepItems({ id, index, subindex }: { id: string; index: number; subinde
           py="2"
           flex="1"
           as={Link}
-          href={ROUTES.DOCUMENT_DEEP_ITEM(deepItem.id)}
+          href={ROUTES.DOCUMENT_SUBITEM(deepItem.id)}
         >
           {index + 1}.{subindex + 1}.{deepindex + 1} {deepItem.name}
         </ListItem>

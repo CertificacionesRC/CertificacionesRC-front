@@ -2,9 +2,14 @@
 
 import {
   Card,
+  Flex,
   Icon,
   IconButton,
+  Input,
+  InputGroup,
+  InputLeftElement,
   Select,
+  Stack,
   Table,
   TableContainer,
   Tbody,
@@ -15,17 +20,34 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 
-import { FiEdit } from 'react-icons/fi'
+import { FiEdit, FiPlus, FiSearch } from 'react-icons/fi'
 import { ICustomUser } from '@/utils/models'
 import { useState } from 'react'
 import UpdateUserModal from './update-user-modal'
+import CreateUserModal from './create-user-modal'
 
 function UsersTable({ users }: { users: ICustomUser[] }) {
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const [selectedUser, setSelectedUser] = useState<ICustomUser>()
+  const [user, setUser] = useState<ICustomUser>()
+  const updateModal = useDisclosure()
+  const createModal = useDisclosure()
 
   return (
-    <>
+    <Stack spacing="4">
+      <Flex gap="4">
+        <InputGroup>
+          <InputLeftElement>
+            <Icon as={FiSearch} />
+          </InputLeftElement>
+          <Input bg="white" placeholder="Buscar" />
+        </InputGroup>
+        <IconButton
+          title="Agregar usuario"
+          aria-label="Agregar usuario"
+          colorScheme="blue"
+          icon={<Icon as={FiPlus} />}
+          onClick={createModal.onOpen}
+        />
+      </Flex>
       <Card variant="outline">
         <TableContainer>
           <Table>
@@ -59,8 +81,8 @@ function UsersTable({ users }: { users: ICustomUser[] }) {
                       aria-label="Editar usuario"
                       icon={<Icon as={FiEdit} />}
                       onClick={() => {
-                        setSelectedUser(user)
-                        onOpen()
+                        setUser(user)
+                        updateModal.onOpen()
                       }}
                     />
                   </Td>
@@ -70,8 +92,9 @@ function UsersTable({ users }: { users: ICustomUser[] }) {
           </Table>
         </TableContainer>
       </Card>
-      {selectedUser && <UpdateUserModal selectedUser={selectedUser} isOpen={isOpen} onClose={onClose} />}
-    </>
+      {user && <UpdateUserModal selectedUser={user} isOpen={updateModal.isOpen} onClose={updateModal.onClose} />}
+      <CreateUserModal isOpen={createModal.isOpen} onClose={createModal.onClose} />
+    </Stack>
   )
 }
 

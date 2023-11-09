@@ -1,5 +1,6 @@
-export interface IAuthorities {
-  authority: string
+export type TAuthorities = 'ADMIN' | 'CORDINADOR' | 'SUPERUSUARIO'
+export interface IAuthority {
+  authority: TAuthorities
 }
 
 export interface IUser {
@@ -7,7 +8,7 @@ export interface IUser {
   enabled: boolean
   accountNonLocked: boolean
   accountNonExpired: boolean
-  authorities: IAuthorities[]
+  authorities: IAuthority[]
   credentialsNonExpired: boolean
 }
 

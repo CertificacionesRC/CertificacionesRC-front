@@ -10,7 +10,7 @@ async function DocumentLayout({ children }: React.PropsWithChildren) {
     redirect(ROUTES.SIGNIN, RedirectType.replace)
   }
 
-  return <MainLayout>{children}</MainLayout>
+  return <MainLayout authorities={session.user.authorities}>{children}</MainLayout>
 }
 
 export default DocumentLayout

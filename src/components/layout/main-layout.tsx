@@ -1,11 +1,13 @@
 import { Grid, GridItem } from '@chakra-ui/react'
 import { MainAsideMenu, MainHeader } from '@/components/layout'
+import { IAuthority } from '@/utils/models'
 
 interface Props {
   children: React.ReactNode
+  authorities: IAuthority[]
 }
 
-function MainLayout({ children }: Props) {
+function MainLayout({ children, authorities }: Props) {
   return (
     <Grid
       h="100vh"
@@ -21,7 +23,7 @@ function MainLayout({ children }: Props) {
         <MainHeader />
       </GridItem>
       <GridItem as="aside" area="aside" bg="white" borderRight="2px" borderColor="gray.100">
-        <MainAsideMenu />
+        <MainAsideMenu authorities={authorities} />
       </GridItem>
       <GridItem as="main" bg="gray.100" overflow="auto" area="main" padding="4">
         {children}

@@ -56,7 +56,7 @@ export default function EditorTiny({ id, content }: { id: string; content?: stri
   return (
     <Stack position="relative" spacing="4">
       <Button colorScheme="blue" isLoading={isLoading} onClick={updateContent}>
-        Update content
+        Actualizar contenido
       </Button>
       <Editor
         id={editorId}

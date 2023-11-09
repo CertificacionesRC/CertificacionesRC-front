@@ -1,4 +1,5 @@
 import { api } from '@/services/api'
+import EditorTiny from '@/components/editor/editor-tiny'
 
 interface Props {
   params: {
@@ -8,8 +9,8 @@ interface Props {
 
 async function DocumentItem({ params: { id } }: Props) {
   const item = await api.getItem({ id })
-  console.log(item)
-  return null
+
+  return <EditorTiny id={item.id} content={item.content} />
 }
 
 export default DocumentItem

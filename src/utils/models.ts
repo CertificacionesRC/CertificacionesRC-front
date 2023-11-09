@@ -23,7 +23,7 @@ export interface IItem {
   content?: string
   guide?: string
   name: string
-  subItems: []
+  subItems: ISubItem[]
 }
 
 export interface ISubItem {
@@ -31,15 +31,8 @@ export interface ISubItem {
   content?: string
   guide?: string
   name: string
-  file?: string
-}
-
-export interface IDeepItem {
-  id: string
-  content: string
-  guide: string
-  name: string
-  file: string
+  files?: []
+  subItems: ISubItem[]
 }
 
 export interface IRole {

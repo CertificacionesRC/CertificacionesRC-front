@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { ICustomUser, IDeepItem, IItem, IRole, ISession, ISubItem } from '@/utils/models'
+import { ICustomUser, IItem, IRole, ISession, ISubItem } from '@/utils/models'
 
 export const adaptItem = (response: any): IItem => {
   return {
@@ -8,7 +8,7 @@ export const adaptItem = (response: any): IItem => {
     content: response.contenido,
     guide: response.guia,
     name: response.nombre,
-    subItems: response.subItems,
+    subItems: response.subItems.map(adaptSubItem),
   }
 }
 
@@ -18,17 +18,8 @@ export const adaptSubItem = (response: any): ISubItem => {
     content: response.contenido,
     guide: response.guia,
     name: response.nombre,
-    file: response.archivo,
-  }
-}
-
-export const adaptDeepItem = (response: any): IDeepItem => {
-  return {
-    id: response.id,
-    content: response.contenido,
-    guide: response.guia,
-    name: response.nombre,
-    file: response.archivo,
+    files: response.archivo,
+    subItems: response.subItems?.map(adaptSubItem) ?? [],
   }
 }
 
@@ -77,5 +68,4 @@ export const adapters = {
   adaptItem,
   adaptSession,
   adaptSubItem,
-  adaptDeepItem,
 }

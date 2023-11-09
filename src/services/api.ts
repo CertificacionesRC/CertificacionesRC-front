@@ -1,4 +1,4 @@
-import { ICustomUser, IDeepItem, IItem, ISession, ISubItem } from '@/utils/models'
+import { ICustomUser, IItem, ISession, ISubItem } from '@/utils/models'
 import { adapters } from './adapters'
 import { getSession } from '@/utils/actions'
 
@@ -51,24 +51,6 @@ const getSubItems = async ({ id }: { id: string }): Promise<ISubItem[]> => {
 
         const data = await response.json()
         resolve(data.map(adapters.adaptSubItem))
-      } catch (error) {
-        reject('Error al obtener los subitems')
-      }
-    }, TIME_OUT)
-  })
-}
-
-const getDeepItems = async ({ id }: { id: string }): Promise<IDeepItem[]> => {
-  return new Promise((resolve, reject) => {
-    setTimeout(async () => {
-      try {
-        const url = PATHS.GET_SUBINDEX_BY_INDEX + `/${id}`
-        const response = await fetch(url, {
-          method: 'GET',
-        })
-
-        const data = await response.json()
-        resolve(data.map(adapters.adaptDeepItem))
       } catch (error) {
         reject('Error al obtener los subitems')
       }
@@ -272,7 +254,6 @@ const createCustomUser = async ({
 export const api = {
   createCustomUser,
   getAllCustomUsers,
-  getDeepItems,
   getItem,
   getItems,
   getSubItem,

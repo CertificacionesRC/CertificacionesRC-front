@@ -71,9 +71,9 @@ function CreateUserModal({ isOpen, onClose }: Props) {
           status: 'success',
         })
       })
-      .catch(() => {
+      .catch((error) => {
         toast({
-          title: 'Error al crear el usuario',
+          title: error,
           status: 'error',
         })
       })
@@ -105,7 +105,7 @@ function CreateUserModal({ isOpen, onClose }: Props) {
             </FormControl>
             <FormControl>
               <FormLabel>Contraseña *</FormLabel>
-              <Input type="password" {...register('password', { required: true })} />
+              <Input autoComplete="new-password" type="password" {...register('password', { required: true })} />
             </FormControl>
             <FormControl>
               <FormLabel>Estado *</FormLabel>

@@ -73,9 +73,9 @@ function UpdateUserModal({ selectedUser, isOpen, onClose }: Props) {
           status: 'success',
         })
       })
-      .catch(() => {
+      .catch((error) => {
         toast({
-          title: 'Error al actualizar el usuario',
+          title: error,
           status: 'error',
         })
       })
@@ -107,7 +107,7 @@ function UpdateUserModal({ selectedUser, isOpen, onClose }: Props) {
             </FormControl>
             <FormControl>
               <FormLabel>Contraseña *</FormLabel>
-              <Input type="password" {...register('password', { required: true })} />
+              <Input autoComplete="new-password" type="password" {...register('password', { required: true })} />
             </FormControl>
             <FormControl>
               <FormLabel>Estado *</FormLabel>

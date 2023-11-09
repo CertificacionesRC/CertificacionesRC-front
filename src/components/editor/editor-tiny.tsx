@@ -28,6 +28,7 @@ export default function EditorTiny({ id, content }: { id: string; content?: stri
   const updateContent = () => {
     if (editorRef.current) {
       const content = editorRef.current.getContent()
+      setIsLoading(true)
 
       api
         .updateContentSubItem({
@@ -40,11 +41,14 @@ export default function EditorTiny({ id, content }: { id: string; content?: stri
             status: 'success',
           })
         })
-        .catch(() => {
+        .catch((error) => {
           toast({
-            title: 'Error al guardar los cambios',
+            title: error,
             status: 'error',
           })
+        })
+        .finally(() => {
+          setIsLoading(false)
         })
     }
   }

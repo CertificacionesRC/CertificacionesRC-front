@@ -45,11 +45,14 @@ function SignIn() {
       })
       .then((session) => {
         signIn(session)
+        toast({
+          title: session.mensaje,
+          status: 'success',
+        })
       })
       .catch((error) => {
         toast({
-          title: 'Error',
-          description: error.message,
+          title: error,
           status: 'error',
         })
       })

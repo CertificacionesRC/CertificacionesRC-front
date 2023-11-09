@@ -1,6 +1,6 @@
 import { Center } from '@chakra-ui/react'
 import { getSession } from '@/utils/actions'
-import { redirect } from 'next/navigation'
+import { RedirectType, redirect } from 'next/navigation'
 import { ROUTES } from '@/utils/routes'
 import SignIn from './components/signin'
 
@@ -8,7 +8,7 @@ async function SignInPage() {
   const session = await getSession()
 
   if (session) {
-    redirect(ROUTES.DOCUMENT)
+    redirect(ROUTES.DOCUMENT, RedirectType.replace)
   }
 
   return (

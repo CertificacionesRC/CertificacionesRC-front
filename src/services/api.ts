@@ -21,90 +21,124 @@ export const PATHS = {
   SIGN_IN: BASE_URL + 'login',
 }
 
-const getItems = async (): Promise<IItem[]> => {
-  const response = await fetch(PATHS.GET_ALL_INDEX, {
-    method: 'GET',
-  })
+const TIME_OUT = 1000
 
-  const data = await response.json()
-  return data.map(adapters.adaptItem)
+const getItems = async (): Promise<IItem[]> => {
+  return new Promise((resolve) => {
+    setTimeout(async () => {
+      const response = await fetch(PATHS.GET_ALL_INDEX, {
+        method: 'GET',
+      })
+
+      const data = await response.json()
+      resolve(data.map(adapters.adaptItem))
+    }, TIME_OUT)
+  })
 }
 
 const getSubItems = async ({ id }: { id: string }): Promise<ISubItem[]> => {
-  const url = PATHS.GET_SUBINDEX_BY_INDEX + `/${id}`
-  const response = await fetch(url, {
-    method: 'GET',
-  })
+  return new Promise((resolve) => {
+    setTimeout(async () => {
+      const url = PATHS.GET_SUBINDEX_BY_INDEX + `/${id}`
+      const response = await fetch(url, {
+        method: 'GET',
+      })
 
-  const data = await response.json()
-  return data.map(adapters.adaptSubItem)
+      const data = await response.json()
+      resolve(data.map(adapters.adaptSubItem))
+    }, TIME_OUT)
+  })
 }
 
 const getDeepItems = async ({ id }: { id: string }): Promise<IDeepItem[]> => {
-  const url = PATHS.GET_SUBINDEX_BY_INDEX + `/${id}`
-  const response = await fetch(url, {
-    method: 'GET',
-  })
+  return new Promise((resolve) => {
+    setTimeout(async () => {
+      const url = PATHS.GET_SUBINDEX_BY_INDEX + `/${id}`
+      const response = await fetch(url, {
+        method: 'GET',
+      })
 
-  const data = await response.json()
-  return data.map(adapters.adaptDeepItem)
+      const data = await response.json()
+      resolve(data.map(adapters.adaptDeepItem))
+    }, TIME_OUT)
+  })
 }
 
 const signIn = async ({ username, password }: { username: string; password: string }): Promise<ISession> => {
-  const response = await fetch(PATHS.SIGN_IN, {
-    method: 'POST',
-    body: JSON.stringify({
-      correo: username,
-      contrasena: password,
-    }),
-  })
+  return new Promise((resolve) => {
+    setTimeout(async () => {
+      const response = await fetch(PATHS.SIGN_IN, {
+        method: 'POST',
+        body: JSON.stringify({
+          correo: username,
+          contrasena: password,
+        }),
+      })
 
-  const data = await response.json()
-  return adapters.adaptSession(data)
+      const data = await response.json()
+      resolve(adapters.adaptSession(data))
+    }, TIME_OUT)
+  })
 }
 
-const getSubItem = async ({ id }: { id: string }) => {
-  const url = PATHS.GET_SUBINDEX_BY_ID + `?idSubItem=${id}`
-  const response = await fetch(url, {
-    method: 'GET',
-  })
+const getSubItem = async ({ id }: { id: string }): Promise<ISubItem> => {
+  return new Promise((resolve) => {
+    setTimeout(async () => {
+      const url = PATHS.GET_SUBINDEX_BY_ID + `?idSubItem=${id}`
+      const response = await fetch(url, {
+        method: 'GET',
+      })
 
-  const data = await response.json()
-  return adapters.adaptSubItem(data.data)
+      const data = await response.json()
+      resolve(adapters.adaptSubItem(data.data))
+    }, TIME_OUT)
+  })
 }
 
-const getItem = async ({ id }: { id: string }) => {
-  const url = PATHS.GET_INDEX_BY_ID + `?idItem=${id}`
-  const response = await fetch(url, {
-    method: 'GET',
-  })
+const getItem = async ({ id }: { id: string }): Promise<IItem> => {
+  return new Promise((resolve) => {
+    setTimeout(async () => {
+      const url = PATHS.GET_INDEX_BY_ID + `?idItem=${id}`
+      const response = await fetch(url, {
+        method: 'GET',
+      })
 
-  const data = await response.json()
-  return adapters.adaptItem(data.data)
+      const data = await response.json()
+      resolve(adapters.adaptItem(data.data))
+    }, TIME_OUT)
+  })
 }
 
 const updateContentSubItem = async ({ id, content }: { id: string; content: string }) => {
-  const url = PATHS.UPDATE_SUBINDEX + `/${id}`
-  const response = await fetch(url, {
-    method: 'PATCH',
-    body: JSON.stringify(content),
-  })
+  return new Promise((resolve) => {
+    setTimeout(async () => {
+      const url = PATHS.UPDATE_SUBINDEX + `/${id}`
+      const response = await fetch(url, {
+        method: 'PATCH',
+        body: JSON.stringify(content),
+      })
 
-  const data = await response.json()
-  return data
+      const data = await response.json()
+      resolve(data)
+    }, TIME_OUT)
+  })
 }
 
 const getAllCustomUsers = async (): Promise<ICustomUser[]> => {
-  const session = await getSession()
-  const response = await fetch(PATHS.GET_ALL_USERS, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${session?.token}`,
-    },
-  })
+  return new Promise((resolve) => {
+    setTimeout(async () => {
+      const session = await getSession()
+      const response = await fetch(PATHS.GET_ALL_USERS, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${session?.token}`,
+        },
+      })
 
-  const data = await response.json()
-  return data.data.map(adapters.adaptCustomUser)
+      const data = await response.json()
+      resolve(data.data.map(adapters.adaptCustomUser))
+    }, TIME_OUT)
+  })
 }
 
 const updateCustomUser = async ({
@@ -124,26 +158,30 @@ const updateCustomUser = async ({
   roleName: string
   status: string
 }) => {
-  const session = await getSession()
-  const response = await fetch(PATHS.UPDATE_USER + `/${id}`, {
-    method: 'PATCH',
-    headers: {
-      Authorization: `Bearer ${session?.token}`,
-    },
-    body: JSON.stringify({
-      contrasena: password,
-      correo: email,
-      estado: status,
-      nombre: name,
-      rol: {
-        rolId: roleId,
-        rolNombre: roleName,
-      },
-    }),
-  })
+  return new Promise((resolve) => {
+    setTimeout(async () => {
+      const session = await getSession()
+      const response = await fetch(PATHS.UPDATE_USER + `/${id}`, {
+        method: 'PATCH',
+        headers: {
+          Authorization: `Bearer ${session?.token}`,
+        },
+        body: JSON.stringify({
+          contrasena: password,
+          correo: email,
+          estado: status,
+          nombre: name,
+          rol: {
+            rolId: roleId,
+            rolNombre: roleName,
+          },
+        }),
+      })
 
-  const data = await response.json()
-  return data
+      const data = await response.json()
+      resolve(data)
+    }, TIME_OUT)
+  })
 }
 
 export const api = {

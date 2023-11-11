@@ -18,7 +18,7 @@ export const getSession = async (): Promise<ISession | null> => {
   return sessionObject
 }
 
-export const signIn = async (session: ISession) => {
+export const signIn = async (session: ISession): Promise<boolean> => {
   const storeCookies = cookies()
   const sessionString = JSON.stringify(session)
   storeCookies.set({
@@ -26,9 +26,13 @@ export const signIn = async (session: ISession) => {
     value: sessionString,
     httpOnly: true,
   })
+
+  return true
 }
 
-export const signOut = async () => {
+export const signOut = async (): Promise<boolean> => {
   const storeCookies = cookies()
   storeCookies.delete(COOKIE_NAME)
+
+  return true
 }

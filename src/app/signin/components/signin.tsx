@@ -17,6 +17,8 @@ import { api } from '@/services/api'
 import { signIn } from '@/utils/actions'
 import { useForm } from 'react-hook-form'
 import type { SubmitHandler } from 'react-hook-form'
+import { useRouter } from 'next/navigation'
+import { ROUTES } from '@/utils/routes'
 
 type FormValues = {
   username: string
@@ -24,6 +26,7 @@ type FormValues = {
 }
 
 function SignIn() {
+  const router = useRouter()
   const toast = useToast()
 
   const {
@@ -43,8 +46,10 @@ function SignIn() {
         username: values.username,
         password: values.password,
       })
-      .then((session) => {
-        signIn(session)
+      .then(async (session) => {
+        console.log(session)
+        await signIn(session)
+        router.replace(ROUTES.DOCUMENT)
         toast({
           title: session.mensaje,
           status: 'success',
@@ -56,7 +61,7 @@ function SignIn() {
           status: 'error',
         })
       })
-      .finally(() => {})
+      .finally(() => { })
   }
 
   return (

@@ -7,7 +7,7 @@ function RootPage() {
     <Center h="100vh">
       <Stack alignItems="center" spacing="4">
         <Heading>Certificaciones RC</Heading>
-        <Button w="fit-content" as={Link} href={ROUTES.DOCUMENT}>
+        <Button replace w="fit-content" as={Link} href={ROUTES.DOCUMENT}>
           Entrar
         </Button>
       </Stack>

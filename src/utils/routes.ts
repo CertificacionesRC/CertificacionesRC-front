@@ -1,11 +1,11 @@
 export const ROUTES = {
-  DOCUMENT_FACULTY: (faculty: string) => `/document/${faculty}`,
-  DOCUMENT_SUBITEM: (id: string) => `/document/subitem/${id}`,
-  DOCUMENT_ITEM: (id: string) => `/document/item/${id}`,
-  START_DOCUMENT: '/document/start',
+  DOCUMENT_FACULTY: (faculty: string) => `/home/${faculty}`,
+  DOCUMENT_SUBITEM: (id: string) => `/home/subitem/${id}`,
+  DOCUMENT_ITEM: (id: string) => `/home/item/${id}`,
+  START_DOCUMENT: '/home/start',
   DOCUMENT: '/document',
-  HISTORY: '/certificaciones/history',
+  HISTORY: '/history',
   SIGNIN: '/signin',
   USERS: '/users',
-  HOME: '/',
+  HOME: '/home',
 }

@@ -10,11 +10,16 @@ function SignOut() {
   const router = useRouter()
 
   return (
-    <Button justifyContent="flex-start" variant="ghost" leftIcon={<FiLogOut />} onClick={async () => {
-      await signOut()
-      router.replace(ROUTES.SIGNIN)
-    }}>
-      Cerrar session
+    <Button
+      justifyContent="flex-start"
+      variant="ghost"
+      leftIcon={<FiLogOut />}
+      onClick={async () => {
+        await signOut()
+        router.replace(ROUTES.SIGNIN)
+      }}
+    >
+      Cerrar sesión
     </Button>
   )
 }

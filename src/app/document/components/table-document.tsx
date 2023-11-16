@@ -5,6 +5,7 @@ import { BiComment } from 'react-icons/bi'
 import { datos } from './data-document'
 import React, { useState } from 'react'
 import ReactPaginate from 'react-paginate'
+
 import {
   Table,
   Thead,
@@ -21,9 +22,18 @@ import {
   Box,
 } from '@chakra-ui/react'
 
+const pdfUrl='./utils/document-example/Proyecto I - Requisitos 2023.pdf'
+const [showPdfViewer, setShowPdfViewer] = useState(false);
+const [selectedPdfUrl, setSelectedPdfUrl] = useState('');
+const handleFileSearchClick = (pdfUrl:string) => {
+  setSelectedPdfUrl(pdfUrl);
+  setShowPdfViewer(true);
+};
+
 function handleButtonClick(): void {
-  alert('Se hizo clic en el botón')
+  handleFileSearchClick(pdfUrl);
 }
+
 
 function TableDocument() {
   const perPage = 4 // Número de elementos por página
@@ -83,7 +93,7 @@ function TableDocument() {
                     <Td>{documento.estado}</Td>
                     <Td>
                       <ButtonGroup variant="unstyled" spacing="6">
-                        <Button leftIcon={<AiOutlineFileSearch size={'25px'} onClick={handleButtonClick} />} />
+                      <Button leftIcon={<AiOutlineFileSearch size={'25px'} onClick={handleButtonClick} />} />
                         <Button leftIcon={<BiComment size={'25px'} onClick={handleButtonClick} />} />
                       </ButtonGroup>
                     </Td>

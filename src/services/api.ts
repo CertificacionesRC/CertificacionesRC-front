@@ -62,7 +62,7 @@ const signIn = async ({ username, password }: { username: string; password: stri
   return new Promise((resolve, reject) => {
     setTimeout(async () => {
       try {
-        const response = await fetch(PATHS.SIGN_IN, {
+       /* const response = await fetch(PATHS.SIGN_IN, {
           method: 'POST',
           body: JSON.stringify({
             correo: username,
@@ -70,8 +70,19 @@ const signIn = async ({ username, password }: { username: string; password: stri
           }),
         })
 
-        const data = await response.json()
-        resolve(adapters.adaptSession(data))
+        const data = await response.json() */
+        resolve({
+          mensaje: '',
+          token: '',
+          user: {
+            username: '',
+            enabled: true,
+            accountNonLocked: false,
+            accountNonExpired: false,
+            authorities:[{authority:'CORDINADOR'}],
+            credentialsNonExpired: false,
+          },
+        }) 
       } catch (error) {
         reject('Error al iniciar sesión')
       }

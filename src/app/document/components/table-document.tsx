@@ -93,13 +93,14 @@ function TableDocument() {
             </Table>
           </Box>
           <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              height: '40px',
-              marginBottom: '10px',
-              alignItems: 'flex-start',
-            }}
+          sx={{
+            display: 'flex',
+            height: '40px',
+            width:'400px',
+            marginLeft:'15px',
+            marginBottom: '10px',
+            alignItems: 'flex-start',
+          }}
           >
             <ReactPaginate
               pageCount={pageCount}
@@ -111,6 +112,7 @@ function TableDocument() {
               previousLabel={'<'}
               nextLabel={'>'}
             />
+            <h2 style={{marginLeft: '700px'}}>Viendo {currentPage + 1} - {pageCount} de {totalDataCount}</h2>
           </Box>
         </TableContainer>
       </Box>

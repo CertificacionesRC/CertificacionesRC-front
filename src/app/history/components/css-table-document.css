@@ -11,14 +11,11 @@
 }
 
 .pagination .active {
-  background-color: red;
-  padding: 5px 10px;
+  background-color: #32393b;
   border-radius: 5px;
   color: #f3f6f7;
-}
-
-.pagination .li a {
-  background-color: blue;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 }
 
 .pagination .previous,

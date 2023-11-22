@@ -7,7 +7,9 @@ async function UsersPage() {
 
   return (
     <Stack spacing="4">
-      <Text as="h1">Usuarios</Text>
+      <Text fontWeight="semibold" fontSize="2xl" color="textColor">
+        Usuarios
+      </Text>
       <UsersTable users={users} />
     </Stack>
   )

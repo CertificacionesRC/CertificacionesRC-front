@@ -9,14 +9,24 @@ interface Props {
   name: string
   href: string
   icon: any
+  activeIcon: any
 }
 
-function AsideMenuItem({ name, icon, href }: Props) {
+function AsideMenuItem({ name, icon, activeIcon, href }: Props) {
   const pathname = usePathname()
   const isActive = pathname === href
 
   return (
-    <Button isActive={isActive} as={Link} href={href} justifyContent="flex-start" variant="ghost" leftIcon={icon}>
+    <Button
+      isActive={isActive}
+      as={Link}
+      href={href}
+      justifyContent="flex-start"
+      variant="ghost"
+      leftIcon={!isActive ? icon : activeIcon}
+      fontSize="18px"
+      fontWeight="medium"
+    >
       {name}
     </Button>
   )

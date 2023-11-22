@@ -29,24 +29,4 @@ export const datos = [
     usuario: 'USER2',
     estado: 'CORREGIR',
   },
-  {
-    idDocumento: 12346,
-    usuario: 'USER2',
-    estado: 'CORREGIR',
-  },
-  {
-    idDocumento: 12346,
-    usuario: 'USER2',
-    estado: 'CORREGIR',
-  },
-  {
-    idDocumento: 12346,
-    usuario: 'USER2',
-    estado: 'CORREGIR',
-  },
-  {
-    idDocumento: 12346,
-    usuario: 'USER2',
-    estado: 'CORREGIR',
-  },
 ]

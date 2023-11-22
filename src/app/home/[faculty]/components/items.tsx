@@ -10,6 +10,7 @@ import {
   Card,
   List,
   ListItem,
+  Text,
 } from '@chakra-ui/react'
 
 import { api } from '@/services/api'
@@ -56,12 +57,20 @@ function Items() {
             {item.subItems.length !== 0 ? (
               <AccordionItem pl="2" position="relative" border="0">
                 <AccordionButton
+                  padding="24px 32px 24px 32px"
                   textAlign="left"
+                  fontSize="20px"
+                  fontWeight="semibold"
+                  color="textColor"
                   onClick={() => {
                     handleToggle('item', index, searchParams)
                   }}
                 >
-                  {index + 1}. {item.name}
+                  <Box display="flex" gap="16px">
+                    {' '}
+                    <Text>{index + 1}.</Text> <Text>{item.name}</Text>
+                  </Box>
+
                   <AccordionIcon ml="auto" />
                 </AccordionButton>
                 <AccordionPanel>
@@ -71,12 +80,21 @@ function Items() {
                         subitem.subItems.length !== 0 ? (
                           <AccordionItem key={subitem.id} overflow="hidden" border="0" rounded="md" bg="gray.100">
                             <AccordionButton
+                              padding="20px 24px 20px 24px"
                               textAlign="left"
+                              color="textColor"
+                              fontSize="18px"
                               onClick={() => {
                                 handleToggle('subitem', subindex, searchParams)
                               }}
                             >
-                              {index + 1}.{subindex + 1} {subitem.name}
+                              <Box display="flex" gap="16px">
+                                {' '}
+                                <Text fontWeight="semibold">
+                                  {index + 1}.{subindex + 1}
+                                </Text>{' '}
+                                <Text fontWeight="medium">{subitem.name}</Text>
+                              </Box>
                               <AccordionIcon ml="auto" />
                             </AccordionButton>
                             <AccordionPanel>
@@ -86,14 +104,21 @@ function Items() {
                                     display="flex"
                                     rounded="md"
                                     bg="white"
-                                    px="3"
-                                    py="2"
+                                    padding="16px 20px 16px 20px"
                                     flex="1"
                                     key={deepItem.id}
                                     as={Link}
                                     href={ROUTES.DOCUMENT_SUBITEM(deepItem.id)}
+                                    color="textColor"
+                                    fontSize="16px"
                                   >
-                                    {index + 1}.{subindex + 1}.{deepindex + 1} {deepItem.name}
+                                    <Box display="flex" gap="16px">
+                                      {' '}
+                                      <Text fontWeight="semibold">
+                                        {index + 1}.{subindex + 1}.{deepindex + 1}
+                                      </Text>{' '}
+                                      <Text fontWeight="medium">{deepItem.name}</Text>
+                                    </Box>
                                   </ListItem>
                                 ))}
                               </List>
@@ -101,8 +126,21 @@ function Items() {
                           </AccordionItem>
                         ) : (
                           <AccordionItem key={subitem.id} overflow="hidden" border="0" rounded="md" bg="gray.100">
-                            <AccordionButton textAlign="left" as={Link} href={ROUTES.DOCUMENT_SUBITEM(subitem.id)}>
-                              {index + 1}.{subindex + 1} {subitem.name}
+                            <AccordionButton
+                              textAlign="left"
+                              as={Link}
+                              href={ROUTES.DOCUMENT_SUBITEM(subitem.id)}
+                              padding="20px 24px 20px 24px"
+                              color="textColor"
+                              fontSize="18px"
+                            >
+                              <Box display="flex" gap="16px">
+                                {' '}
+                                <Text fontWeight="semibold">
+                                  {index + 1}.{subindex + 1}
+                                </Text>{' '}
+                                <Text fontWeight="medium">{subitem.name}</Text>
+                              </Box>
                             </AccordionButton>
                           </AccordionItem>
                         )
@@ -110,14 +148,21 @@ function Items() {
                     </List>
                   </Accordion>
                 </AccordionPanel>
-                <Box position="absolute" left="0" insetY="0" w="2" bg="blue.500" />
+                <Box position="absolute" left="0" insetY="0" w="2" bg="primary" />
               </AccordionItem>
             ) : (
               <AccordionItem pl="2" position="relative" border="0">
-                <AccordionButton textAlign="left" as={Link} href={ROUTES.DOCUMENT_ITEM(item.id)}>
+                <AccordionButton
+                  padding="24px 32px 24px 32px"
+                  textAlign="left"
+                  fontSize="20px"
+                  fontWeight="600"
+                  as={Link}
+                  href={ROUTES.DOCUMENT_ITEM(item.id)}
+                >
                   {index + 1}. {item.name}
                 </AccordionButton>
-                <Box position="absolute" left="0" insetY="0" w="2" bg="blue.500" />
+                <Box position="absolute" left="0" insetY="0" w="2" bg="primary" />
               </AccordionItem>
             )}
           </Card>

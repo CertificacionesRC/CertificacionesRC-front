@@ -12,7 +12,7 @@ function MainLayout({ children, authorities }: Props) {
     <Grid
       h="100vh"
       overflow="hidden"
-      gridTemplateColumns="250px 1fr"
+      gridTemplateColumns="260px 1fr"
       gridTemplateRows="60px 1fr"
       templateAreas={`
         "aside header"
@@ -25,7 +25,7 @@ function MainLayout({ children, authorities }: Props) {
       <GridItem as="aside" area="aside" bg="white" borderRight="2px" borderColor="gray.100">
         <MainAsideMenu authorities={authorities} />
       </GridItem>
-      <GridItem as="main" bg="gray.100" overflow="auto" area="main" padding="4">
+      <GridItem as="main" bg="gray.100" overflow="auto" area="main" padding="8">
         {children}
       </GridItem>
     </Grid>

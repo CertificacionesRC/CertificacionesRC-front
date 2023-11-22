@@ -1,5 +1,8 @@
 import { AsideMenuItem } from '@/components/layout'
-import { FiHome, FiList, FiUsers, FiFile } from 'react-icons/fi'
+import { FiUsers } from 'react-icons/fi'
+import { BiHome, BiSolidHome } from 'react-icons/bi'
+import { HiUsers } from 'react-icons/hi'
+import { IoDocumentAttachOutline, IoDocumentAttach, IoDocumentTextOutline, IoDocumentText } from 'react-icons/io5'
 import { ROUTES } from '@/utils/routes'
 import { Stack, Text } from '@chakra-ui/react'
 import { IAuthority, TAuthorities } from '@/utils/models'
@@ -9,6 +12,7 @@ type IRoutes = {
   href: string
   name: string
   icon: React.ReactNode
+  iconActive: React.ReactNode
   authorities: TAuthorities[]
 }
 
@@ -16,25 +20,29 @@ const routes: IRoutes[] = [
   {
     href: ROUTES.HOME,
     name: 'Inicio',
-    icon: <FiHome />,
+    icon: <BiHome />,
+    iconActive: <BiSolidHome />,
     authorities: ['ADMIN', 'SUPERUSUARIO', 'CORDINADOR'],
   },
   {
     href: ROUTES.DOCUMENT,
     name: 'Documento',
-    icon: <FiFile />,
+    icon: <IoDocumentTextOutline />,
+    iconActive: <IoDocumentText />,
     authorities: ['ADMIN', 'SUPERUSUARIO', 'CORDINADOR'],
   },
   {
     href: ROUTES.HISTORY,
     name: 'Historial',
-    icon: <FiList />,
+    icon: <IoDocumentAttachOutline />,
+    iconActive: <IoDocumentAttach />,
     authorities: ['ADMIN', 'SUPERUSUARIO', 'CORDINADOR'],
   },
   {
     href: ROUTES.USERS,
     name: 'Usuarios',
     icon: <FiUsers />,
+    iconActive: <HiUsers />,
     authorities: ['ADMIN', 'SUPERUSUARIO', 'CORDINADOR'],
   },
 ]
@@ -55,13 +63,19 @@ function MainAsideMenu({ authorities }: Props) {
   return (
     <Stack spacing="4">
       <Stack px="4" justifyContent="center" h="58px">
-        <Text as="span" fontWeight="bold" fontSize="xl">
+        <Text as="span" fontWeight="extrabold" fontSize="2xl" color="primary">
           Certificaciones RC
         </Text>
       </Stack>
       <Stack px="4" spacing="4">
         {formatedOptions.map((route, index) => (
-          <AsideMenuItem key={index} href={route.href} name={route.name} icon={route.icon} />
+          <AsideMenuItem
+            key={index}
+            href={route.href}
+            name={route.name}
+            icon={route.icon}
+            activeIcon={route.iconActive}
+          />
         ))}
         <SignOut />
       </Stack>

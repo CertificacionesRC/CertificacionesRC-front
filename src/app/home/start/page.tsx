@@ -30,7 +30,9 @@ function DocumentStartPage() {
     <Center>
       <Card w="full" maxW="400px" p="4">
         <CardHeader textAlign="center">
-          <Text as="h1">Antes de continuar ayúdanos a completar el siguiente formulario</Text>
+          <Text fontSize="20px" fontWeight="400">
+            Antes de continuar ayúdanos a completar el siguiente formulario
+          </Text>
         </CardHeader>
         <CardBody>
           <Stack spacing="4" as="form" onSubmit={onSubmit}>

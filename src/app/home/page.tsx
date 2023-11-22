@@ -1,23 +1,23 @@
 import { ROUTES } from '@/utils/routes'
-import { Button, Card, CardBody, CardHeader, Center, Text } from '@chakra-ui/react'
+import { Button, Card, CardBody, Box, Text } from '@chakra-ui/react'
 import Link from 'next/link'
 
 function HomePage() {
   return (
-    <Center>
-      <Card w="full" maxW="400px" textAlign="center">
-        <CardHeader>
-          <Text textAlign="center">
-            Crea de manera dinámica y eficiente el documento de <strong>registro calificado</strong>
-          </Text>
-        </CardHeader>
-        <CardBody>
-          <Button replace as={Link} href={ROUTES.START_DOCUMENT}>
-            Iniciar el documento
-          </Button>
+    <Box w="full" h="full" display="flex" justifyContent="center" alignItems="center">
+      <Card w="full" maxW="700px" height="400px" textAlign="center">
+        <CardBody display="flex" alignItems="center" justifyContent="center">
+          <Box margin="0px 50px">
+            <Text textAlign="center" fontSize="30px" fontWeight={'400'}>
+              Crea de manera dinámica y eficiente el documento de <strong>registro calificado</strong>
+            </Text>
+            <Button replace as={Link} href={ROUTES.START_DOCUMENT} variant="solid" marginTop="20px">
+              Iniciar el documento
+            </Button>
+          </Box>
         </CardBody>
       </Card>
-    </Center>
+    </Box>
   )
 }
 

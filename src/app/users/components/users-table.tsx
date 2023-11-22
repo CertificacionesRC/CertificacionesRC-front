@@ -43,40 +43,63 @@ function UsersTable({ users }: { users: ICustomUser[] }) {
         <IconButton
           title="Agregar usuario"
           aria-label="Agregar usuario"
-          colorScheme="blue"
+          color="white"
+          fontSize="2xl"
           icon={<Icon as={FiPlus} />}
           onClick={createModal.onOpen}
         />
       </Flex>
       <Card variant="outline">
-        <TableContainer>
+        <TableContainer minH="60vh">
           <Table>
             <Thead>
               <Tr>
-                <Th>Código</Th>
-                <Th>Nombre</Th>
-                <Th>Usuario</Th>
-                <Th>Correo</Th>
-                <Th>Estado</Th>
-                <Th>Editar</Th>
+                <Th textAlign="center" fontSize="sm" fontWeight="bold" color="gray.700">
+                  Código
+                </Th>
+                <Th textAlign="center" fontSize="sm" fontWeight="bold" color="gray.700">
+                  Nombre
+                </Th>
+                <Th textAlign="center" fontSize="sm" fontWeight="bold" color="gray.700">
+                  Usuario
+                </Th>
+                <Th textAlign="center" fontSize="sm" fontWeight="bold" color="gray.700">
+                  Correo
+                </Th>
+                <Th textAlign="center" fontSize="sm" fontWeight="bold" color="gray.700">
+                  Estado
+                </Th>
+                <Th textAlign="center" fontSize="sm" fontWeight="bold" color="gray.700">
+                  Editar
+                </Th>
               </Tr>
             </Thead>
             <Tbody>
               {users.map((user) => (
                 <Tr key={user.id}>
-                  <Td>{user.id}</Td>
-                  <Td>{user.name}</Td>
-                  <Td>{user.email}</Td>
-                  <Td>{user.email}</Td>
-                  <Td>
+                  <Td textAlign="center" fontSize="sm" fontWeight="medium" color="gray.700">
+                    {user.id}
+                  </Td>
+                  <Td textAlign="center" fontSize="sm" fontWeight="medium" color="gray.700">
+                    {user.name}
+                  </Td>
+                  <Td textAlign="center" fontSize="sm" fontWeight="medium" color="gray.700">
+                    {user.email}
+                  </Td>
+                  <Td textAlign="center" fontSize="sm" fontWeight="medium" color="gray.700">
+                    {user.email}
+                  </Td>
+                  <Td textAlign="center" color="gray.700">
                     <Select>
                       <option value="active">Habilitado</option>
                       <option value="active">Inhabilitado</option>
                     </Select>
                   </Td>
-                  <Td>
+                  <Td textAlign="center">
                     <IconButton
-                      colorScheme="blue"
+                      bg="white"
+                      fontSize="2xl"
+                      color="primary"
                       title="Editar usuario"
                       aria-label="Editar usuario"
                       icon={<Icon as={FiEdit} />}

@@ -67,14 +67,16 @@ function SignIn() {
   return (
     <Card w="full" maxW="500px" p="4">
       <CardHeader textAlign="center">
-        <Text as="h1" fontWeight="semibold" fontSize="xl">
+        <Text fontWeight="normal" fontSize="xl" color="textColor">
           Inicio de sesión
         </Text>
       </CardHeader>
       <CardBody>
-        <Stack as="form" spacing="4" onSubmit={handleSubmit(onSubmit)}>
+        <Stack as="form" spacing="12" onSubmit={handleSubmit(onSubmit)}>
           <FormControl>
-            <FormLabel>Nombre de usuario:</FormLabel>
+            <FormLabel color="gray.700" fontSize="md" fontWeight="medium">
+              Nombre de usuario:
+            </FormLabel>
             <Input
               placeholder="Ingrese su nombre de usuario aquí"
               type="email"
@@ -82,7 +84,9 @@ function SignIn() {
             />
           </FormControl>
           <FormControl>
-            <FormLabel>Contraseña:</FormLabel>
+            <FormLabel color="gray.700" fontSize="md" fontWeight="medium">
+              Contraseña:
+            </FormLabel>
             <Input
               placeholder="Ingrese su contraseña aquí"
               type="password"

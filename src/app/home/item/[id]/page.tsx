@@ -10,7 +10,7 @@ interface Props {
 async function DocumentItem({ params: { id } }: Props) {
   const item = await api.getItem({ id })
 
-  return <EditorTiny id={item.id} content={item.content} />
+  return <EditorTiny id={item.id} content={item.content} name={item.name} />
 }
 
 export default DocumentItem

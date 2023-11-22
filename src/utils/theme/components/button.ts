@@ -9,6 +9,10 @@ export const Button = defineStyleConfig({
         solid:{
             bgColor: '#003C6F',
             color: '#ffffff'
+        },
+        outline:{
+            color: '#003C6F',
+            borderColor: '#003C6F'
         }
     },
 })

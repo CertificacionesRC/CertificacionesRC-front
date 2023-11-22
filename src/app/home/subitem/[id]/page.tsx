@@ -10,7 +10,7 @@ interface Props {
 async function DocumentSubItem({ params: { id } }: Props) {
   const subItem = await api.getSubItem({ id })
 
-  return <EditorTiny id={subItem.id} content={subItem.content} />
+  return <EditorTiny id={subItem.id} content={subItem.content} name={subItem.name} />
 }
 
 export default DocumentSubItem

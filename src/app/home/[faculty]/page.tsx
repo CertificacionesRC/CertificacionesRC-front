@@ -1,5 +1,7 @@
 import { Button, Flex, Spacer, Stack, Text } from '@chakra-ui/react'
 import Items from './components/items'
+import Link from 'next/link'
+import { ROUTES } from '@/utils/routes'
 
 function DocumentFacultyPage() {
   return (
@@ -9,7 +11,9 @@ function DocumentFacultyPage() {
           Condiciones de calidad programa de arquitectura
         </Text>
         <Spacer />
-        <Button variant="solid">Generar documento</Button>
+        <Button as={Link} href={ROUTES.DOCUMENT_PDF('sample.pdf')} variant="solid">
+          Generar documento
+        </Button>
       </Flex>
 
       <Items />

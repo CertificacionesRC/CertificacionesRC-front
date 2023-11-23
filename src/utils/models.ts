@@ -1,4 +1,4 @@
-export type TAuthorities = 'ADMIN' | 'CORDINADOR' | 'SUPERUSUARIO'
+export type TAuthorities = 'ADMIN' | 'COORDINADOR' | 'SUPERUSUARIO'
 export interface IAuthority {
   authority: TAuthorities
 }

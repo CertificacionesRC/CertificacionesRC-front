@@ -1,6 +1,7 @@
 import { ICustomUser, IItem, ISession, ISubItem } from '@/utils/models'
 import { adapters } from './adapters'
 import { getSession } from '@/utils/actions'
+import axios from 'axios'
 
 const BASE_URL = 'http://localhost:8081/api/'
 
@@ -62,7 +63,7 @@ const signIn = async ({ username, password }: { username: string; password: stri
   return new Promise((resolve, reject) => {
     setTimeout(async () => {
       try {
-       /* const response = await fetch(PATHS.SIGN_IN, {
+        const response = await fetch(PATHS.SIGN_IN, {
           method: 'POST',
           body: JSON.stringify({
             correo: username,
@@ -70,19 +71,20 @@ const signIn = async ({ username, password }: { username: string; password: stri
           }),
         })
 
-        const data = await response.json() */
-        resolve({
-          mensaje: '',
-          token: '',
-          user: {
-            username: '',
-            enabled: true,
-            accountNonLocked: false,
-            accountNonExpired: false,
-            authorities:[{authority:'CORDINADOR'}],
-            credentialsNonExpired: false,
-          },
-        }) 
+        const data = await response.json()
+        resolve(adapters.adaptSession(data))
+        // resolve({
+        //   mensaje: '',
+        //   token: '',
+        //   user: {
+        //     username: '',
+        //     enabled: true,
+        //     accountNonLocked: false,
+        //     accountNonExpired: false,
+        //     authorities:[{authority:'CORDINADOR'}],
+        //     credentialsNonExpired: false,
+        //   },
+        // })
       } catch (error) {
         reject('Error al iniciar sesión')
       }
@@ -131,13 +133,16 @@ const updateContentSubItem = async ({ id, content }: { id: string; content: stri
     setTimeout(async () => {
       try {
         const url = PATHS.UPDATE_SUBINDEX + `/${id}`
-        const response = await fetch(url, {
-          method: 'PATCH',
-          body: JSON.stringify(content),
+        const response = await axios.patch(url, {
+          id: '',
+          nombre: '',
+          contenido: '',
+          guia: '',
+          archivo: null,
         })
 
-        const data = await response.json()
-        resolve(data)
+        // const data = await response.json()
+        resolve(response.data)
       } catch (error) {
         reject('Error al actualizar el contenido del subitem')
       }
@@ -187,12 +192,10 @@ const updateCustomUser = async ({
     setTimeout(async () => {
       try {
         const session = await getSession()
-        const response = await fetch(PATHS.UPDATE_USER + `/${id}`, {
-          method: 'PATCH',
-          headers: {
-            Authorization: `Bearer ${session?.token}`,
-          },
-          body: JSON.stringify({
+
+        const response = await axios.patch(
+          PATHS.UPDATE_USER + `/${id}`,
+          {
             contrasena: password,
             correo: email,
             estado: status,
@@ -202,11 +205,16 @@ const updateCustomUser = async ({
               rolId: roleId,
               rolNombre: roleName,
             },
-          }),
-        })
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${session?.token}`,
+            },
+          }
+        )
 
-        const data = await response.json()
-        resolve(data)
+        // const data = await response.json()
+        resolve(response.data)
       } catch (error) {
         reject('Error al actualizar el usuario')
       }
@@ -235,26 +243,40 @@ const createCustomUser = async ({
     setTimeout(async () => {
       try {
         const session = await getSession()
-        const response = await fetch(PATHS.SAVE_USER, {
-          method: 'POST',
+
+        const mock = {
+          contrasena: password,
+          correo: email,
+          estado: null,
+          nombre: name,
+          id,
+          rol: {
+            rolId: roleId,
+            rolNombre: roleName,
+          },
+        }
+
+        console.log(mock)
+
+        const response = await axios.post(PATHS.SAVE_USER, mock, {
           headers: {
             Authorization: `Bearer ${session?.token}`,
           },
-          body: JSON.stringify({
-            contrasena: password,
-            correo: email,
-            estado: status,
-            nombre: name,
-            id,
-            rol: {
-              rolId: roleId,
-              rolNombre: roleName,
-            },
-          }),
         })
 
-        const data = await response.json()
-        resolve(data)
+        // const response = await fetch(PATHS.SAVE_USER, {
+        //   method: 'PATCH',
+        //   // headers: {
+        //   //   Authorization: `Bearer ${session?.token}`,
+        //   //   contentType: 'application/json',
+        //   // },
+        //   body: JSON.stringify(mock),
+        // })
+
+        // const data = await response.json()
+
+        console.log(response)
+        resolve(response.data)
       } catch (error) {
         reject('Error al crear el usuario')
       }

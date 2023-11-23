@@ -22,28 +22,28 @@ const routes: IRoutes[] = [
     name: 'Inicio',
     icon: <BiHome />,
     iconActive: <BiSolidHome />,
-    authorities: ['ADMIN', 'SUPERUSUARIO', 'CORDINADOR'],
+    authorities: ['ADMIN', 'SUPERUSUARIO', 'COORDINADOR'],
   },
   {
     href: ROUTES.DOCUMENT,
     name: 'Documento',
     icon: <IoDocumentTextOutline />,
     iconActive: <IoDocumentText />,
-    authorities: ['ADMIN', 'SUPERUSUARIO', 'CORDINADOR'],
+    authorities: ['ADMIN', 'SUPERUSUARIO', 'COORDINADOR'],
   },
   {
     href: ROUTES.HISTORY,
     name: 'Historial',
     icon: <IoDocumentAttachOutline />,
     iconActive: <IoDocumentAttach />,
-    authorities: ['ADMIN', 'SUPERUSUARIO', 'CORDINADOR'],
+    authorities: ['ADMIN', 'SUPERUSUARIO', 'COORDINADOR'],
   },
   {
     href: ROUTES.USERS,
     name: 'Usuarios',
     icon: <FiUsers />,
     iconActive: <HiUsers />,
-    authorities: ['ADMIN', 'SUPERUSUARIO', 'CORDINADOR'],
+    authorities: ['ADMIN', 'SUPERUSUARIO', 'COORDINADOR'],
   },
 ]
 

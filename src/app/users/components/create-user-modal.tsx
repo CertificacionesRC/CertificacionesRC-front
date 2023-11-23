@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
 import {
@@ -47,7 +48,7 @@ function CreateUserModal({ isOpen, onClose }: Props) {
       email: '',
       id: '',
       name: '',
-      roleId: undefined,
+      roleId: 1,
       roleName: '',
       status: '',
       password: '',
@@ -55,13 +56,19 @@ function CreateUserModal({ isOpen, onClose }: Props) {
   })
 
   const onSubmit: SubmitHandler<FormValues> = (values) => {
+    const rolId = {
+      ADMIN: 1,
+      CORDINADOR: 2,
+      SUPERUSUARIO: 3,
+    }
+
     return api
       .createCustomUser({
         email: values.email,
         id: values.id,
         name: values.name,
         password: values.password,
-        roleId: values.roleId,
+        roleId: rolId[values.roleName],
         roleName: values.roleName,
         status: values.status,
       })
@@ -93,7 +100,7 @@ function CreateUserModal({ isOpen, onClose }: Props) {
             </FormControl>
             <FormControl>
               <FormLabel>Usuario *</FormLabel>
-              <Input type="email" {...register('email', { required: true })} />
+              <Input type="text" {...register('email', { required: true })} />
             </FormControl>
             <FormControl>
               <FormLabel>Nombre *</FormLabel>

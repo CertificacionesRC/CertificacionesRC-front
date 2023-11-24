@@ -117,6 +117,7 @@ const getItem = async ({ id }: { id: string }): Promise<IItem> => {
         const url = PATHS.GET_INDEX_BY_ID + `?idItem=${id}`
         const response = await fetch(url, {
           method: 'GET',
+          cache: 'no-cache'
         })
 
         const data = await response.json()
@@ -136,7 +137,7 @@ const updateContentSubItem = async ({ id, content }: { id: string; content: stri
         const response = await axios.patch(url, {
           id: '',
           nombre: '',
-          contenido: '',
+          contenido: `${content}`,
           guia: '',
           archivo: null,
         })

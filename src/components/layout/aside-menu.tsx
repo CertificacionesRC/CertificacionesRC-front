@@ -43,7 +43,7 @@ const routes: IRoutes[] = [
     name: 'Usuarios',
     icon: <FiUsers />,
     iconActive: <HiUsers />,
-    authorities: ['ADMIN', 'SUPERUSUARIO', 'COORDINADOR'],
+    authorities: ['ADMIN', 'SUPERUSUARIO'],
   },
 ]
 

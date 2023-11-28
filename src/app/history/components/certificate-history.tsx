@@ -1,35 +1,12 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AiOutlineFileSearch } from 'react-icons/ai'
 import { datos } from './data-certificate'
-import {
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableContainer,
-  InputGroup,
-  Input,
-  Card,
-  Stack,
-  Flex,
-  Icon,
-  InputLeftElement,
-  IconButton,
-} from '@chakra-ui/react'
-import { FiSearch } from 'react-icons/fi'
+import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Input, Card, Stack, Flex, IconButton } from '@chakra-ui/react'
 
 function CertificateHistory() {
   return (
     <Stack spacing={4}>
       <Flex gap="4">
-        <InputGroup>
-          <InputLeftElement>
-            <Icon as={FiSearch} />
-          </InputLeftElement>
-          <Input bg="white" placeholder="Buscar" />
-        </InputGroup>
+        <Input bg="white" placeholder="Buscar" />
       </Flex>
       <Card>
         <TableContainer minH="60vh">
@@ -69,7 +46,7 @@ function CertificateHistory() {
                       bg="white"
                       color="primary"
                       fontSize="2xl"
-                      icon={<Icon as={AiOutlineFileSearch} />}
+                      icon={<AiOutlineFileSearch />}
                     />
                   </Td>
                 </Tr>

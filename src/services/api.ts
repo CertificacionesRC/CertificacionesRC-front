@@ -1,4 +1,4 @@
-import { ICustomUser, IItem, ISession, ISubItem } from '@/utils/models'
+import { ICustomUser, IItem, IProgramType, ISession, ISubItem } from '@/utils/models'
 import { adapters } from './adapters'
 import { getSession } from '@/utils/actions'
 import axios from 'axios'
@@ -21,10 +21,28 @@ export const PATHS = {
   UPDATE_USER: BASE_URL + 'usuario/updateUsuario',
   SIGN_IN: BASE_URL + 'login',
   CREATE_REGISTRO_CALIFICADO: BASE_URL + 'registrocalificado',
-  GET_ID_USER: BASE_URL + 'usuario/findUsuarioByEmail'
+  GET_ID_USER: BASE_URL + 'usuario/findUsuarioByEmail',
+  GET_TIPOS_PROGRAMA: BASE_URL + 'programaAcademico/findAll',
 }
 
 const TIME_OUT = 1000
+
+const getProgramTypes = async (): Promise<IProgramType[]> => {
+  return new Promise((resolve, reject) => {
+    setTimeout(async () => {
+      try {
+        const response = await fetch(PATHS.GET_TIPOS_PROGRAMA, {
+          method: 'GET',
+        })
+
+        const data = await response.json()
+        resolve(data.map(adapters.adaptTipoPrograma))
+      } catch (error) {
+        reject('Error al obtener los tipos de programa')
+      }
+    }, TIME_OUT)
+  })
+}
 
 const getItems = async (): Promise<IItem[]> => {
   return new Promise((resolve, reject) => {
@@ -80,9 +98,8 @@ const signIn = async ({ username, password }: { username: string; password: stri
           },
         })
 
-        
         const userData = await responseUser.json()
-        resolve(adapters.adaptSession({...data, id: userData.data.id}))
+        resolve(adapters.adaptSession({ ...data, id: userData.data.id }))
         // resolve({
         //   mensaje: '',
         //   token: '',
@@ -127,7 +144,7 @@ const getItem = async ({ id }: { id: string }): Promise<IItem> => {
         const url = PATHS.GET_INDEX_BY_ID + `?idItem=${id}`
         const response = await fetch(url, {
           method: 'GET',
-          cache: 'no-cache'
+          cache: 'no-cache',
         })
 
         const data = await response.json()
@@ -240,7 +257,6 @@ const createCustomUser = async ({
   password,
   roleId,
   roleName,
-  status,
 }: {
   email: string
   id: string
@@ -294,22 +310,36 @@ const createCustomUser = async ({
     }, TIME_OUT)
   })
 }
-const createRegistroCalificado = async ({ fechaCreacion, colaboradores, autor, programaAcademico }: { fechaCreacion: string; colaboradores: string; autor: number; programaAcademico: number }) => {
+const createRegistroCalificado = async ({
+  fechaCreacion,
+  colaboradores,
+  autor,
+  programaAcademico,
+}: {
+  fechaCreacion: string
+  colaboradores: string
+  autor: number
+  programaAcademico: IProgramType | null | undefined
+}) => {
   return new Promise((resolve, reject) => {
     setTimeout(async () => {
       try {
         const session = await getSession()
         const url = PATHS.CREATE_REGISTRO_CALIFICADO
-        const response = await axios.post(url, {
-          fecha_creacion: fechaCreacion,
-          colaboradores: colaboradores,
-          autor: autor,
-          programaAcademico:{ id: programaAcademico}
-        }, {
-          headers: {
-            Authorization: `Bearer ${session?.token}`,
+        const response = await axios.post(
+          url,
+          {
+            fecha_creacion: fechaCreacion,
+            colaboradores: colaboradores,
+            autor: autor,
+            programaAcademico,
           },
-        })
+          {
+            headers: {
+              Authorization: `Bearer ${session?.token}`,
+            },
+          }
+        )
         resolve(response.data)
       } catch (error) {
         reject('Error al crear registro calificado')
@@ -317,7 +347,6 @@ const createRegistroCalificado = async ({ fechaCreacion, colaboradores, autor, p
     }, TIME_OUT)
   })
 }
-
 
 export const api = {
   createCustomUser,
@@ -329,5 +358,6 @@ export const api = {
   signIn,
   updateContentSubItem,
   updateCustomUser,
-  createRegistroCalificado
+  createRegistroCalificado,
+  getProgramTypes,
 }

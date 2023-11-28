@@ -48,3 +48,13 @@ export interface ICustomUser {
   status: string
   password: string
 }
+
+export interface IProgramType {
+  id: number
+  name: string
+  type: string
+  faculty: string
+  registroCalificado?: IRegistroCalificado
+}
+
+export interface IRegistroCalificado {}

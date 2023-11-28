@@ -31,7 +31,7 @@ type FormValues = {
   id: string
   name: string
   roleId: number
-  roleName: string
+  roleName: 'ADMIN' | 'CORDINADOR' | 'SUPERUSUARIO'
   status: string
   password: string
 }
@@ -49,7 +49,7 @@ function CreateUserModal({ isOpen, onClose }: Props) {
       id: '',
       name: '',
       roleId: 1,
-      roleName: '',
+      roleName: 'CORDINADOR',
       status: '',
       password: '',
     },

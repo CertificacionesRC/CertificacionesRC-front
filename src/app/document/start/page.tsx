@@ -22,9 +22,10 @@ import { useForm } from 'react-hook-form'
 import type { SubmitHandler } from 'react-hook-form'
 import { api } from '@/services/api'
 import { getSession } from '@/utils/actions'
+import useSWR from 'swr'
 
 type FormValues = {
-  program: number
+  program?: number
   date: string
   collaborators: string
 }
@@ -33,26 +34,31 @@ function DocumentStartPage() {
   const router = useRouter()
   const toast = useToast()
 
+  const { data } = useSWR('api/programas', () => {
+    return api.getProgramTypes()
+  })
+
   const {
     register,
     handleSubmit,
     formState: { isSubmitting },
   } = useForm<FormValues>({
     defaultValues: {
-      program: 0,
+      program: undefined,
       date: '',
       collaborators: '',
     },
   })
 
   const onSubmit: SubmitHandler<FormValues> = async (values) => {
+    console.log(values)
     const session = await getSession()
     return api
       .createRegistroCalificado({
         autor: session?.id ?? 0,
         colaboradores: values.collaborators,
         fechaCreacion: values.date,
-        programaAcademico: Number(values.program),
+        programaAcademico: data?.find((program) => program.id == values.program),
       })
       .then(() => {
         toast({
@@ -82,11 +88,12 @@ function DocumentStartPage() {
           <Stack spacing="4" as="form" onSubmit={handleSubmit(onSubmit)}>
             <FormControl>
               <FormLabel>Tipo de programa</FormLabel>
-              <Select {...register('program', { required: true })}>
-                <option>Seleccionar</option>
-                <option value={1}>sistemas</option>
-                <option value={2}>electronica</option>
-                <option value={3}>civil</option>
+              <Select placeholder="Selecciona" {...register('program', { required: true })}>
+                {data?.map((program) => (
+                  <option value={program.id} key={program.id}>
+                    {program.name}
+                  </option>
+                ))}
               </Select>
             </FormControl>
             <FormControl>

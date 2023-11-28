@@ -41,6 +41,7 @@ export const adaptSession = (response: any): ISession => {
       authorities: response.user.authorities.map(adaptAuthoritie),
       credentialsNonExpired: response.user.credentialsNonExpired,
     },
+    id: response.id
   }
 }
 

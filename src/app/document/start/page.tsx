@@ -13,17 +13,61 @@ import {
   Stack,
   Text,
   Textarea,
+  useToast,
 } from '@chakra-ui/react'
 
 import { ROUTES } from '@/utils/routes'
 import { useRouter } from 'next/navigation'
+import { useForm } from 'react-hook-form'
+import type { SubmitHandler } from 'react-hook-form'
+import { api } from '@/services/api'
+import { getSession } from '@/utils/actions'
+
+type FormValues = {
+  program: number
+  date: string
+  collaborators: string
+}
 
 function DocumentStartPage() {
   const router = useRouter()
+  const toast = useToast()
 
-  const onSubmit = (event: React.FormEvent<HTMLDivElement>) => {
-    event.preventDefault()
-    router.replace(ROUTES.DOCUMENT_FACULTY('sistemas'))
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm<FormValues>({
+    defaultValues: {
+      program: 0,
+      date: '',
+      collaborators: '',
+    },
+  })
+
+  const onSubmit: SubmitHandler<FormValues> = async (values) => {
+    const session = await getSession()
+    return api
+      .createRegistroCalificado({
+        autor: session?.id ?? 0,
+        colaboradores: values.collaborators,
+        fechaCreacion: values.date,
+        programaAcademico: Number(values.program),
+      })
+      .then(() => {
+        toast({
+          title: 'Registro acádemico creado exitosamente',
+          status: 'success',
+        })
+        router.replace(ROUTES.DOCUMENT_FACULTY('sistemas'))
+      })
+      .catch((error) => {
+        toast({
+          title: error,
+          status: 'error',
+        })
+      })
+      .finally(() => {})
   }
 
   return (
@@ -35,32 +79,27 @@ function DocumentStartPage() {
           </Text>
         </CardHeader>
         <CardBody>
-          <Stack spacing="4" as="form" onSubmit={onSubmit}>
-            <FormControl>
-              <FormLabel>Facultad</FormLabel>
-              <Input placeholder="Facultad de..." />
-            </FormControl>
+          <Stack spacing="4" as="form" onSubmit={handleSubmit(onSubmit)}>
             <FormControl>
               <FormLabel>Tipo de programa</FormLabel>
-              <Select>
+              <Select {...register('program', { required: true })}>
                 <option>Seleccionar</option>
+                <option value={1}>sistemas</option>
+                <option value={2}>electronica</option>
+                <option value={3}>civil</option>
               </Select>
             </FormControl>
             <FormControl>
-              <FormLabel>Mes</FormLabel>
-              <Select>
-                <option>Seleccionar</option>
-              </Select>
-            </FormControl>
-            <FormControl>
-              <FormLabel>Elaborado por</FormLabel>
-              <Input placeholder="Nombre del coordinador" />
+              <FormLabel>Fecha de creación</FormLabel>
+              <Input placeholder="Fecha de creación" type="date" {...register('date', { required: true })} />
             </FormControl>
             <FormControl>
               <FormLabel>Colaboradores</FormLabel>
-              <Textarea placeholder="Nombre de los coordinadores" />
+              <Textarea placeholder="Nombre de los coordinadores" {...register('collaborators', { required: true })} />
             </FormControl>
-            <Button type="submit">Iniciar el documento</Button>
+            <Button type="submit" isLoading={isSubmitting}>
+              Iniciar el documento
+            </Button>
           </Stack>
         </CardBody>
       </Card>

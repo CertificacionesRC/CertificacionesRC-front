@@ -20,6 +20,8 @@ export const PATHS = {
   UPDATE_SUBINDEX: BASE_URL + 'subItem/updateSubitem',
   UPDATE_USER: BASE_URL + 'usuario/updateUsuario',
   SIGN_IN: BASE_URL + 'login',
+  CREATE_REGISTRO_CALIFICADO: BASE_URL + 'registrocalificado',
+  GET_ID_USER: BASE_URL + 'usuario/findUsuarioByEmail'
 }
 
 const TIME_OUT = 1000
@@ -70,9 +72,17 @@ const signIn = async ({ username, password }: { username: string; password: stri
             contrasena: password,
           }),
         })
-
         const data = await response.json()
-        resolve(adapters.adaptSession(data))
+        const responseUser = await fetch(PATHS.GET_ID_USER + `/${username}`, {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${data?.token}`,
+          },
+        })
+
+        
+        const userData = await responseUser.json()
+        resolve(adapters.adaptSession({...data, id: userData.data.id}))
         // resolve({
         //   mensaje: '',
         //   token: '',
@@ -284,6 +294,30 @@ const createCustomUser = async ({
     }, TIME_OUT)
   })
 }
+const createRegistroCalificado = async ({ fechaCreacion, colaboradores, autor, programaAcademico }: { fechaCreacion: string; colaboradores: string; autor: number; programaAcademico: number }) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(async () => {
+      try {
+        const session = await getSession()
+        const url = PATHS.CREATE_REGISTRO_CALIFICADO
+        const response = await axios.post(url, {
+          fecha_creacion: fechaCreacion,
+          colaboradores: colaboradores,
+          autor: autor,
+          programaAcademico:{ id: programaAcademico}
+        }, {
+          headers: {
+            Authorization: `Bearer ${session?.token}`,
+          },
+        })
+        resolve(response.data)
+      } catch (error) {
+        reject('Error al crear registro calificado')
+      }
+    }, TIME_OUT)
+  })
+}
+
 
 export const api = {
   createCustomUser,
@@ -295,4 +329,5 @@ export const api = {
   signIn,
   updateContentSubItem,
   updateCustomUser,
+  createRegistroCalificado
 }

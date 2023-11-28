@@ -16,6 +16,7 @@ export interface ISession {
   mensaje: string
   token: string
   user: IUser
+  id: number
 }
 
 export interface IItem {

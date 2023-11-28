@@ -329,10 +329,19 @@ const createRegistroCalificado = async ({
         const response = await axios.post(
           url,
           {
-            fecha_creacion: fechaCreacion,
+            fecha_creacion: `${fechaCreacion} 00:00:00`,
             colaboradores: colaboradores,
             autor: autor,
-            programaAcademico,
+            estado: 'PorAprobar',
+            anexo: null,
+            observacion: null,
+            programaAcademico: {
+              id: programaAcademico?.id,
+              nombre: programaAcademico?.name,
+              tipo: programaAcademico?.type,
+              facultad: programaAcademico?.faculty,
+              registroCalificado: null,
+            },
           },
           {
             headers: {

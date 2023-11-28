@@ -3,11 +3,8 @@
 import {
   Card,
   Flex,
-  Icon,
   IconButton,
   Input,
-  InputGroup,
-  InputLeftElement,
   Select,
   Stack,
   Table,
@@ -20,7 +17,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 
-import { FiEdit, FiPlus, FiSearch } from 'react-icons/fi'
+import { FiEdit, FiPlus } from 'react-icons/fi'
 import { ICustomUser } from '@/utils/models'
 import { useState } from 'react'
 import UpdateUserModal from './update-user-modal'
@@ -34,18 +31,13 @@ function UsersTable({ users }: { users: ICustomUser[] }) {
   return (
     <Stack spacing="4">
       <Flex gap="4">
-        <InputGroup>
-          <InputLeftElement>
-            <Icon as={FiSearch} />
-          </InputLeftElement>
-          <Input bg="white" placeholder="Buscar" />
-        </InputGroup>
+        <Input bg="white" placeholder="Buscar" />
         <IconButton
           title="Agregar usuario"
           aria-label="Agregar usuario"
           color="white"
           fontSize="2xl"
-          icon={<Icon as={FiPlus} />}
+          icon={<FiPlus />}
           onClick={createModal.onOpen}
         />
       </Flex>
@@ -102,7 +94,7 @@ function UsersTable({ users }: { users: ICustomUser[] }) {
                       color="primary"
                       title="Editar usuario"
                       aria-label="Editar usuario"
-                      icon={<Icon as={FiEdit} />}
+                      icon={<FiEdit />}
                       onClick={() => {
                         setUser(user)
                         updateModal.onOpen()

@@ -3,7 +3,7 @@
 import { api } from '@/services/api'
 import { Editor } from '@tinymce/tinymce-react'
 import { Editor as TinyMCEEditor } from 'tinymce'
-import { Button, Flex, Icon, IconButton, Stack, Text, useId, useToast } from '@chakra-ui/react'
+import { Button, Flex, IconButton, Stack, Text, useId, useToast } from '@chakra-ui/react'
 import { useRef, useState } from 'react'
 import { FiHelpCircle } from 'react-icons/fi'
 import { IoMdCheckmark } from 'react-icons/io'
@@ -61,8 +61,8 @@ export default function EditorTiny({ id, content, name }: { id: string; content?
         {id}. {name}
       </Text>
       <Flex gap="10px" justifyContent="end">
-        <IconButton aria-label="check" title="check" variant="outline" icon={<Icon as={IoMdCheckmark} />} />
-        <IconButton aria-label="ayuda" title="ayuda" variant="outline" icon={<Icon as={FiHelpCircle} />} />
+        <IconButton aria-label="check" title="check" variant="outline" icon={<IoMdCheckmark />} />
+        <IconButton aria-label="ayuda" title="ayuda" variant="outline" icon={<FiHelpCircle />} />
         <Button variant="outline" isLoading={isLoading} onClick={updateContent}>
           Guardar
         </Button>

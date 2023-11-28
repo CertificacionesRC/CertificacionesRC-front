@@ -43,7 +43,7 @@ const routes: IRoutes[] = [
     name: 'Usuarios',
     icon: <FiUsers />,
     iconActive: <HiUsers />,
-    authorities: ['ADMIN', 'SUPERUSUARIO'],
+    authorities: ['ADMIN'],
   },
 ]
 
@@ -52,6 +52,7 @@ interface Props {
 }
 
 function MainAsideMenu({ authorities }: Props) {
+  console.log(authorities)
   const formatedOptions = routes.filter((route) => {
     return route.authorities.some((authority) => {
       return authorities.some((userAuthority) => {

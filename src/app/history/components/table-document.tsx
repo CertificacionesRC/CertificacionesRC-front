@@ -1,4 +1,3 @@
-
 import './css-table-document.css'
 import { AiOutlineFileSearch } from 'react-icons/ai'
 import { datos } from './data-document'
@@ -10,27 +9,18 @@ import {
   Th,
   Td,
   TableContainer,
-  InputGroup,
   Input,
-  InputLeftElement,
   Card,
   Stack,
-  Flex,
-  Icon,
+  Flex,  
   IconButton,
 } from '@chakra-ui/react'
-import { FiSearch } from 'react-icons/fi'
 
 export default function TableDocument() {
   return (
     <Stack spacing={4}>
       <Flex gap="4">
-        <InputGroup>
-          <InputLeftElement>
-            <Icon as={FiSearch} />
-          </InputLeftElement>
-          <Input bg="white" placeholder="Buscar" />
-        </InputGroup>
+        <Input bg="white" placeholder="Buscar" />
       </Flex>
       <Card>
         <TableContainer minH="60vh">
@@ -70,7 +60,7 @@ export default function TableDocument() {
                       bg="white"
                       fontSize="2xl"
                       color="primary"
-                      icon={<Icon as={AiOutlineFileSearch} />}
+                      icon={<AiOutlineFileSearch />}
                     />
                   </Td>
                 </Tr>

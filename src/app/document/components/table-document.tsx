@@ -10,27 +10,19 @@ import {
   Th,
   Td,
   TableContainer,
-  InputGroup,
   Input,
-  InputLeftElement,
   Card,
   Flex,
   Icon,
   Stack,
   IconButton,
 } from '@chakra-ui/react'
-import { FiSearch } from 'react-icons/fi'
 
 function TableDocument() {
   return (
     <Stack spacing={4}>
       <Flex gap="4">
-        <InputGroup>
-          <InputLeftElement>
-            <Icon as={FiSearch} />
-          </InputLeftElement>
-          <Input bg="white" placeholder="Buscar" />
-        </InputGroup>
+        <Input bg="white" placeholder="Buscar" />
       </Flex>
       <Card variant="outline">
         <TableContainer minH="60vh">
@@ -78,7 +70,7 @@ function TableDocument() {
                         aria-label="comentar documento"
                         bg="white"
                         fontSize="2xl"
-                        icon={<Icon as={BiComment} />}
+                        icon={<BiComment />}
                       />
                     </Flex>
                   </Td>

@@ -1,10 +1,12 @@
 import { Button } from '@/utils/theme/components/button'
-import { colors } from '@/utils/theme/styles'
+import { colors } from '@/utils/theme/colors'
 import { extendTheme } from '@chakra-ui/react'
 
 const overrides = {
   colors,
-  fonts: {body: 'Inter'},
+  fonts: {
+    body: 'Inter',
+  },
   components: {
     Button,
   },

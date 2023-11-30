@@ -1,5 +1,6 @@
 import { getSession } from '@/utils/actions'
 import { Inter } from 'next/font/google'
+import { PropsWithChildren } from 'react'
 import Providers from '@/providers/providers'
 import SessionProvider from '@/providers/auth'
 import type { Metadata } from 'next'
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
   title: 'Certificaciones RC',
 }
 
-async function RootLayout({ children }: React.PropsWithChildren) {
+async function RootLayout({ children }: PropsWithChildren) {
   const session = await getSession()
 
   return (

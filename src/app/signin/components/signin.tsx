@@ -47,7 +47,6 @@ function SignIn() {
         password: values.password,
       })
       .then(async (session) => {
-        console.log(session)
         await signIn(session)
         router.replace(ROUTES.DOCUMENT)
         toast({
@@ -61,7 +60,7 @@ function SignIn() {
           status: 'error',
         })
       })
-      .finally(() => { })
+      .finally(() => {})
   }
 
   return (

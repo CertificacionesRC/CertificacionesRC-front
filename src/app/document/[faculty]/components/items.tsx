@@ -62,16 +62,21 @@ function Items() {
                   fontSize="20px"
                   fontWeight="semibold"
                   color="textColor"
-                  onClick={() => {
-                    handleToggle('item', index, searchParams)
-                  }}
+                  as={Link}
+                  href={ROUTES.DOCUMENT_ITEM(item.id)}
                 >
                   <Box display="flex" gap="16px">
                     {' '}
                     <Text>{index + 1}.</Text> <Text>{item.name}</Text>
                   </Box>
 
-                  <AccordionIcon ml="auto" />
+                  <AccordionIcon
+                    ml="auto"
+                    onClick={(event) => {
+                      event.stopPropagation()
+                      handleToggle('item', index, searchParams)
+                    }}
+                  />
                 </AccordionButton>
                 <AccordionPanel>
                   <Accordion index={currentIndex2}>

@@ -12,7 +12,7 @@ const CardInitDocument = () => {
               Crea de manera dinámica y eficiente el documento de <strong>registro calificado</strong>
             </Text>
             <Button replace as={Link} href={ROUTES.START_DOCUMENT} variant="solid" marginTop="20px">
-              Iniciar el documento
+              Crear registro calificado
             </Button>
           </Box>
         </CardBody>

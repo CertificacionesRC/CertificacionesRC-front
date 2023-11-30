@@ -1,6 +1,8 @@
 import { AiOutlineFileSearch } from 'react-icons/ai'
 import { datos } from './data-certificate'
 import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Input, Card, Stack, Flex, IconButton } from '@chakra-ui/react'
+import Link from 'next/link'
+import { ROUTES } from '@/utils/routes'
 
 function CertificateHistory() {
   return (
@@ -41,6 +43,8 @@ function CertificateHistory() {
                   </Td>
                   <Td textAlign="center" fontSize="sm">
                     <IconButton
+                      as={Link}
+                      href={ROUTES.DOCUMENT_PDF('sample.pdf')}
                       title="buscar documento"
                       aria-label="buscar documento"
                       bg="white"

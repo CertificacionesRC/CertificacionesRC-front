@@ -2,21 +2,7 @@
 import { AiOutlineFileSearch } from 'react-icons/ai'
 import { BiComment } from 'react-icons/bi'
 import { datos } from './data-document'
-import {
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableContainer,
-  Input,
-  Card,
-  Flex,
-  Icon,
-  Stack,
-  IconButton,
-} from '@chakra-ui/react'
+import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Input, Card, Flex, Stack, IconButton } from '@chakra-ui/react'
 
 function TableDocument() {
   return (
@@ -63,13 +49,14 @@ function TableDocument() {
                         bg="white"
                         fontSize="2xl"
                         color="primary"
-                        icon={<Icon color="primary" as={AiOutlineFileSearch} />}
+                        icon={<AiOutlineFileSearch />}
                       />
                       <IconButton
                         title="comentar documento"
                         aria-label="comentar documento"
                         bg="white"
                         fontSize="2xl"
+                        color="primary"
                         icon={<BiComment />}
                       />
                     </Flex>

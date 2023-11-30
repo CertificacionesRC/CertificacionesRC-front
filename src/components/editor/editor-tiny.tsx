@@ -2,7 +2,7 @@
 
 import { api } from '@/services/api'
 import { Editor } from '@tinymce/tinymce-react'
-import { Editor as TinyMCEEditor } from 'tinymce'
+import type { Editor as TinyMCEEditor } from 'tinymce'
 import { Button, Flex, IconButton, Stack, Text, useId, useToast } from '@chakra-ui/react'
 import { useRef, useState } from 'react'
 import { FiHelpCircle } from 'react-icons/fi'

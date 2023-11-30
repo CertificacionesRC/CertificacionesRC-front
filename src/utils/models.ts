@@ -36,6 +36,29 @@ export interface ISubItem {
   subItems: ISubItem[]
 }
 
+export interface IAnexo{
+  id: string
+  contenido: string
+  registroCalificado?: IRegistroCalificado
+}
+
+export interface IObservacion{
+  id: string
+  contenido: string
+  registroCalificado?: IRegistroCalificado
+}
+export interface IRegistroCalificado{
+  id?: string
+  fecha_creacion?: string
+  colaboradores?: string
+  autor?: string
+  estado?: string
+  programaAcademico?: IProgramType
+  anexo?: IAnexo
+  observacion?: IObservacion
+
+}
+
 export interface IRole {
   roleId: number
   roleName: string

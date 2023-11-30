@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { ICustomUser, IItem, IProgramType, IRole, ISession, ISubItem } from '@/utils/models'
+import { ICustomUser, IItem, IProgramType, IRegistroCalificado, IRole, ISession, ISubItem } from '@/utils/models'
 
 export const adaptItem = (response: any): IItem => {
   return {
@@ -22,6 +22,20 @@ export const adaptSubItem = (response: any): ISubItem => {
     subItems: response.subItems?.map(adaptSubItem) ?? [],
   }
 }
+
+export const adaptRegistroCalificado = (response: any): IRegistroCalificado => {
+  return {
+    id: response.id,
+    fecha_creacion: response.fecha_creacion,
+    colaboradores: response.colaboradores,
+    autor: response.autor,
+    estado: response.estado,
+    programaAcademico: response.programaAcademico,
+    anexo: response.anexo,
+    observacion: response.observacion
+  }
+}
+
 
 export const adaptAuthoritie = (response: any) => {
   return {
@@ -80,4 +94,5 @@ export const adapters = {
   adaptSession,
   adaptSubItem,
   adaptTipoPrograma,
+  adaptRegistroCalificado
 }

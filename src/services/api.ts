@@ -1,4 +1,4 @@
-import { ICustomUser, IItem, IProgramType, ISession, ISubItem } from '@/utils/models'
+import { ICustomUser, IItem, IProgramType, IRegistroCalificado, ISession, ISubItem } from '@/utils/models'
 import { adapters } from './adapters'
 import { getSession } from '@/utils/actions'
 import axios from 'axios'
@@ -23,6 +23,7 @@ export const PATHS = {
   CREATE_REGISTRO_CALIFICADO: BASE_URL + 'registrocalificado',
   GET_ID_USER: BASE_URL + 'usuario/findUsuarioByEmail',
   GET_TIPOS_PROGRAMA: BASE_URL + 'programaAcademico/findAll',
+  GET_AUTOR_REGISTRO_CALIFICADO: BASE_URL + 'registrocalificado/findRegistroCalificadoById'
 }
 
 const TIME_OUT = 1000
@@ -357,6 +358,26 @@ const createRegistroCalificado = async ({
   })
 }
 
+const getAutorRC = async ({ id }: { id: number }): Promise<IRegistroCalificado> => {
+  return new Promise((resolve, reject) => {
+    setTimeout(async () => {
+      try {
+        const session = await getSession()
+        const url = PATHS.GET_AUTOR_REGISTRO_CALIFICADO + `/${id}`
+        const response = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${session?.token}`,
+          },
+        })
+
+        resolve(adapters.adaptRegistroCalificado(response.data))
+      } catch (error) {
+        reject('Error al obtener el autor del registro calificado')
+      }
+    }, TIME_OUT)
+  })
+}
+
 export const api = {
   createCustomUser,
   getAllCustomUsers,
@@ -369,4 +390,6 @@ export const api = {
   updateCustomUser,
   createRegistroCalificado,
   getProgramTypes,
+  getAutorRC
+  
 }

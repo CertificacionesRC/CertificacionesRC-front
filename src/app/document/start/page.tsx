@@ -23,6 +23,7 @@ import type { SubmitHandler } from 'react-hook-form'
 import { api } from '@/services/api'
 import { getSession } from '@/utils/actions'
 import useSWR from 'swr'
+import { IProgramType } from '@/utils/models'
 
 type FormValues = {
   program?: number
@@ -58,7 +59,7 @@ function DocumentStartPage() {
         autor: session?.id ?? 0,
         colaboradores: values.collaborators,
         fechaCreacion: values.date,
-        programaAcademico: data?.find((program) => program.id == values.program),
+        programaAcademico: data?.find((program: IProgramType) => program.id == values.program),
       })
       .then(() => {
         toast({
@@ -89,7 +90,7 @@ function DocumentStartPage() {
             <FormControl>
               <FormLabel>Tipo de programa</FormLabel>
               <Select placeholder="Selecciona" {...register('program', { required: true })}>
-                {data?.map((program) => (
+                {data?.map((program: IProgramType) => (
                   <option value={program.id} key={program.id}>
                     {program.name}
                   </option>

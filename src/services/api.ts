@@ -358,7 +358,7 @@ const createRegistroCalificado = async ({
   })
 }
 
-const getAutorRC = async ({ id }: { id: number }): Promise<IRegistroCalificado> => {
+const getAutorRC = async ({ id }: { id: number }): Promise<IRegistroCalificado | null> => {
   return new Promise((resolve, reject) => {
     setTimeout(async () => {
       try {

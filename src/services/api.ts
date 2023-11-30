@@ -26,7 +26,7 @@ export const PATHS = {
   GET_AUTOR_REGISTRO_CALIFICADO: BASE_URL + 'registrocalificado/findRegistroCalificadoById',
 }
 
-const TIME_OUT = 1000
+const TIME_OUT = 0
 
 const getProgramTypes = async (): Promise<IProgramType[]> => {
   return new Promise((resolve, reject) => {

@@ -282,9 +282,7 @@ const createCustomUser = async ({
             rolId: roleId,
             rolNombre: roleName,
           },
-        }
-
-        console.log(mock)
+        }        
 
         const response = await axios.post(PATHS.SAVE_USER, mock, {
           headers: {
@@ -302,8 +300,7 @@ const createCustomUser = async ({
         // })
 
         // const data = await response.json()
-
-        console.log(response)
+        
         resolve(response.data)
       } catch (error) {
         reject('Error al crear el usuario')

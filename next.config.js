@@ -2,6 +2,9 @@
 
 const nextConfig = {
   reactStrictMode: false,
+  experimental: {
+    webpackBuildWorker: true,
+  },
   webpack: (config) => {
     config.module.rules.push({
       test: /\.node/,

@@ -51,8 +51,7 @@ function DocumentStartPage() {
     },
   })
 
-  const onSubmit: SubmitHandler<FormValues> = async (values) => {
-    console.log(values)
+  const onSubmit: SubmitHandler<FormValues> = async (values) => {    
     const session = await getSession()
     return api
       .createRegistroCalificado({

@@ -51,8 +51,7 @@ interface Props {
   authorities: IAuthority[]
 }
 
-function MainAsideMenu({ authorities }: Props) {
-  console.log(authorities)
+function MainAsideMenu({ authorities }: Props) {  
   const formatedOptions = routes.filter((route) => {
     return route.authorities.some((authority) => {
       return authorities.some((userAuthority) => {

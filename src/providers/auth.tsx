@@ -1,10 +1,11 @@
 'use client'
 
-import { SessionContext } from '@/context/auth'
 import { ISession } from '@/utils/models'
+import { ReactNode } from 'react'
+import { SessionContext } from '@/context/auth'
 
 interface Props {
-  children: React.ReactNode
+  children: ReactNode
   session: ISession | null
 }
 

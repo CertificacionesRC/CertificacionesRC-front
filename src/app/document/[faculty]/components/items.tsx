@@ -62,16 +62,17 @@ function Items() {
                   fontSize="20px"
                   fontWeight="semibold"
                   color="textColor"
-                  as={Link}
-                  href={ROUTES.DOCUMENT_ITEM(item.id)}
+                  onClick={() => {
+                    router.push(ROUTES.DOCUMENT_ITEM(item.id))
+                  }}
                 >
                   <Box display="flex" gap="16px">
-                    {' '}
                     <Text>{index + 1}.</Text> <Text>{item.name}</Text>
                   </Box>
-
                   <AccordionIcon
                     ml="auto"
+                    bg="gray.200"
+                    rounded="full"
                     onClick={(event) => {
                       event.stopPropagation()
                       handleToggle('item', index, searchParams)

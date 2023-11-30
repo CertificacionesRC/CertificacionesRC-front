@@ -20,6 +20,7 @@ import {
 
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { api } from '@/services/api'
+import { revalidate } from '@/utils/actions'
 
 interface Props {
   isOpen: boolean
@@ -72,7 +73,9 @@ function CreateUserModal({ isOpen, onClose }: Props) {
         roleName: values.roleName,
         status: values.status,
       })
-      .then(() => {
+      .then(async () => {
+        await revalidate('/users')
+        onClose()
         toast({
           title: 'Usuario creado',
           status: 'success',

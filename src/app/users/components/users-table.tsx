@@ -5,7 +5,6 @@ import {
   Flex,
   IconButton,
   Input,
-  Select,
   Stack,
   Table,
   TableContainer,
@@ -82,10 +81,7 @@ function UsersTable({ users }: { users: ICustomUser[] }) {
                     {user.email}
                   </Td>
                   <Td textAlign="center" color="gray.700">
-                    <Select>
-                      <option value="active">Habilitado</option>
-                      <option value="active">Inhabilitado</option>
-                    </Select>
+                    {user.status ? 'Habilitado' : 'Deshabilitado'}
                   </Td>
                   <Td textAlign="center">
                     <IconButton

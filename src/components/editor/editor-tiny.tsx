@@ -7,6 +7,7 @@ import { Button, Flex, IconButton, Stack, Text, useId, useToast } from '@chakra-
 import { useRef, useState } from 'react'
 import { FiHelpCircle } from 'react-icons/fi'
 import { IoMdCheckmark } from 'react-icons/io'
+import { revalidate } from '@/utils/actions'
 
 const apiKey = 'ci3orvf7aeottyrtj86t4msks9v565y92jw8v2ve3qmodfc8'
 const initialData = '<p>This is the initial content of the editor.</p>'
@@ -37,7 +38,8 @@ export default function EditorTiny({ id, content, name }: { id: string; content?
           content,
           id,
         })
-        .then(() => {
+        .then(async () => {
+          await revalidate('/document/subitem/[id]')
           toast({
             title: 'Cambios guardados',
             status: 'success',

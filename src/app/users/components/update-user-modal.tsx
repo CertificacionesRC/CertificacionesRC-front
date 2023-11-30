@@ -20,6 +20,7 @@ import {
 import { ICustomUser } from '@/utils/models'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { api } from '@/services/api'
+import { revalidate } from '@/utils/actions'
 
 interface Props {
   isOpen: boolean
@@ -33,7 +34,7 @@ type FormValues = {
   name: string
   roleId: number
   roleName: string
-  status: string
+  status: boolean
   password: string
 }
 
@@ -67,7 +68,9 @@ function UpdateUserModal({ selectedUser, isOpen, onClose }: Props) {
         roleName: values.roleName,
         status: values.status,
       })
-      .then(() => {
+      .then(async () => {        
+        await revalidate('/users')
+        onClose()
         toast({
           title: 'Usuario actualizado',
           status: 'success',

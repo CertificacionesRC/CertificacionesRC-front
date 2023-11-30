@@ -68,7 +68,7 @@ export interface ICustomUser {
   id: string
   name: string
   role: IRole
-  status: string
+  status: boolean
   password: string
 }
 

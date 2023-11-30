@@ -23,7 +23,7 @@ export const PATHS = {
   CREATE_REGISTRO_CALIFICADO: BASE_URL + 'registrocalificado',
   GET_ID_USER: BASE_URL + 'usuario/findUsuarioByEmail',
   GET_TIPOS_PROGRAMA: BASE_URL + 'programaAcademico/findAll',
-  GET_AUTOR_REGISTRO_CALIFICADO: BASE_URL + 'registrocalificado/findRegistroCalificadoById'
+  GET_AUTOR_REGISTRO_CALIFICADO: BASE_URL + 'registrocalificado/findRegistroCalificadoById',
 }
 
 const TIME_OUT = 1000
@@ -215,7 +215,7 @@ const updateCustomUser = async ({
   password: string
   roleId: number
   roleName: string
-  status: string
+  status: boolean
 }) => {
   return new Promise((resolve, reject) => {
     setTimeout(async () => {
@@ -390,6 +390,5 @@ export const api = {
   updateCustomUser,
   createRegistroCalificado,
   getProgramTypes,
-  getAutorRC
-  
+  getAutorRC,
 }

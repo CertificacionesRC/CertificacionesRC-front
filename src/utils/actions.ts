@@ -2,6 +2,7 @@
 
 import { cookies } from 'next/headers'
 import { ISession } from './models'
+import { revalidatePath } from 'next/cache'
 
 const COOKIE_NAME = 'session'
 
@@ -35,4 +36,9 @@ export const signOut = async (): Promise<boolean> => {
   storeCookies.delete(COOKIE_NAME)
 
   return true
+}
+
+export const revalidate = async (path: string) => {
+  'use server'
+  revalidatePath(path)
 }

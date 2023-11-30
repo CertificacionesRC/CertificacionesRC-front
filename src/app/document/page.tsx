@@ -4,6 +4,7 @@ import { getSession } from '@/utils/actions'
 import CardInitDocument from './components/card-init-document'
 import { api } from '@/services/api'
 import LayoutItems from './[faculty]/components/layout-items'
+import TableDocument from './components/table-document'
 
 async function DocumentPage() {
   const session = await getSession()
@@ -16,7 +17,7 @@ async function DocumentPage() {
     <>
       {' '}
       {isAdmin !== null && isAdmin ? (
-        <CertificateHistory />
+        <TableDocument />
       ) : registroCalificado !== null ? (
         <LayoutItems />
       ) : (

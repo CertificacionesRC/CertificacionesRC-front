@@ -17,6 +17,7 @@ function SignInForm() {
   const toast = useToast()
 
   const {
+    reset,
     register,
     handleSubmit,
     formState: { isSubmitting },
@@ -41,6 +42,7 @@ function SignInForm() {
           status: 'success',
         })
 
+        reset()
         router.replace(ROUTES.HOME)
       })
       .catch((error) => {

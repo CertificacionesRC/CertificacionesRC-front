@@ -3,7 +3,7 @@ import { IMAGE_PATHS } from '@/utils/constants'
 import { ROUTES } from '@/utils/routes'
 import Image from 'next/image'
 import Link from 'next/link'
-import AuthLayout from '@/components/layouts/auth-layout'
+import AuthLayout from '@/components/layouts/auth/layout'
 
 function RootPage() {
   return (

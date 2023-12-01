@@ -6,13 +6,13 @@ import { revalidatePath } from 'next/cache'
 
 const COOKIE_NAME = 'session'
 
-export const getSession = async (): Promise<ISession | null> => {
+export const getSession = async (): Promise<ISession> => {
   const storeCookies = cookies()
   const requestCookie = storeCookies.get(COOKIE_NAME)
   const session = requestCookie?.value
 
   if (!session) {
-    return null
+    throw 'No session found'
   }
 
   const sessionObject = JSON.parse(session)

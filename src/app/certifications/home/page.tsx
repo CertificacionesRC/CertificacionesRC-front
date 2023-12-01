@@ -1,12 +1,15 @@
-import { Box, Text } from '@chakra-ui/react'
+import { IMAGE_PATHS } from '@/utils/constants'
+import { Center, Heading, Stack } from '@chakra-ui/react'
+import Image from 'next/image'
 
 function HomePage() {
   return (
-    <Box w="full" h="full" display="flex" justifyContent="center" alignItems="center">
-      <Text textAlign="center" fontSize="4xl" fontWeight="semibold" color="textColor">
-        Bienvenido a Registro Calificado
-      </Text>
-    </Box>
+    <Center h="full">
+      <Stack alignItems="center" spacing="4">
+        <Heading as="h1">Bienvenido a Registro Calificado</Heading>
+        <Image alt="landing background" width={300} height={279.75} src={IMAGE_PATHS.BACKGROUNDS.HOME} />
+      </Stack>
+    </Center>
   )
 }
 

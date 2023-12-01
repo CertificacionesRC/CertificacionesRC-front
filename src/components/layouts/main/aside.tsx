@@ -1,12 +1,12 @@
-import { AsideMenuItem } from '@/components/layouts'
-import { FiUsers } from 'react-icons/fi'
 import { BiHome, BiSolidHome } from 'react-icons/bi'
+import { FiUsers } from 'react-icons/fi'
 import { HiUsers } from 'react-icons/hi'
+import { IAuthority, TAuthorities } from '@/utils/models'
 import { IoDocumentAttachOutline, IoDocumentAttach, IoDocumentTextOutline, IoDocumentText } from 'react-icons/io5'
 import { ROUTES } from '@/utils/routes'
 import { Stack, Text } from '@chakra-ui/react'
-import { IAuthority, TAuthorities } from '@/utils/models'
-import SignOut from './signout'
+import AsideMenuItem from '@/components/layouts/main/aside-item'
+import SignOut from '@/components/buttons/signout'
 
 type IRoutes = {
   href: string
@@ -51,7 +51,7 @@ interface Props {
   authorities: IAuthority[]
 }
 
-function MainAsideMenu({ authorities }: Props) {  
+function MainAsideMenu({ authorities }: Props) {
   const formatedOptions = routes.filter((route) => {
     return route.authorities.some((authority) => {
       return authorities.some((userAuthority) => {
@@ -63,7 +63,7 @@ function MainAsideMenu({ authorities }: Props) {
   return (
     <Stack spacing="4">
       <Stack px="4" justifyContent="center" h="58px">
-        <Text as="span" fontWeight="extrabold" fontSize="2xl" color="primary">
+        <Text as="span" fontWeight="semibold" fontSize="xl">
           Certificaciones RC
         </Text>
       </Stack>

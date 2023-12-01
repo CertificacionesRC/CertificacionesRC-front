@@ -7,17 +7,18 @@ export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
 
   if (pathname.startsWith('/auth')) {
-    const session = await getSession()
-
-    if (session) {
+    try {
+      await getSession()
       return NextResponse.redirect(new URL(ROUTES.HOME, request.url))
+    } catch (error) {
+      console.error('error')
     }
   }
 
   if (pathname.startsWith('/certifications')) {
-    const session = await getSession()
-
-    if (!session) {
+    try {
+      await getSession()
+    } catch (error) {
       return NextResponse.redirect(new URL(ROUTES.SIGNIN, request.url))
     }
   }

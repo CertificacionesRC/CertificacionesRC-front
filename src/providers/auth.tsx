@@ -6,7 +6,7 @@ import { SessionContext } from '@/context/auth'
 
 interface Props {
   children: ReactNode
-  session: ISession | null
+  session: ISession
 }
 
 function SessionProvider({ children, session }: Props) {

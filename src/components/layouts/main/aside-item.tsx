@@ -18,14 +18,17 @@ function AsideMenuItem({ name, icon, activeIcon, href }: Props) {
 
   return (
     <Button
-      isActive={isActive}
       as={Link}
-      href={href}
-      justifyContent="flex-start"
-      variant="ghost"
-      leftIcon={!isActive ? icon : activeIcon}
       fontSize="18px"
       fontWeight="medium"
+      href={href}
+      isActive={isActive}
+      justifyContent="flex-start"
+      leftIcon={!isActive ? icon : activeIcon}
+      variant="ghost"
+      _active={{
+        bg: 'primary.50',
+      }}
     >
       {name}
     </Button>

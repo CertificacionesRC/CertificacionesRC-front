@@ -1,5 +1,5 @@
 import { Card, CardBody, CardHeader, Text } from '@chakra-ui/react'
-import AuthLayout from '@/components/layouts/auth-layout'
+import AuthLayout from '@/components/layouts/auth/layout'
 import SignInForm from '@/app/auth/signin/components/form'
 
 function SignInPage() {

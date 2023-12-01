@@ -1,15 +1,15 @@
-import { Button } from '@/utils/theme/components/button'
 import { colors } from '@/utils/theme/colors'
 import { extendTheme } from '@chakra-ui/react'
 
-const overrides = {
+export const theme = extendTheme({
   colors,
+  config: {
+    initialColorMode: 'light',
+    useSystemColorMode: true,
+  },
   fonts: {
-    body: 'Inter',
+    body: 'Inter,system-ui,sans-serif',
+    heading: 'Inter,system-ui,sans-serif',
+    mono: 'Inter,system-ui,sans-serif',
   },
-  components: {
-    Button,
-  },
-}
-
-export const theme = extendTheme(overrides)
+})

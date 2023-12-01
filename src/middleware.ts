@@ -6,31 +6,15 @@ import type { NextRequest } from 'next/server'
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
 
-  if (pathname === ROUTES.SIGNIN) {
+  if (pathname === '/auth') {
     const session = await getSession()
 
     if (session) {
-      return NextResponse.redirect(new URL(ROUTES.DOCUMENT, request.url))
+      return NextResponse.redirect(new URL(ROUTES.HOME, request.url))
     }
   }
 
-  if (pathname.startsWith(ROUTES.DOCUMENT)) {
-    const session = await getSession()
-
-    if (!session) {
-      return NextResponse.redirect(new URL(ROUTES.SIGNIN, request.url))
-    }
-  }
-
-  if (pathname.startsWith('/certificaciones')) {
-    const session = await getSession()
-
-    if (!session) {
-      return NextResponse.redirect(new URL(ROUTES.SIGNIN, request.url))
-    }
-  }
-
-  if (pathname === ROUTES.USERS) {
+  if (pathname.startsWith('/certifications')) {
     const session = await getSession()
 
     if (!session) {

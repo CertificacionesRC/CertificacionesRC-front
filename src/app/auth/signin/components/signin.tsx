@@ -48,7 +48,7 @@ function SignIn() {
       })
       .then(async (session) => {
         await signIn(session)
-        router.replace(ROUTES.DOCUMENT)
+        router.replace(ROUTES.HOME)
         toast({
           title: session.mensaje,
           status: 'success',

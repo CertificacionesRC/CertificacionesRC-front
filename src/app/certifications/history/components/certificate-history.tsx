@@ -1,10 +1,11 @@
 import { AiOutlineFileSearch } from 'react-icons/ai'
-import { datos } from './data-certificate'
 import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Input, Card, Stack, Flex, IconButton } from '@chakra-ui/react'
 import Link from 'next/link'
 import { ROUTES } from '@/utils/routes'
+import { api } from '@/services/api'
 
-function CertificateHistory() {
+async function CertificateHistory() {
+  const datos = (await api.getALLRC({ state: 'prueba' })) ?? []
   return (
     <Stack spacing={4}>
       <Flex gap="4">
@@ -33,13 +34,13 @@ function CertificateHistory() {
               {datos.map((certificado, index) => (
                 <Tr key={index}>
                   <Td textAlign="center" fontSize="sm" fontWeight="medium" color="gray.700">
-                    {certificado.codigo}
+                    {certificado.id}
                   </Td>
                   <Td textAlign="center" fontSize="sm" fontWeight="medium" color="gray.700">
-                    {certificado.programa}
+                    {certificado.programaAcademico?.name}
                   </Td>
                   <Td textAlign="center" fontSize="sm" fontWeight="medium" color="gray.700">
-                    {certificado.año}
+                    {certificado.fecha_creacion}
                   </Td>
                   <Td textAlign="center" fontSize="sm">
                     <IconButton

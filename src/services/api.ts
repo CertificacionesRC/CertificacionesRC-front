@@ -24,6 +24,9 @@ export const PATHS = {
   GET_ID_USER: BASE_URL + 'usuario/findUsuarioByEmail',
   GET_TIPOS_PROGRAMA: BASE_URL + 'programaAcademico/findAll',
   GET_AUTOR_REGISTRO_CALIFICADO: BASE_URL + 'registrocalificado/findRegistroCalificadoById',
+  GET_REGISTROS_CALIFICADOS:  BASE_URL + 'registrocalificado/findAll',
+  GET_REGISTROS_CALIFICADOS_BY_STATE:  BASE_URL + 'registrocalificado/findAllByEstado',
+  GET_REGISTROS_CALIFICADOS_BY_DATE:  BASE_URL + 'registrocalificado/findAllByDate'
 }
 
 const TIME_OUT = 0
@@ -351,7 +354,7 @@ const createRegistroCalificado = async ({
   })
 }
 
-const getAutorRC = async ({ id }: { id: number }): Promise<IRegistroCalificado | null> => {
+const getExistsRC = async ({ id }: { id: number }): Promise<boolean> => {
   return new Promise((resolve, reject) => {
     setTimeout(async () => {
       try {
@@ -362,10 +365,29 @@ const getAutorRC = async ({ id }: { id: number }): Promise<IRegistroCalificado |
             Authorization: `Bearer ${session?.token}`,
           },
         })
-
-        resolve(adapters.adaptRegistroCalificado(response.data))
+        if(response.data.data === null) resolve(false)
+        else resolve(true)
       } catch (error) {
         reject('Error al obtener el autor del registro calificado')
+      }
+    }, TIME_OUT)
+  })
+}
+const getALLRC = async ({ state }: { state: string }): Promise<IRegistroCalificado[] | null> => {
+  return new Promise((resolve, reject) => {
+    setTimeout(async () => {
+      try {
+        const session = await getSession()
+        const url = PATHS.GET_REGISTROS_CALIFICADOS
+        const response = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${session?.token}`,
+          },
+        })
+        
+        resolve(response.data.data.map(adapters.adaptRegistroCalificado))
+      } catch (error) {
+        reject('Error al obtener los registros calificados')
       }
     }, TIME_OUT)
   })
@@ -382,6 +404,7 @@ export const api = {
   updateCustomUser,
   createRegistroCalificado,
   getProgramTypes,
-  getAutorRC,
+  getExistsRC,
+  getALLRC,
   signIn,
 }

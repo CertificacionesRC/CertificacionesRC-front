@@ -12,9 +12,10 @@ async function DocumentPage() {
     return null
   }
 
-  const documentExists = await api.getAutorRC({
+  const documentExists = await api.getExistsRC({
     id: session.id,
   })
+  console.log(documentExists)
 
   if (documentExists) {
     return <LayoutItems />

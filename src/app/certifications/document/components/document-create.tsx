@@ -19,9 +19,7 @@ import {
 import { api } from '@/services/api'
 import { getSession } from '@/utils/actions'
 import { IProgramType } from '@/utils/models'
-import { ROUTES } from '@/utils/routes'
 import { useForm } from 'react-hook-form'
-import { useRouter } from 'next/navigation'
 import type { SubmitHandler } from 'react-hook-form'
 import useSWR from 'swr'
 
@@ -32,7 +30,6 @@ type FormValues = {
 }
 
 function DocumentCreate() {
-  const router = useRouter()
   const toast = useToast()
 
   const { data } = useSWR('api/programas', () => {
@@ -65,7 +62,6 @@ function DocumentCreate() {
           title: 'Registro acádemico creado exitosamente',
           status: 'success',
         })
-        router.replace(ROUTES.DOCUMENT_FACULTY('sistemas'))
       })
       .catch((error) => {
         toast({

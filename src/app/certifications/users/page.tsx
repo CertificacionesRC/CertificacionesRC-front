@@ -1,16 +1,16 @@
 import { api } from '@/services/api'
 import { Stack, Text } from '@chakra-ui/react'
-import UsersTable from './components/users-table'
+import UsersLayout from './components/users-layout'
 
 async function UsersPage() {
   const users = await api.getAllCustomUsers()
 
   return (
     <Stack spacing="4">
-      <Text fontWeight="semibold" fontSize="2xl" color="textColor">
+      <Text as="h1" fontWeight="semibold" fontSize="xl">
         Usuarios
       </Text>
-      <UsersTable users={users} />
+      <UsersLayout users={users} />
     </Stack>
   )
 }

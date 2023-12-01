@@ -68,7 +68,7 @@ function UpdateUserModal({ selectedUser, isOpen, onClose }: Props) {
         roleName: values.roleName,
         status: values.status,
       })
-      .then(async () => {        
+      .then(async () => {
         await revalidate('/users')
         onClose()
         toast({
@@ -87,7 +87,7 @@ function UpdateUserModal({ selectedUser, isOpen, onClose }: Props) {
   return (
     <Modal isCentered isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent autoComplete="off" as="form" onSubmit={handleSubmit(onSubmit)}>
+      <ModalContent as="form" onSubmit={handleSubmit(onSubmit)}>
         <ModalCloseButton />
         <ModalHeader>Editar usuario</ModalHeader>
         <ModalBody>
@@ -130,7 +130,7 @@ function UpdateUserModal({ selectedUser, isOpen, onClose }: Props) {
           </Stack>
         </ModalBody>
         <ModalFooter>
-          <Button type="submit" w="full" colorScheme="blue" isLoading={isSubmitting}>
+          <Button type="submit" w="full" isLoading={isSubmitting}>
             Guardar cambios
           </Button>
         </ModalFooter>

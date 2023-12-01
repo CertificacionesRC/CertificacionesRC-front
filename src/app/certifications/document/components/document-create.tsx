@@ -16,14 +16,14 @@ import {
   useToast,
 } from '@chakra-ui/react'
 
-import { ROUTES } from '@/utils/routes'
-import { useRouter } from 'next/navigation'
-import { useForm } from 'react-hook-form'
-import type { SubmitHandler } from 'react-hook-form'
 import { api } from '@/services/api'
 import { getSession } from '@/utils/actions'
-import useSWR from 'swr'
 import { IProgramType } from '@/utils/models'
+import { ROUTES } from '@/utils/routes'
+import { useForm } from 'react-hook-form'
+import { useRouter } from 'next/navigation'
+import type { SubmitHandler } from 'react-hook-form'
+import useSWR from 'swr'
 
 type FormValues = {
   program?: number
@@ -31,7 +31,7 @@ type FormValues = {
   collaborators: string
 }
 
-function DocumentStartPage() {
+function DocumentCreate() {
   const router = useRouter()
   const toast = useToast()
 
@@ -51,7 +51,7 @@ function DocumentStartPage() {
     },
   })
 
-  const onSubmit: SubmitHandler<FormValues> = async (values) => {    
+  const onSubmit: SubmitHandler<FormValues> = async (values) => {
     const session = await getSession()
     return api
       .createRegistroCalificado({
@@ -114,4 +114,4 @@ function DocumentStartPage() {
   )
 }
 
-export default DocumentStartPage
+export default DocumentCreate

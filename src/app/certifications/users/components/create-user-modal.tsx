@@ -135,7 +135,7 @@ function CreateUserModal({ isOpen, onClose }: Props) {
           </Stack>
         </ModalBody>
         <ModalFooter>
-          <Button type="submit" w="full" colorScheme="blue" isLoading={isSubmitting}>
+          <Button type="submit" w="full" isLoading={isSubmitting}>
             Crear usuario
           </Button>
         </ModalFooter>

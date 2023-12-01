@@ -32,10 +32,9 @@ export const adaptRegistroCalificado = (response: any): IRegistroCalificado => {
     estado: response.estado,
     programaAcademico: response.programaAcademico,
     anexo: response.anexo,
-    observacion: response.observacion
+    observacion: response.observacion,
   }
 }
-
 
 export const adaptAuthoritie = (response: any) => {
   return {
@@ -47,6 +46,7 @@ export const adaptSession = (response: any): ISession => {
   return {
     mensaje: response.mensaje,
     token: response.token,
+    id: response.id,
     user: {
       username: response.user.username,
       enabled: response.user.enabled,
@@ -55,7 +55,6 @@ export const adaptSession = (response: any): ISession => {
       authorities: response.user.authorities.map(adaptAuthoritie),
       credentialsNonExpired: response.user.credentialsNonExpired,
     },
-    id: response.id,
   }
 }
 
@@ -94,5 +93,5 @@ export const adapters = {
   adaptSession,
   adaptSubItem,
   adaptTipoPrograma,
-  adaptRegistroCalificado
+  adaptRegistroCalificado,
 }

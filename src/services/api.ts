@@ -28,6 +28,42 @@ export const PATHS = {
 
 const TIME_OUT = 0
 
+export const signIn = async ({ email, password }: { email: string; password: string }): Promise<ISession> => {
+  return new Promise((resolve, reject) => {
+    setTimeout(async () => {
+      try {
+        const signInResponse = await fetch(PATHS.SIGN_IN, {
+          method: 'POST',
+          body: JSON.stringify({
+            contrasena: password,
+            correo: email,
+          }),
+        })
+
+        const signInData = await signInResponse.json()
+
+        const userIdResponse = await fetch(PATHS.GET_ID_USER + `/${email}`, {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${signInData.token}`,
+          },
+        })
+
+        const userIdData = await userIdResponse.json()
+
+        const adapt = adapters.adaptSession({
+          id: userIdData.data.id,
+          ...signInData,
+        })
+
+        resolve(adapt)
+      } catch (error) {
+        reject('Error al iniciar sesión')
+      }
+    }, 1000)
+  })
+}
+
 const getProgramTypes = async (): Promise<IProgramType[]> => {
   return new Promise((resolve, reject) => {
     setTimeout(async () => {
@@ -75,46 +111,6 @@ const getSubItems = async ({ id }: { id: string }): Promise<ISubItem[]> => {
         resolve(data.map(adapters.adaptSubItem))
       } catch (error) {
         reject('Error al obtener los subitems')
-      }
-    }, TIME_OUT)
-  })
-}
-
-const signIn = async ({ username, password }: { username: string; password: string }): Promise<ISession> => {
-  return new Promise((resolve, reject) => {
-    setTimeout(async () => {
-      try {
-        const response = await fetch(PATHS.SIGN_IN, {
-          method: 'POST',
-          body: JSON.stringify({
-            correo: username,
-            contrasena: password,
-          }),
-        })
-        const data = await response.json()
-        const responseUser = await fetch(PATHS.GET_ID_USER + `/${username}`, {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${data?.token}`,
-          },
-        })
-
-        const userData = await responseUser.json()
-        resolve(adapters.adaptSession({ ...data, id: userData.data.id }))
-        // resolve({
-        //   mensaje: '',
-        //   token: '',
-        //   user: {
-        //     username: '',
-        //     enabled: true,
-        //     accountNonLocked: false,
-        //     accountNonExpired: false,
-        //     authorities:[{authority:'CORDINADOR'}],
-        //     credentialsNonExpired: false,
-        //   },
-        // })
-      } catch (error) {
-        reject('Error al iniciar sesión')
       }
     }, TIME_OUT)
   })
@@ -282,7 +278,7 @@ const createCustomUser = async ({
             rolId: roleId,
             rolNombre: roleName,
           },
-        }        
+        }
 
         const response = await axios.post(PATHS.SAVE_USER, mock, {
           headers: {
@@ -300,7 +296,7 @@ const createCustomUser = async ({
         // })
 
         // const data = await response.json()
-        
+
         resolve(response.data)
       } catch (error) {
         reject('Error al crear el usuario')
@@ -382,10 +378,10 @@ export const api = {
   getItems,
   getSubItem,
   getSubItems,
-  signIn,
   updateContentSubItem,
   updateCustomUser,
   createRegistroCalificado,
   getProgramTypes,
   getAutorRC,
+  signIn,
 }

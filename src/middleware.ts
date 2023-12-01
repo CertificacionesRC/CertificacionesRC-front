@@ -6,7 +6,7 @@ import type { NextRequest } from 'next/server'
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
 
-  if (pathname === '/auth') {
+  if (pathname.startsWith('/auth')) {
     const session = await getSession()
 
     if (session) {

@@ -1,5 +1,5 @@
 import { Grid, GridItem } from '@chakra-ui/react'
-import { MainAsideMenu, MainHeader } from '@/components/layout'
+import { MainAsideMenu, MainHeader } from '@/components/layouts'
 import { IAuthority } from '@/utils/models'
 import { IBreadcum } from './main-header'
 

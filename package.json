@@ -1,6 +1,6 @@
 {
   "name": "certificaciones-rc",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -30,7 +30,8 @@
     "react-icons": "4.11.0",
     "react-paginate": "8.2.0",
     "react-table": "7.8.0",
-    "swr": "^2.2.4"
+    "swr": "^2.2.4",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/node": "20.8.10",

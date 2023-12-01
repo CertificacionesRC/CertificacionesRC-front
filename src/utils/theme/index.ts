@@ -1,5 +1,6 @@
 import { colors } from '@/utils/theme/colors'
 import { extendTheme } from '@chakra-ui/react'
+import { Button } from '@/utils/theme/components/button'
 
 export const theme = extendTheme({
   colors,
@@ -11,5 +12,8 @@ export const theme = extendTheme({
     body: 'Inter,system-ui,sans-serif',
     heading: 'Inter,system-ui,sans-serif',
     mono: 'Inter,system-ui,sans-serif',
+  },
+  components: {
+    Button,
   },
 })

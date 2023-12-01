@@ -1,6 +1,6 @@
 'use client'
 
-import { signOut } from '@/utils/actions'
+import { removeAuthCookies } from '@/utils/actions'
 import { ROUTES } from '@/utils/routes'
 import { Button } from '@chakra-ui/react'
 import { useRouter } from 'next/navigation'
@@ -15,7 +15,7 @@ function SignOut() {
       variant="ghost"
       leftIcon={<FiLogOut />}
       onClick={async () => {
-        await signOut()
+        await removeAuthCookies()
         router.replace(ROUTES.SIGNIN)
       }}
     >

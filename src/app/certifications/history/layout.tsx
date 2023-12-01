@@ -1,4 +1,4 @@
-import { MainLayout } from '@/components/layout'
+import { MainLayout } from '@/components/layouts'
 import { getSession } from '@/utils/actions'
 
 async function HistoryLayout({ children }: React.PropsWithChildren) {

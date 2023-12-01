@@ -1,4 +1,4 @@
-import { AsideMenuItem } from '@/components/layout'
+import { AsideMenuItem } from '@/components/layouts'
 import { FiUsers } from 'react-icons/fi'
 import { BiHome, BiSolidHome } from 'react-icons/bi'
 import { HiUsers } from 'react-icons/hi'

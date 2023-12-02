@@ -1,25 +1,20 @@
 'use client'
 
+import { CUSTOM_USER_MOCK } from '@/utils/constants'
 import { ICustomUser } from '@/utils/models'
 import { PropsWithChildren, createContext, useContext, useReducer } from 'react'
 
-interface IUserModalContext {
-  handleCreate: () => void
-  handleEdit: (user: ICustomUser) => void
-  handleClose: () => void
+interface IUserModalState {
   isOpenCreate: boolean
   isOpenEdit: boolean
-  user?: ICustomUser
+  user: ICustomUser
 }
 
-const UserModalContext = createContext<IUserModalContext>({
-  handleCreate: () => {},
-  handleEdit: () => {},
-  handleClose: () => {},
-  isOpenCreate: false,
-  isOpenEdit: false,
-  user: undefined,
-})
+interface IUserModalContextProps extends IUserModalState {
+  handleClose: () => void
+  handleCreate: () => void
+  handleEdit: (user: ICustomUser) => void
+}
 
 enum UserModalKind {
   CLOSE = 'CLOSE',
@@ -27,35 +22,49 @@ enum UserModalKind {
   EDIT = 'EDIT',
 }
 
-interface IUserModalActions {
-  payload: IUserModalState
-  type: UserModalKind
-}
-
-interface IUserModalState {
-  isOpenCreate: boolean
-  isOpenEdit: boolean
-  user?: ICustomUser
-}
+type UserModalActions =
+  | { type: UserModalKind.CLOSE }
+  | { type: UserModalKind.CREATE }
+  | { type: UserModalKind.EDIT; payload: { user: ICustomUser } }
 
 const initialState: IUserModalState = {
   isOpenCreate: false,
   isOpenEdit: false,
-  user: undefined,
+  user: CUSTOM_USER_MOCK,
 }
 
-const userModalReducer = (state: IUserModalState, action: IUserModalActions): IUserModalState => {
-  const { type, payload } = action
+const UserModalContext = createContext<IUserModalContextProps>({
+  handleClose: () => {},
+  handleCreate: () => {},
+  handleEdit: () => {},
+  ...initialState,
+})
+
+const userModalReducer = (state: IUserModalState, action: UserModalActions): IUserModalState => {
+  const { type } = action
 
   switch (type) {
     case UserModalKind.CREATE:
-      return payload
+      return {
+        ...state,
+        isOpenCreate: true,
+        isOpenEdit: false,
+      }
 
     case UserModalKind.EDIT:
-      return payload
+      return {
+        ...state,
+        isOpenCreate: false,
+        isOpenEdit: true,
+        user: action.payload.user,
+      }
 
     case UserModalKind.CLOSE:
-      return payload
+      return {
+        ...state,
+        isOpenCreate: false,
+        isOpenEdit: false,
+      }
 
     default:
       return state
@@ -66,34 +75,15 @@ export function UserModalProvider({ children }: PropsWithChildren) {
   const [state, dispatch] = useReducer(userModalReducer, initialState)
 
   const handleEdit = (user: ICustomUser) => {
-    dispatch({
-      type: UserModalKind.EDIT,
-      payload: {
-        isOpenCreate: false,
-        isOpenEdit: true,
-        user,
-      },
-    })
+    dispatch({ type: UserModalKind.EDIT, payload: { user } })
   }
 
   const handleCreate = () => {
-    dispatch({
-      type: UserModalKind.CREATE,
-      payload: {
-        isOpenCreate: true,
-        isOpenEdit: false,
-      },
-    })
+    dispatch({ type: UserModalKind.CREATE })
   }
 
   const handleClose = () => {
-    dispatch({
-      type: UserModalKind.CLOSE,
-      payload: {
-        isOpenCreate: false,
-        isOpenEdit: false,
-      },
-    })
+    dispatch({ type: UserModalKind.CLOSE })
   }
 
   return (

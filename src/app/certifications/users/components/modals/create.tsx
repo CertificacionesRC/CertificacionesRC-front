@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
 import {
@@ -17,14 +18,12 @@ import {
   useToast,
 } from '@chakra-ui/react'
 
-import { ICustomUser } from '@/utils/models'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { api } from '@/services/api'
 import { revalidate } from '@/utils/actions'
 
 interface Props {
   isOpen: boolean
-  selectedUser: ICustomUser
   onClose: () => void
 }
 
@@ -33,12 +32,12 @@ type FormValues = {
   id: string
   name: string
   roleId: number
-  roleName: string
-  status: boolean
+  roleName: 'ADMIN' | 'CORDINADOR' | 'SUPERUSUARIO'
+  status: string
   password: string
 }
 
-function UpdateUserModal({ selectedUser, isOpen, onClose }: Props) {
+function CreateModal({ isOpen, onClose }: Props) {
   const toast = useToast()
 
   const {
@@ -46,25 +45,31 @@ function UpdateUserModal({ selectedUser, isOpen, onClose }: Props) {
     handleSubmit,
     formState: { isSubmitting },
   } = useForm<FormValues>({
-    values: {
-      email: selectedUser.email,
-      id: selectedUser.id,
-      name: selectedUser.name,
-      roleId: selectedUser.role.roleId,
-      roleName: selectedUser.role.roleName,
-      status: selectedUser.status,
-      password: selectedUser.password,
+    defaultValues: {
+      email: '',
+      id: '',
+      name: '',
+      roleId: 1,
+      roleName: 'CORDINADOR',
+      status: '',
+      password: '',
     },
   })
 
   const onSubmit: SubmitHandler<FormValues> = (values) => {
+    const rolId = {
+      ADMIN: 1,
+      CORDINADOR: 2,
+      SUPERUSUARIO: 3,
+    }
+
     return api
-      .updateCustomUser({
+      .createCustomUser({
         email: values.email,
         id: values.id,
         name: values.name,
         password: values.password,
-        roleId: values.roleId,
+        roleId: rolId[values.roleName],
         roleName: values.roleName,
         status: values.status,
       })
@@ -72,7 +77,7 @@ function UpdateUserModal({ selectedUser, isOpen, onClose }: Props) {
         await revalidate('/users')
         onClose()
         toast({
-          title: 'Usuario actualizado',
+          title: 'Usuario creado',
           status: 'success',
         })
       })
@@ -87,9 +92,9 @@ function UpdateUserModal({ selectedUser, isOpen, onClose }: Props) {
   return (
     <Modal isCentered isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent as="form" onSubmit={handleSubmit(onSubmit)}>
+      <ModalContent autoComplete="off" as="form" onSubmit={handleSubmit(onSubmit)}>
         <ModalCloseButton />
-        <ModalHeader>Editar usuario</ModalHeader>
+        <ModalHeader>Crear usuario</ModalHeader>
         <ModalBody>
           <Stack spacing="4">
             <FormControl>
@@ -98,7 +103,7 @@ function UpdateUserModal({ selectedUser, isOpen, onClose }: Props) {
             </FormControl>
             <FormControl>
               <FormLabel>Usuario *</FormLabel>
-              <Input type="email" {...register('email', { required: true })} />
+              <Input type="text" {...register('email', { required: true })} />
             </FormControl>
             <FormControl>
               <FormLabel>Nombre *</FormLabel>
@@ -123,7 +128,7 @@ function UpdateUserModal({ selectedUser, isOpen, onClose }: Props) {
               <FormLabel>Rol *</FormLabel>
               <Select {...register('roleName', { required: true })}>
                 <option value="ADMIN">Administrador</option>
-                <option value="CORDINADOR">Coordinador</option>
+                <option value="COORDINADOR">Coordinador</option>
                 <option value="SUPERUSUARIO">Superusuario</option>
               </Select>
             </FormControl>
@@ -131,7 +136,7 @@ function UpdateUserModal({ selectedUser, isOpen, onClose }: Props) {
         </ModalBody>
         <ModalFooter>
           <Button type="submit" w="full" isLoading={isSubmitting}>
-            Guardar cambios
+            Crear usuario
           </Button>
         </ModalFooter>
       </ModalContent>
@@ -139,4 +144,4 @@ function UpdateUserModal({ selectedUser, isOpen, onClose }: Props) {
   )
 }
 
-export default UpdateUserModal
+export default CreateModal

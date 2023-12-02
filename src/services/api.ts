@@ -24,9 +24,9 @@ export const PATHS = {
   GET_ID_USER: BASE_URL + 'usuario/findUsuarioByEmail',
   GET_TIPOS_PROGRAMA: BASE_URL + 'programaAcademico/findAll',
   GET_AUTOR_REGISTRO_CALIFICADO: BASE_URL + 'registrocalificado/findRegistroCalificadoById',
-  GET_REGISTROS_CALIFICADOS:  BASE_URL + 'registrocalificado/findAll',
-  GET_REGISTROS_CALIFICADOS_BY_STATE:  BASE_URL + 'registrocalificado/findAllByEstado',
-  GET_REGISTROS_CALIFICADOS_BY_DATE:  BASE_URL + 'registrocalificado/findAllByDate'
+  GET_REGISTROS_CALIFICADOS: BASE_URL + 'registrocalificado/findAll',
+  GET_REGISTROS_CALIFICADOS_BY_STATE: BASE_URL + 'registrocalificado/findAllByEstado',
+  GET_REGISTROS_CALIFICADOS_BY_DATE: BASE_URL + 'registrocalificado/findAllByDate',
 }
 
 const TIME_OUT = 0
@@ -215,34 +215,31 @@ const updateCustomUser = async ({
   roleId: number
   roleName: string
   status: boolean
-}) => {
+}): Promise<string> => {
   return new Promise((resolve, reject) => {
     setTimeout(async () => {
       try {
         const session = await getSession()
 
-        const response = await axios.patch(
-          PATHS.UPDATE_USER + `/${id}`,
-          {
-            contrasena: password,
-            correo: email,
-            estado: status,
-            nombre: name,
-            id,
-            rol: {
-              rolId: roleId,
-              rolNombre: roleName,
-            },
+        const body = {
+          contrasena: password,
+          correo: email,
+          estado: status,
+          nombre: name,
+          id,
+          rol: {
+            rolId: roleId,
+            rolNombre: roleName,
           },
-          {
-            headers: {
-              Authorization: `Bearer ${session?.token}`,
-            },
-          }
-        )
+        }
 
-        // const data = await response.json()
-        resolve(response.data)
+        await axios.patch(PATHS.UPDATE_USER + `/${id}`, body, {
+          headers: {
+            Authorization: `Bearer ${session.token}`,
+          },
+        })
+
+        resolve('Usuario actualizado correctamente')
       } catch (error) {
         reject('Error al actualizar el usuario')
       }
@@ -334,7 +331,7 @@ const createRegistroCalificado = async ({
             observacion: null,
             programaAcademico: {
               id: programaAcademico?.id,
-              nombre: programaAcademico?.nombre,
+              nombre: programaAcademico?.name,
               tipo: programaAcademico?.type,
               facultad: programaAcademico?.faculty,
               registroCalificado: null,
@@ -365,7 +362,7 @@ const getExistsRC = async ({ id }: { id: number }): Promise<boolean> => {
             Authorization: `Bearer ${session?.token}`,
           },
         })
-        if(response.data.data === null) resolve(false)
+        if (response.data.data === null) resolve(false)
         else resolve(true)
       } catch (error) {
         reject('Error al obtener el autor del registro calificado')
@@ -373,21 +370,31 @@ const getExistsRC = async ({ id }: { id: number }): Promise<boolean> => {
     }, TIME_OUT)
   })
 }
-const getALLRC = async ({ state, endDate, startDate }: { state: string; endDate: string; startDate:string }): Promise<IRegistroCalificado[]> => {
+const getALLRC = async ({
+  state,
+  endDate,
+  startDate,
+}: {
+  state: string
+  endDate: string
+  startDate: string
+}): Promise<IRegistroCalificado[]> => {
   return new Promise((resolve, reject) => {
     setTimeout(async () => {
       try {
         const session = await getSession()
         let url
-        if(state) url = PATHS.GET_REGISTROS_CALIFICADOS_BY_STATE + `?estado=${state}`
-        else if (startDate) url = PATHS.GET_REGISTROS_CALIFICADOS_BY_DATE + `?fechaInicio=${startDate} 00:00:00&fechaFin=${endDate} 00:00:00`
+        if (state) url = PATHS.GET_REGISTROS_CALIFICADOS_BY_STATE + `?estado=${state}`
+        else if (startDate)
+          url =
+            PATHS.GET_REGISTROS_CALIFICADOS_BY_DATE + `?fechaInicio=${startDate} 00:00:00&fechaFin=${endDate} 00:00:00`
         else url = PATHS.GET_REGISTROS_CALIFICADOS
         const response = await axios.get(url, {
           headers: {
             Authorization: `Bearer ${session?.token}`,
           },
         })
-        if(response.data.data === null) resolve([])
+        if (response.data.data === null) resolve([])
         else resolve(response.data.data.map(adapters.adaptRegistroCalificado))
       } catch (error) {
         reject('Error al obtener los registros calificados')

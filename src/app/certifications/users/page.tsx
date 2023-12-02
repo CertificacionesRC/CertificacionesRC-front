@@ -1,6 +1,7 @@
 import { api } from '@/services/api'
 import { Stack, Text } from '@chakra-ui/react'
-import UsersLayout from './components/users-layout'
+import { UserModalProvider } from './hooks/user-modal'
+import Layout from '@/app/certifications/users/components/layout'
 
 async function UsersPage() {
   const users = await api.getAllCustomUsers()
@@ -10,7 +11,9 @@ async function UsersPage() {
       <Text as="h1" fontWeight="semibold" fontSize="xl">
         Usuarios
       </Text>
-      <UsersLayout users={users} />
+      <UserModalProvider>
+        <Layout users={users} />
+      </UserModalProvider>
     </Stack>
   )
 }

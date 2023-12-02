@@ -334,7 +334,7 @@ const createRegistroCalificado = async ({
             observacion: null,
             programaAcademico: {
               id: programaAcademico?.id,
-              nombre: programaAcademico?.name,
+              nombre: programaAcademico?.nombre,
               tipo: programaAcademico?.type,
               facultad: programaAcademico?.faculty,
               registroCalificado: null,
@@ -373,19 +373,22 @@ const getExistsRC = async ({ id }: { id: number }): Promise<boolean> => {
     }, TIME_OUT)
   })
 }
-const getALLRC = async ({ state }: { state: string }): Promise<IRegistroCalificado[] | null> => {
+const getALLRC = async ({ state, endDate, startDate }: { state: string; endDate: string; startDate:string }): Promise<IRegistroCalificado[]> => {
   return new Promise((resolve, reject) => {
     setTimeout(async () => {
       try {
         const session = await getSession()
-        const url = PATHS.GET_REGISTROS_CALIFICADOS
+        let url
+        if(state) url = PATHS.GET_REGISTROS_CALIFICADOS_BY_STATE + `?estado=${state}`
+        else if (startDate) url = PATHS.GET_REGISTROS_CALIFICADOS_BY_DATE + `?fechaInicio=${startDate} 00:00:00&fechaFin=${endDate} 00:00:00`
+        else url = PATHS.GET_REGISTROS_CALIFICADOS
         const response = await axios.get(url, {
           headers: {
             Authorization: `Bearer ${session?.token}`,
           },
         })
-        
-        resolve(response.data.data.map(adapters.adaptRegistroCalificado))
+        if(response.data.data === null) resolve([])
+        else resolve(response.data.data.map(adapters.adaptRegistroCalificado))
       } catch (error) {
         reject('Error al obtener los registros calificados')
       }

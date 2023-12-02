@@ -74,7 +74,7 @@ export interface ICustomUser {
 
 export interface IProgramType {
   id: number
-  name: string
+  nombre: string
   type: string
   faculty: string
   registroCalificado?: IRegistroCalificado

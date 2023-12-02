@@ -15,7 +15,6 @@ async function DocumentPage() {
   const documentExists = await api.getExistsRC({
     id: session.id,
   })
-  console.log(documentExists)
 
   if (documentExists) {
     return <LayoutItems />

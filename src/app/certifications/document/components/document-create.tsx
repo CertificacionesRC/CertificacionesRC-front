@@ -87,7 +87,7 @@ function DocumentCreate() {
               <Select placeholder="Selecciona" {...register('program', { required: true })}>
                 {data?.map((program: IProgramType) => (
                   <option value={program.id} key={program.id}>
-                    {program.name}
+                    {program.nombre}
                   </option>
                 ))}
               </Select>

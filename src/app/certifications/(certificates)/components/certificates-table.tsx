@@ -50,7 +50,7 @@ function CertificatesTable({ certificates }: Props) {
                     aria-label="Revisar documento"
                     as={Link}
                     fontSize="2xl"
-                    href={ROUTES.DOCUMENT_PDF('sample.pdf')}
+                    href={ROUTES.DOCUMENT_PDF(certificate.id)}
                     icon={<AiOutlineFileSearch />}
                     title="Revisar documento"
                   />

@@ -1,9 +1,6 @@
-import PdfViewer from '../components/pdf-viewer'
-const PagePDF = () => {
-  return (
-    <>
-      <PdfViewer url={'https://pdfobject.com/pdf/sample.pdf'} />
-    </>
-  )
+import DocView from '../components/doc-view'
+
+async function PagePDF({ params: { pdf } }: { params: { pdf: string } }) {
+  return <DocView pdf={pdf} />
 }
 export default PagePDF

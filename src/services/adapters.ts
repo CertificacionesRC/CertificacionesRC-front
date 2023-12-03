@@ -1,6 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { ICustomUser, IItem, IProgramType, IRegistroCalificado, IRole, ISession, ISubItem } from '@/utils/models'
+import {
+  IAcademicProgram,
+  ICustomUser,
+  IItem,
+  IProgramType,
+  IQualifiedRegistration,
+  IRole,
+  ISession,
+  ISubItem,
+} from '@/utils/models'
 
 export const adaptItem = (response: any): IItem => {
   return {
@@ -23,16 +32,37 @@ export const adaptSubItem = (response: any): ISubItem => {
   }
 }
 
-export const adaptRegistroCalificado = (response: any): IRegistroCalificado => {
+export const adaptAcademicProram = (response: any): IAcademicProgram => {
   return {
+    faculty: response.facultad,
     id: response.id,
-    fecha_creacion: response.fecha_creacion,
-    colaboradores: response.colaboradores,
-    autor: response.autor,
-    estado: response.estado,
-    programaAcademico: response.programaAcademico,
-    anexo: response.anexo,
-    observacion: response.observacion,
+    name: response.nombre,
+    qualifiedRegistration: adaptRegistroCalificado(response.registroCalificado),
+    type: response.tipo,
+  }
+}
+
+export const adaptCollaborator = (response: any) => {
+  let collaborators: string[] = []
+
+  if (response !== null) {
+    collaborators = response.split(',')
+    collaborators = collaborators.map((collaborator: string) => collaborator.trim())
+  }
+
+  return collaborators
+}
+
+export const adaptRegistroCalificado = (response: any): IQualifiedRegistration => {
+  return {
+    academicProgram: response.programaAcademico,
+    author: response.autor,
+    collaborators: adaptCollaborator(response.colaboradores),
+    createDate: response.fecha_creacion,
+    exhibit: response.anexo,
+    id: response.id,
+    observation: response.observacion,
+    status: response.estado,
   }
 }
 

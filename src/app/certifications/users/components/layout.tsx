@@ -1,7 +1,7 @@
 'use client'
 
 import { FiPlus } from 'react-icons/fi'
-import { Icon, IconButton, Stack } from '@chakra-ui/react'
+import { Flex, Icon, IconButton, Stack, Text } from '@chakra-ui/react'
 import { ICustomUser } from '@/utils/models'
 import { useUserModal } from '@/app/certifications/users/hooks/user-modal'
 import CreateModal from '@/app/certifications/users/components/modals/create'
@@ -13,12 +13,17 @@ function Layout({ users }: { users: ICustomUser[] }) {
 
   return (
     <Stack spacing="4">
-      <IconButton
-        aria-label="Agregar usuario"
-        icon={<Icon fontSize="2xl" as={FiPlus} />}
-        onClick={handleCreate}
-        title="Agregar usuario"
-      />
+      <Flex justifyContent="space-between">
+        <Text as="h1" fontWeight="semibold" fontSize="xl">
+          Usuarios
+        </Text>
+        <IconButton
+          aria-label="Agregar usuario"
+          icon={<Icon fontSize="2xl" as={FiPlus} />}
+          onClick={handleCreate}
+          title="Agregar usuario"
+        />
+      </Flex>
       <UsersTable users={users} onEdit={(user) => handleEdit(user)} />
       <UpdateModal isOpen={isOpenEdit} onClose={handleClose} user={user} />
       <CreateModal isOpen={isOpenCreate} onClose={handleClose} />

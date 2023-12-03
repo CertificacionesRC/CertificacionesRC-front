@@ -5,6 +5,7 @@ export const ROUTES = {
   DOCUMENT_PDF: (name: string) => `/certifications/document/view/${name}`,
   START_DOCUMENT: '/certifications/document/start',
   DOCUMENT: '/certifications/document',
+  DOCUMENTS: '/certifications/documents',
   HISTORY: '/certifications/history',
   USERS: '/certifications/users',
   HOME: '/certifications/home',

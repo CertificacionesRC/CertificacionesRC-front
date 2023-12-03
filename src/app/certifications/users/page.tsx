@@ -1,5 +1,5 @@
 import { api } from '@/services/api'
-import { Stack, Text } from '@chakra-ui/react'
+import { Stack } from '@chakra-ui/react'
 import { UserModalProvider } from '@/app/certifications/users/hooks/user-modal'
 import Layout from '@/app/certifications/users/components/layout'
 
@@ -8,9 +8,6 @@ async function UsersPage() {
 
   return (
     <Stack spacing="4">
-      <Text as="h1" fontWeight="semibold" fontSize="xl">
-        Usuarios
-      </Text>
       <UserModalProvider>
         <Layout users={users} />
       </UserModalProvider>

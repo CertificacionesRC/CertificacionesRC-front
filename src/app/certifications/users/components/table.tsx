@@ -11,7 +11,7 @@ const header = ['Código', 'Nombre', 'Usuario', 'Correo', 'Estado', 'Editar']
 
 function UsersTable({ users, onEdit }: Props) {
   return (
-    <Card>
+    <Card overflow="hidden">
       <TableContainer>
         <Table>
           <Thead>
@@ -32,6 +32,7 @@ function UsersTable({ users, onEdit }: Props) {
                 <Td>
                   <IconButton
                     aria-label="Editar usuario"
+                    fontSize="xl"
                     icon={<FiEdit />}
                     onClick={() => onEdit(user)}
                     title="Editar usuario"

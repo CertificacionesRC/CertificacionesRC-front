@@ -21,6 +21,7 @@
     "@tinymce/tinymce-react": "4.3.0",
     "@types/react-icons": "3.0.0",
     "axios": "^1.6.2",
+    "dayjs": "^1.11.10",
     "framer-motion": "10.16.4",
     "next": "14.0.1",
     "pdfjs-dist": "3.10.111",

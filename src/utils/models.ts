@@ -37,46 +37,54 @@ export interface ISubItem {
 }
 
 export interface IAnexo {
-  id: string
   contenido: string
-  registroCalificado?: IRegistroCalificado
+  id: string
+  registroCalificado: IQualifiedRegistration
 }
 
 export interface IObservacion {
-  id: string
   contenido: string
-  registroCalificado?: IRegistroCalificado
-}
-export interface IRegistroCalificado {
-  id?: string
-  fecha_creacion?: string
-  colaboradores?: string
-  autor?: string
-  estado?: string
-  programaAcademico?: IProgramType
-  anexo?: IAnexo
-  observacion?: IObservacion
+  id: string
+  registroCalificado: IQualifiedRegistration
 }
 
 export interface IRole {
   roleId: number
   roleName: string
 }
+
 export interface ICustomUser {
   email: string
   id: string
   name: string
+  password: string
   role: IRole
   status: boolean
-  password: string
 }
 
 export interface IProgramType {
+  faculty: string
   id: number
   name: string
+  registroCalificado: IQualifiedRegistration
   type: string
-  faculty: string
-  registroCalificado?: IRegistroCalificado
 }
 
-export interface IRegistroCalificado {}
+export interface IAcademicProgram {
+  faculty: string
+  id: number
+  name: string
+  qualifiedRegistration: IQualifiedRegistration
+  type: string
+}
+
+export interface IQualifiedRegistration {
+  academicProgram?: IAcademicProgram
+  author?: string
+  collaborators?: string[]
+  createDate?: string
+  status?: string
+  exhibit?: string
+  id: number
+  observation?: string
+}

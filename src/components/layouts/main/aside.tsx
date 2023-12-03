@@ -25,11 +25,25 @@ const routes: IRoutes[] = [
     authorities: ['ADMIN', 'SUPERUSUARIO', 'COORDINADOR'],
   },
   {
+    href: ROUTES.USERS,
+    name: 'Usuarios',
+    icon: <FiUsers />,
+    iconActive: <HiUsers />,
+    authorities: ['ADMIN'],
+  },
+  {
     href: ROUTES.DOCUMENT,
     name: 'Documento',
     icon: <IoDocumentTextOutline />,
     iconActive: <IoDocumentText />,
-    authorities: ['ADMIN', 'SUPERUSUARIO', 'COORDINADOR'],
+    authorities: ['COORDINADOR'],
+  },
+  {
+    href: ROUTES.DOCUMENTS,
+    name: 'Documentos',
+    icon: <IoDocumentTextOutline />,
+    iconActive: <IoDocumentText />,
+    authorities: ['ADMIN', 'SUPERUSUARIO'],
   },
   {
     href: ROUTES.HISTORY,
@@ -37,13 +51,6 @@ const routes: IRoutes[] = [
     icon: <IoDocumentAttachOutline />,
     iconActive: <IoDocumentAttach />,
     authorities: ['ADMIN', 'SUPERUSUARIO', 'COORDINADOR'],
-  },
-  {
-    href: ROUTES.USERS,
-    name: 'Usuarios',
-    icon: <FiUsers />,
-    iconActive: <HiUsers />,
-    authorities: ['ADMIN'],
   },
 ]
 

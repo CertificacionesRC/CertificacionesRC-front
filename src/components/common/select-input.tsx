@@ -17,7 +17,7 @@ const SelectInput = forwardRef<ElementProps, Props>(function Component(props, re
   return (
     <FormControl isRequired={isRequired} isInvalid={isInvalid} {...containerProps}>
       {label && <FormLabel>{label}</FormLabel>}
-      <Select {...restProps} ref={ref} />
+      <Select bg="surface" {...restProps} ref={ref} />
       <FormErrorMessage>{errorMessage}</FormErrorMessage>
     </FormControl>
   )

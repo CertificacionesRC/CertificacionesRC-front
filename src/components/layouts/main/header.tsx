@@ -21,6 +21,9 @@ async function MainHeader({ breadcums }: { breadcums: IBreadcum[] }) {
       <Spacer />
       <Flex gap="4" alignItems="center">
         <Text>{session.user.username}</Text>
+        <Text px="2" bg="primary.50">
+          {session.user.authorities.map(({ authority }) => authority)}
+        </Text>
         <Avatar w="40px" h="40px" bg="primary.500" name="G">
           <AvatarBadge boxSize="20px" bg="green.500" />
         </Avatar>

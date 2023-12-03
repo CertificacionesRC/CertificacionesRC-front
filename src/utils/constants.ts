@@ -70,3 +70,26 @@ export const CUSTOM_USER_MOCK: ICustomUser = {
   status: STATUS_MOCKS.ACTIVE.value,
   role: ROLE_MOCKS.COORDINATOR,
 }
+
+export type CERTIFICATE_STATES = 'Aprobado' | 'EnRevision' | 'PorAprobar' | 'Rechazado'
+
+export const CERTIFICATE_STATE_MOCKS: Record<string, { value: string; name: string }> = {
+  Aprobado: {
+    value: 'Aprobado',
+    name: 'APROBADO',
+  },
+  EnRevision: {
+    value: 'EnRevision',
+    name: 'EN REVISIÓN',
+  },
+  PorAprobar: {
+    value: 'PorAprobar',
+    name: 'POR APROBAR',
+  },
+  Rechazado: {
+    value: 'Rechazado',
+    name: 'RECHAZADO',
+  },
+}
+
+export const CERTIFICATES_STATES_LIST = Object.values(CERTIFICATE_STATE_MOCKS)

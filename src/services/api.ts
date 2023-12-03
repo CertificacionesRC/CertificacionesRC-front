@@ -1,4 +1,4 @@
-import { ICustomUser, IItem, IProgramType, IRegistroCalificado, ISession, ISubItem } from '@/utils/models'
+import { ICustomUser, IItem, IProgramType, IQualifiedRegistration, ISession, ISubItem } from '@/utils/models'
 import { adapters } from './adapters'
 import { getSession } from '@/utils/actions'
 import axios from 'axios'
@@ -363,33 +363,48 @@ const getExistsRC = async ({ id }: { id: number }): Promise<boolean> => {
   })
 }
 const getALLRC = async ({
-  state,
   endDate,
   startDate,
+  state,
 }: {
-  state: string
-  endDate: string
-  startDate: string
-}): Promise<IRegistroCalificado[]> => {
+  endDate?: string
+  startDate?: string
+  state?: string
+}): Promise<IQualifiedRegistration[]> => {
   return new Promise((resolve, reject) => {
     setTimeout(async () => {
       try {
         const session = await getSession()
+
         let url
-        if (state) url = PATHS.GET_REGISTROS_CALIFICADOS_BY_STATE + `?estado=${state}`
-        else if (startDate)
+
+        if (state) {
+          url = PATHS.GET_REGISTROS_CALIFICADOS_BY_STATE + `?estado=${state}`
+        } else if (startDate) {
           url =
             PATHS.GET_REGISTROS_CALIFICADOS_BY_DATE + `?fechaInicio=${startDate} 00:00:00&fechaFin=${endDate} 00:00:00`
-        else url = PATHS.GET_REGISTROS_CALIFICADOS
-        const response = await axios.get(url, {
+        } else {
+          url = PATHS.GET_REGISTROS_CALIFICADOS
+        }
+
+        console.log(url)
+
+        const response = await fetch(url, {
+          method: 'GET',
           headers: {
             Authorization: `Bearer ${session?.token}`,
           },
         })
-        if (response.data.data === null) resolve([])
-        else resolve(response.data.data.map(adapters.adaptRegistroCalificado))
+
+        const data = await response.json()
+
+        if (data.data === null) {
+          resolve([])
+        } else {
+          resolve(data.data.map(adapters.adaptRegistroCalificado))
+        }
       } catch (error) {
-        reject('Error al obtener los registros calificados')
+        reject('Error al obtener los certificados')
       }
     }, TIME_OUT)
   })

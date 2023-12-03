@@ -14,7 +14,7 @@ interface Props {
 
 function FormModal({ children, isLoading, isOpen, headerTitle, buttonTitle, onClose, onSubmit }: Props) {
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isCentered isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent as="form" onSubmit={onSubmit}>
         <ModalHeader>{headerTitle}</ModalHeader>

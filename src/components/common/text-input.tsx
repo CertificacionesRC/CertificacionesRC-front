@@ -17,7 +17,7 @@ const TextInput = forwardRef<ElementProps, Props>(function Component(props, ref)
   return (
     <FormControl isRequired={isRequired} isInvalid={isInvalid}>
       {label && <FormLabel>{label}</FormLabel>}
-      <Input {...restProps} ref={ref} />
+      <Input bg='surface' {...restProps} ref={ref} />
       <FormErrorMessage>{errorMessage}</FormErrorMessage>
     </FormControl>
   )

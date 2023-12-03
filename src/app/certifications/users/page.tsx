@@ -1,6 +1,6 @@
 import { api } from '@/services/api'
 import { Stack, Text } from '@chakra-ui/react'
-import { UserModalProvider } from './hooks/user-modal'
+import { UserModalProvider } from '@/app/certifications/users/hooks/user-modal'
 import Layout from '@/app/certifications/users/components/layout'
 
 async function UsersPage() {

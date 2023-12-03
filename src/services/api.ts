@@ -225,9 +225,10 @@ const updateCustomUser = async ({
           contrasena: password,
           correo: email,
           estado: status,
-          nombre: name,
           id,
+          nombre: name,
           rol: {
+            lstUsuarios: null,
             rolId: roleId,
             rolNombre: roleName,
           },
@@ -254,6 +255,7 @@ const createCustomUser = async ({
   password,
   roleId,
   roleName,
+  status,
 }: {
   email: string
   id: string
@@ -261,8 +263,8 @@ const createCustomUser = async ({
   password: string
   roleId: number
   roleName: string
-  status: string
-}) => {
+  status: boolean
+}): Promise<string> => {
   return new Promise((resolve, reject) => {
     setTimeout(async () => {
       try {
@@ -271,33 +273,23 @@ const createCustomUser = async ({
         const mock = {
           contrasena: password,
           correo: email,
-          estado: null,
-          nombre: name,
+          estado: status,
           id,
+          nombre: name,
           rol: {
+            lstUsuarios: null,
             rolId: roleId,
             rolNombre: roleName,
           },
         }
 
-        const response = await axios.post(PATHS.SAVE_USER, mock, {
+        await axios.post(PATHS.SAVE_USER, mock, {
           headers: {
             Authorization: `Bearer ${session?.token}`,
           },
         })
 
-        // const response = await fetch(PATHS.SAVE_USER, {
-        //   method: 'PATCH',
-        //   // headers: {
-        //   //   Authorization: `Bearer ${session?.token}`,
-        //   //   contentType: 'application/json',
-        //   // },
-        //   body: JSON.stringify(mock),
-        // })
-
-        // const data = await response.json()
-
-        resolve(response.data)
+        resolve('Usuario creado correctamente')
       } catch (error) {
         reject('Error al crear el usuario')
       }

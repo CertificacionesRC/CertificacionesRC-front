@@ -6,15 +6,16 @@ type ElementProps = React.HTMLProps<HTMLSelectElement>
 interface Props extends SelectProps {
   containerProps?: object
   errorMessage?: string
+  isRequired?: boolean
   isInvalid?: boolean
   label?: string
 }
 
 const SelectInput = forwardRef<ElementProps, Props>(function Component(props, ref) {
-  const { label, errorMessage, isInvalid, containerProps, ...restProps } = props
+  const { label, errorMessage, isInvalid, isRequired, containerProps, ...restProps } = props
 
   return (
-    <FormControl isInvalid={isInvalid} {...containerProps}>
+    <FormControl isRequired={isRequired} isInvalid={isInvalid} {...containerProps}>
       {label && <FormLabel>{label}</FormLabel>}
       <Select {...restProps} ref={ref} />
       <FormErrorMessage>{errorMessage}</FormErrorMessage>

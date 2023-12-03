@@ -6,15 +6,16 @@ type ElementProps = React.HTMLProps<HTMLInputElement>
 
 interface Props extends InputProps {
   errorMessage?: string
+  isRequired?: boolean
   isInvalid?: boolean
   label?: string
 }
 
 const TextInput = forwardRef<ElementProps, Props>(function Component(props, ref) {
-  const { label, errorMessage, isInvalid, ...restProps } = props
+  const { label, errorMessage, isInvalid, isRequired, ...restProps } = props
 
   return (
-    <FormControl isInvalid={isInvalid}>
+    <FormControl isRequired={isRequired} isInvalid={isInvalid}>
       {label && <FormLabel>{label}</FormLabel>}
       <Input {...restProps} ref={ref} />
       <FormErrorMessage>{errorMessage}</FormErrorMessage>

@@ -3,6 +3,7 @@
 import { api } from '@/services/api'
 import { ICustomUser } from '@/utils/models'
 import { revalidate } from '@/utils/actions'
+import { ROLES_LIST, ROLE_ADAPT } from '@/utils/constants'
 import { Stack, useToast } from '@chakra-ui/react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import FormModal from '@/components/modals/form-modal'
@@ -21,14 +22,14 @@ type FormValues = {
   name: string
   password: string
   roleId: number
-  roleName: string
-  status: boolean
+  status: string
 }
 
 function UpdateModal({ user, isOpen, onClose }: Props) {
   const toast = useToast()
 
   const {
+    reset,
     register,
     handleSubmit,
     formState: { isSubmitting },
@@ -39,34 +40,38 @@ function UpdateModal({ user, isOpen, onClose }: Props) {
       name: user.name,
       password: '',
       roleId: user.role.roleId,
-      roleName: user.role.roleName,
-      status: true,
+      status: String(user.status),
     },
   })
 
   const onSubmit: SubmitHandler<FormValues> = (values) => {
+    const role = ROLE_ADAPT[values.roleId]
+
     return api
       .updateCustomUser({
         email: values.email,
         id: values.id,
         name: values.name,
         password: values.password,
-        roleId: values.roleId,
-        roleName: values.roleName,
-        status: true,
+        roleId: role.roleId,
+        roleName: role.roleName,
+        status: values.status === 'true',
       })
       .then(async (message) => {
         await revalidate('/users')
-        onClose()
+
         toast({
-          title: message,
           status: 'success',
+          title: message,
         })
+
+        reset()
+        onClose()
       })
       .catch((error) => {
         toast({
-          title: error,
           status: 'error',
+          title: error,
         })
       })
   }
@@ -91,8 +96,17 @@ function UpdateModal({ user, isOpen, onClose }: Props) {
         />
         <TextInput isRequired type="text" label="Código" {...register('id')} />
         <TextInput isRequired type="text" label="Nombre" {...register('name')} />
-        <SelectInput isRequired label="Estado" {...register('status')}></SelectInput>
-        <SelectInput isRequired label="Rol" {...register('roleId')}></SelectInput>
+        <SelectInput isRequired label="Estado" {...register('status')}>
+          <option value="true">Habilitado</option>
+          <option value="false">Inhabilitado</option>
+        </SelectInput>
+        <SelectInput isRequired label="Rol" {...register('roleId')}>
+          {ROLES_LIST.map((role) => (
+            <option key={role.roleId} value={role.roleId}>
+              {role.roleName}
+            </option>
+          ))}
+        </SelectInput>
       </Stack>
     </FormModal>
   )

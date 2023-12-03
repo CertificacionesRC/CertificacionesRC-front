@@ -1,26 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
-import {
-  Button,
-  FormControl,
-  FormLabel,
-  Input,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-  Select,
-  Stack,
-  useToast,
-} from '@chakra-ui/react'
-
-import { SubmitHandler, useForm } from 'react-hook-form'
 import { api } from '@/services/api'
 import { revalidate } from '@/utils/actions'
+import { ROLES_LIST, ROLE_ADAPT, ROLE_MOCKS, STATUS_LIST, STATUS_MOCKS } from '@/utils/constants'
+import { Stack, useToast } from '@chakra-ui/react'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import FormModal from '@/components/modals/form-modal'
+import SelectInput from '@/components/common/select-input'
+import TextInput from '@/components/common/text-input'
 
 interface Props {
   isOpen: boolean
@@ -31,16 +18,16 @@ type FormValues = {
   email: string
   id: string
   name: string
-  roleId: number
-  roleName: 'ADMIN' | 'CORDINADOR' | 'SUPERUSUARIO'
-  status: string
   password: string
+  roleId: number
+  status: string
 }
 
 function CreateModal({ isOpen, onClose }: Props) {
   const toast = useToast()
 
   const {
+    reset,
     register,
     handleSubmit,
     formState: { isSubmitting },
@@ -49,19 +36,14 @@ function CreateModal({ isOpen, onClose }: Props) {
       email: '',
       id: '',
       name: '',
-      roleId: 1,
-      roleName: 'CORDINADOR',
-      status: '',
       password: '',
+      roleId: ROLE_MOCKS.COORDINATOR.roleId,
+      status: String(STATUS_MOCKS.ACTIVE.value),
     },
   })
 
   const onSubmit: SubmitHandler<FormValues> = (values) => {
-    const rolId = {
-      ADMIN: 1,
-      CORDINADOR: 2,
-      SUPERUSUARIO: 3,
-    }
+    const role = ROLE_ADAPT[values.roleId]
 
     return api
       .createCustomUser({
@@ -69,78 +51,65 @@ function CreateModal({ isOpen, onClose }: Props) {
         id: values.id,
         name: values.name,
         password: values.password,
-        roleId: rolId[values.roleName],
-        roleName: values.roleName,
-        status: values.status,
+        roleId: role.roleId,
+        roleName: role.roleName,
+        status: values.status === 'true',
       })
-      .then(async () => {
+      .then(async (message) => {
         await revalidate('/users')
-        onClose()
+
         toast({
-          title: 'Usuario creado',
           status: 'success',
+          title: message,
         })
+
+        reset()
+        onClose()
       })
       .catch((error) => {
         toast({
-          title: error,
           status: 'error',
+          title: error,
         })
       })
   }
 
   return (
-    <Modal isCentered isOpen={isOpen} onClose={onClose}>
-      <ModalOverlay />
-      <ModalContent autoComplete="off" as="form" onSubmit={handleSubmit(onSubmit)}>
-        <ModalCloseButton />
-        <ModalHeader>Crear usuario</ModalHeader>
-        <ModalBody>
-          <Stack spacing="4">
-            <FormControl>
-              <FormLabel>Codigo *</FormLabel>
-              <Input type="text" {...register('id', { required: true })} />
-            </FormControl>
-            <FormControl>
-              <FormLabel>Usuario *</FormLabel>
-              <Input type="text" {...register('email', { required: true })} />
-            </FormControl>
-            <FormControl>
-              <FormLabel>Nombre *</FormLabel>
-              <Input type="text" {...register('name', { required: true })} />
-            </FormControl>
-            <FormControl>
-              <FormLabel>Correo *</FormLabel>
-              <Input type="email" {...register('email', { required: true })} />
-            </FormControl>
-            <FormControl>
-              <FormLabel>Contraseña *</FormLabel>
-              <Input autoComplete="new-password" type="password" {...register('password', { required: true })} />
-            </FormControl>
-            <FormControl>
-              <FormLabel>Estado *</FormLabel>
-              <Select {...register('status', { required: true })}>
-                <option value="true">Habilitado</option>
-                <option value="false">Inhabilitado</option>
-              </Select>
-            </FormControl>
-            <FormControl>
-              <FormLabel>Rol *</FormLabel>
-              <Select {...register('roleName', { required: true })}>
-                <option value="ADMIN">Administrador</option>
-                <option value="COORDINADOR">Coordinador</option>
-                <option value="SUPERUSUARIO">Superusuario</option>
-              </Select>
-            </FormControl>
-          </Stack>
-        </ModalBody>
-        <ModalFooter>
-          <Button type="submit" w="full" isLoading={isSubmitting}>
-            Crear usuario
-          </Button>
-        </ModalFooter>
-      </ModalContent>
-    </Modal>
+    <FormModal
+      buttonTitle="Guardar cambios"
+      headerTitle="Crear usuario"
+      isLoading={isSubmitting}
+      isOpen={isOpen}
+      onClose={onClose}
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <Stack spacing="4">
+        <TextInput isRequired type="email" label="Correo" {...register('email')} />
+        <TextInput
+          {...register('password')}
+          autoComplete="new-password"
+          isRequired
+          label="Contraseña"
+          type="password"
+        />
+        <TextInput isRequired type="text" label="Código" {...register('id')} />
+        <TextInput isRequired type="text" label="Nombre" {...register('name')} />
+        <SelectInput isRequired label="Estado" {...register('status')}>
+          {STATUS_LIST.map((status) => (
+            <option key={status.stringValue} value={status.stringValue}>
+              {status.name}
+            </option>
+          ))}
+        </SelectInput>
+        <SelectInput isRequired label="Rol" {...register('roleId')}>
+          {ROLES_LIST.map((role) => (
+            <option key={role.roleId} value={role.roleId}>
+              {role.roleName}
+            </option>
+          ))}
+        </SelectInput>
+      </Stack>
+    </FormModal>
   )
 }
 

@@ -11,7 +11,7 @@ export async function middleware(request: NextRequest) {
       await getSession()
       return NextResponse.redirect(new URL(ROUTES.HOME, request.url))
     } catch (error) {
-      console.error('error')
+      /* empty */
     }
   }
 

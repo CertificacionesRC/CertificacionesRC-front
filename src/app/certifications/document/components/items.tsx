@@ -61,7 +61,7 @@ function Items() {
                   textAlign="left"
                   fontSize="20px"
                   fontWeight="semibold"
-                  color="textColor"
+                  _hover={{ bg: 'transparent' }}
                   onClick={() => {
                     router.push(ROUTES.DOCUMENT_ITEM(item.id))
                   }}
@@ -88,17 +88,16 @@ function Items() {
                             <AccordionButton
                               padding="20px 24px 20px 24px"
                               textAlign="left"
-                              color="textColor"
                               fontSize="18px"
+                              _hover={{ bg: 'transparent' }}
                               onClick={() => {
                                 handleToggle('subitem', subindex, searchParams)
                               }}
                             >
                               <Box display="flex" gap="16px">
-                                {' '}
                                 <Text fontWeight="semibold">
                                   {index + 1}.{subindex + 1}
-                                </Text>{' '}
+                                </Text>
                                 <Text fontWeight="medium">{subitem.name}</Text>
                               </Box>
                               <AccordionIcon ml="auto" />
@@ -119,10 +118,9 @@ function Items() {
                                     fontSize="16px"
                                   >
                                     <Box display="flex" gap="16px">
-                                      {' '}
                                       <Text fontWeight="semibold">
                                         {index + 1}.{subindex + 1}.{deepindex + 1}
-                                      </Text>{' '}
+                                      </Text>
                                       <Text fontWeight="medium">{deepItem.name}</Text>
                                     </Box>
                                   </ListItem>
@@ -141,10 +139,9 @@ function Items() {
                               fontSize="18px"
                             >
                               <Box display="flex" gap="16px">
-                                {' '}
                                 <Text fontWeight="semibold">
                                   {index + 1}.{subindex + 1}
-                                </Text>{' '}
+                                </Text>
                                 <Text fontWeight="medium">{subitem.name}</Text>
                               </Box>
                             </AccordionButton>
@@ -154,7 +151,7 @@ function Items() {
                     </List>
                   </Accordion>
                 </AccordionPanel>
-                <Box position="absolute" left="0" insetY="0" w="2" bg="primary" />
+                <Box position="absolute" left="0" insetY="0" w="2" bg="primary.500" />
               </AccordionItem>
             ) : (
               <AccordionItem pl="2" position="relative" border="0">
@@ -168,7 +165,7 @@ function Items() {
                 >
                   {index + 1}. {item.name}
                 </AccordionButton>
-                <Box position="absolute" left="0" insetY="0" w="2" bg="primary" />
+                <Box position="absolute" left="0" insetY="0" w="2" bg="primary.500" />
               </AccordionItem>
             )}
           </Card>

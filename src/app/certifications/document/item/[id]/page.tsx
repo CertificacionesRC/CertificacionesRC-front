@@ -1,5 +1,5 @@
 import { api } from '@/services/api'
-import EditorTiny from '@/components/editor/editor-tiny'
+import EditorItem from '@/app/certifications/document/components/editor/editor-item'
 
 interface Props {
   params: {
@@ -9,9 +9,9 @@ interface Props {
 
 async function DocumentItem({ params: { id } }: Props) {
   const item = await api.getItem({ id })
-
   const guia = item.guide ?? ''
-  return <EditorTiny id={item.id} content={item.content} name={item.name} help={guia} />
+
+  return <EditorItem id={item.id} content={item.content} name={item.name} help={guia} />
 }
 
 export default DocumentItem

@@ -156,11 +156,32 @@ const getItem = async ({ id }: { id: string }): Promise<IItem> => {
   })
 }
 
-const updateContentSubItem = async ({ id, content }: { id: string; content: string }) => {
+const updateContentSubItem = async ({ subItem, content }: { subItem: ISubItem; content: string }) => {
   return new Promise((resolve, reject) => {
     setTimeout(async () => {
       try {
-        const url = PATHS.UPDATE_SUBINDEX + `/${id}`
+        const url = PATHS.UPDATE_SUBINDEX + `/${subItem.id}`
+        const response = await axios.patch(url, {
+          id: subItem.id,
+          nombre: subItem.name,
+          contenido: `${content}`,
+          guia: subItem.guide,
+          archivo: null,
+        })
+
+        resolve(response.data)
+      } catch (error) {
+        reject('Error al actualizar el contenido del subitem')
+      }
+    }, TIME_OUT)
+  })
+}
+
+const updateContentItem = async ({ id, content }: { id: string; content: string }) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(async () => {
+      try {
+        const url = PATHS.UPDATE_INDEX + `/${id}`
         const response = await axios.patch(url, {
           id: '',
           nombre: '',
@@ -343,7 +364,7 @@ const createRegistroCalificado = async ({
   })
 }
 
-const getExistsRC = async ({ id }: { id: number }): Promise<boolean> => {
+const getExistsRC = async ({ id }: { id: number }): Promise<IQualifiedRegistration | null> => {
   return new Promise((resolve, reject) => {
     setTimeout(async () => {
       try {
@@ -354,14 +375,19 @@ const getExistsRC = async ({ id }: { id: number }): Promise<boolean> => {
             Authorization: `Bearer ${session?.token}`,
           },
         })
-        if (response.data.data === null) resolve(false)
-        else resolve(true)
+
+        if (response.data.data === null) {
+          resolve(null)
+        } else {
+          resolve(adapters.adaptRegistroCalificado(response.data.data))
+        }
       } catch (error) {
-        reject('Error al obtener el autor del registro calificado')
+        reject('Error al obtener los certificados')
       }
     }, TIME_OUT)
   })
 }
+
 const getALLRC = async ({
   endDate,
   startDate,
@@ -418,6 +444,7 @@ export const api = {
   getSubItem,
   getSubItems,
   updateContentSubItem,
+  updateContentItem,
   updateCustomUser,
   createRegistroCalificado,
   getProgramTypes,

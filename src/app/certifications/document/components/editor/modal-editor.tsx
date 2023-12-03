@@ -17,17 +17,16 @@ interface Props {
 }
 function ModalEditor({ content, isOpen, onClose }: Props) {
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isCentered isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent minW={'50vw'}>
         <ModalHeader>Guía de ayuda</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <Text textAlign={'justify'}>{content}</Text>
+          <Text textAlign={'justify'}>{content || 'Desconocido'}</Text>
         </ModalBody>
-
         <ModalFooter>
-          <Button colorScheme="blue" mr={3} onClick={onClose}>
+          <Button mr={3} onClick={onClose}>
             Close
           </Button>
         </ModalFooter>

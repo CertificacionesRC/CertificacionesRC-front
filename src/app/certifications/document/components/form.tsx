@@ -11,17 +11,17 @@ import {
   Input,
   Select,
   Stack,
-  Text,
   Textarea,
   useToast,
 } from '@chakra-ui/react'
 
 import { api } from '@/services/api'
-import { getSession } from '@/utils/actions'
+import { getSession, revalidate } from '@/utils/actions'
 import { IProgramType } from '@/utils/models'
 import { useForm } from 'react-hook-form'
 import type { SubmitHandler } from 'react-hook-form'
 import useSWR from 'swr'
+import { ROUTES } from '@/utils/routes'
 
 type FormValues = {
   program?: number
@@ -29,7 +29,7 @@ type FormValues = {
   collaborators: string
 }
 
-function DocumentCreate() {
+function Form() {
   const toast = useToast()
 
   const { data } = useSWR('api/programas', () => {
@@ -57,7 +57,8 @@ function DocumentCreate() {
         fechaCreacion: values.date,
         programaAcademico: data?.find((program: IProgramType) => program.id == values.program),
       })
-      .then(() => {
+      .then(async () => {
+        await revalidate(ROUTES.DOCUMENT)
         toast({
           title: 'Registro acádemico creado exitosamente',
           status: 'success',
@@ -74,12 +75,8 @@ function DocumentCreate() {
 
   return (
     <Center>
-      <Card w="full" maxW="400px" p="4">
-        <CardHeader textAlign="center">
-          <Text fontSize="20px" fontWeight="400">
-            Antes de continuar ayúdanos a completar el siguiente formulario
-          </Text>
-        </CardHeader>
+      <Card w="full" maxW="400px">
+        <CardHeader textAlign="center">Antes de continuar ayúdanos a completar el siguiente formulario</CardHeader>
         <CardBody>
           <Stack spacing="4" as="form" onSubmit={handleSubmit(onSubmit)}>
             <FormControl>
@@ -87,7 +84,7 @@ function DocumentCreate() {
               <Select placeholder="Selecciona" {...register('program', { required: true })}>
                 {data?.map((program: IProgramType) => (
                   <option value={program.id} key={program.id}>
-                    {program.nombre}
+                    {program.name}
                   </option>
                 ))}
               </Select>
@@ -98,7 +95,7 @@ function DocumentCreate() {
             </FormControl>
             <FormControl>
               <FormLabel>Colaboradores</FormLabel>
-              <Textarea placeholder="Nombre de los coordinadores" {...register('collaborators', { required: true })} />
+              <Textarea placeholder="Nombre de los coordinadores" {...register('collaborators')} />
             </FormControl>
             <Button type="submit" isLoading={isSubmitting}>
               Iniciar el documento
@@ -110,4 +107,4 @@ function DocumentCreate() {
   )
 }
 
-export default DocumentCreate
+export default Form

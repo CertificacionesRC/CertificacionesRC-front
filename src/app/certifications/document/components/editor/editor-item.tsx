@@ -1,14 +1,13 @@
 'use client'
 
 import { api } from '@/services/api'
-import { Editor } from '@tinymce/tinymce-react'
-import type { Editor as TinyMCEEditor } from 'tinymce'
 import { Button, Flex, IconButton, Stack, Text, useDisclosure, useId, useToast } from '@chakra-ui/react'
-import { useRef, useState } from 'react'
+import { Editor } from '@tinymce/tinymce-react'
 import { FiHelpCircle } from 'react-icons/fi'
-import { IoMdCheckmark } from 'react-icons/io'
 import { revalidate } from '@/utils/actions'
+import { useRef, useState } from 'react'
 import ModalEditor from './modal-editor'
+import type { Editor as TinyMCEEditor } from 'tinymce'
 
 const apiKey = 'ci3orvf7aeottyrtj86t4msks9v565y92jw8v2ve3qmodfc8'
 const initialData = '<p>This is the initial content of the editor.</p>'
@@ -23,7 +22,7 @@ const tinySetup = {
     'removeformat | help| myCustomToolbarButton',
 }
 
-export default function EditorTiny({
+export default function EditorItem({
   id,
   content,
   name,
@@ -44,7 +43,7 @@ export default function EditorTiny({
     if (editorRef.current) {
       const content = editorRef.current.getContent()
       api
-        .updateContentSubItem({
+        .updateContentItem({
           content,
           id,
         })
@@ -74,15 +73,8 @@ export default function EditorTiny({
           {id}. {name}
         </Text>
         <Flex gap="10px" justifyContent="end">
-          <IconButton aria-label="check" title="check" variant="outline" icon={<IoMdCheckmark />} />
-          <IconButton
-            aria-label="ayuda"
-            title="ayuda"
-            variant="outline"
-            onClick={() => helpModal.onOpen()}
-            icon={<FiHelpCircle />}
-          />
-          <Button variant="outline" isLoading={isLoading} onClick={updateContent}>
+          <IconButton aria-label="ayuda" title="ayuda" onClick={() => helpModal.onOpen()} icon={<FiHelpCircle />} />
+          <Button isLoading={isLoading} onClick={updateContent}>
             Guardar
           </Button>
         </Flex>

@@ -41,7 +41,14 @@ async function HistoryPage({ searchParams: { endDate, startDate, state } }: Prop
     )
   }
 
-  return <DocumentsTable />
+  return (
+    <Stack spacing="8">
+      <Text flex="1" as="h1" fontWeight="semibold" fontSize="xl">
+        Documentos enviados
+      </Text>
+      <DocumentsTable />
+    </Stack>
+  )
 }
 
 export default HistoryPage

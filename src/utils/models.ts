@@ -74,7 +74,7 @@ export interface IAcademicProgram {
   faculty: string
   id: number
   name: string
-  qualifiedRegistration: IQualifiedRegistration
+  qualifiedRegistration?: IQualifiedRegistration
   type: string
 }
 

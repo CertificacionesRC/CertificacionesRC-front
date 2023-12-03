@@ -37,8 +37,10 @@ export const adaptAcademicProram = (response: any): IAcademicProgram => {
     faculty: response.facultad,
     id: response.id,
     name: response.nombre,
-    qualifiedRegistration: adaptRegistroCalificado(response.registroCalificado),
     type: response.tipo,
+    qualifiedRegistration: response.registroCalificado
+      ? adaptRegistroCalificado(response.registroCalificado)
+      : undefined,
   }
 }
 
@@ -55,7 +57,7 @@ export const adaptCollaborator = (response: any) => {
 
 export const adaptRegistroCalificado = (response: any): IQualifiedRegistration => {
   return {
-    academicProgram: response.programaAcademico,
+    academicProgram: response.programaAcademico ? adaptAcademicProram(response.programaAcademico) : undefined,
     author: response.autor,
     collaborators: adaptCollaborator(response.colaboradores),
     createDate: response.fecha_creacion,

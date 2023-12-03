@@ -1,5 +1,5 @@
-import EditorTiny from '@/components/editor/editor-tiny'
 import { api } from '@/services/api'
+import EditorSubitem from '@/app/certifications/document/components/editor/editor-subitem'
 
 interface Props {
   params: {
@@ -11,7 +11,7 @@ async function DocumentSubItem({ params: { id } }: Props) {
   const subItem = await api.getSubItem({ id })
   const guia = subItem.guide ?? ''
 
-  return <EditorTiny id={subItem.id} content={subItem.content} name={subItem.name} help={guia} />
+  return <EditorSubitem subItem={subItem} help={guia} />
 }
 
 export default DocumentSubItem

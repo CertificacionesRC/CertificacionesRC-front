@@ -18,6 +18,7 @@ export const PATHS = {
   SAVE_USER: BASE_URL + 'usuario/saveUsuario',
   UPDATE_INDEX: BASE_URL + 'item/update',
   UPDATE_SUBINDEX: BASE_URL + 'subItem/updateSubitem',
+  UPDATE_STATE_SUBITEM: BASE_URL + 'subItem/updateState',
   UPDATE_USER: BASE_URL + 'usuario/updateUsuario',
   SIGN_IN: BASE_URL + 'login',
   CREATE_REGISTRO_CALIFICADO: BASE_URL + 'registrocalificado',
@@ -413,7 +414,6 @@ const getALLRC = async ({
           url = PATHS.GET_REGISTROS_CALIFICADOS
         }
 
-        console.log(url)
 
         const response = await fetch(url, {
           method: 'GET',
@@ -436,6 +436,29 @@ const getALLRC = async ({
   })
 }
 
+const updateStateSubItem = async ({id,}: {id: string}): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    setTimeout(async () => {
+      try {
+        const url = PATHS.UPDATE_STATE_SUBITEM + `/${id}`
+        const session = await getSession()
+        const response = await fetch(url, {
+          method: 'PATCH',
+          headers: {
+            Authorization: `Bearer ${session?.token}`,
+          },
+        })
+
+        const data = await response.json()
+
+        resolve('SubItem actualizado correctamente')
+      } catch (error) {
+        reject('Error al actualizar el SubItem')
+      }
+    }, TIME_OUT)
+  })
+}
+
 export const api = {
   createCustomUser,
   getAllCustomUsers,
@@ -443,6 +466,7 @@ export const api = {
   getItems,
   getSubItem,
   getSubItems,
+  updateStateSubItem,
   updateContentSubItem,
   updateContentItem,
   updateCustomUser,

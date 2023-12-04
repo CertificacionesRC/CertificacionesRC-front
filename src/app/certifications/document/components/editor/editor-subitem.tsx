@@ -4,6 +4,7 @@ import { api } from '@/services/api'
 import { Button, Flex, IconButton, Stack, Text, useDisclosure, useId, useToast } from '@chakra-ui/react'
 import { Editor } from '@tinymce/tinymce-react'
 import { FiHelpCircle } from 'react-icons/fi'
+import { FaRegCheckCircle } from 'react-icons/fa'
 import { ISubItem } from '@/utils/models'
 import { revalidate } from '@/utils/actions'
 import { useRef, useState } from 'react'
@@ -29,6 +30,24 @@ export default function EditorSubitem({ subItem, help }: { subItem: ISubItem; he
   const editorRef = useRef<TinyMCEEditor>()
   const editorId = useId()
   const toast = useToast()
+
+  const updateState = () => {
+    api
+      .updateStateSubItem({ id: subItem.id })
+      .then(() => {
+        toast({
+          title: 'Estado cambiado',
+          status: 'success',
+        })
+      })
+      .catch((error) => {
+        toast({
+          title: error,
+          status: 'error',
+        })
+      })
+      .finally(() => {})
+  }
 
   const updateContent = () => {
     if (editorRef.current) {
@@ -65,6 +84,7 @@ export default function EditorSubitem({ subItem, help }: { subItem: ISubItem; he
         </Text>
         <Flex gap="10px" justifyContent="end">
           <IconButton aria-label="ayuda" title="ayuda" onClick={() => helpModal.onOpen()} icon={<FiHelpCircle />} />
+          <IconButton aria-label="check" title="check" onClick={() => updateState()} icon={<FaRegCheckCircle />} />
           <Button isLoading={isLoading} onClick={updateContent}>
             Guardar
           </Button>

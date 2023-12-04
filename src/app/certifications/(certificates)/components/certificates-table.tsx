@@ -2,9 +2,7 @@ import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Card, IconButton, Box 
 import { AiOutlineFileSearch } from 'react-icons/ai'
 import { CERTIFICATE_STATE_MOCKS } from '@/utils/constants'
 import { IQualifiedRegistration } from '@/utils/models'
-import { ROUTES } from '@/utils/routes'
 import dayjs from 'dayjs'
-import Link from 'next/link'
 
 interface Props {
   certificates: IQualifiedRegistration[]
@@ -48,9 +46,10 @@ function CertificatesTable({ certificates }: Props) {
                 <Td>
                   <IconButton
                     aria-label="Revisar documento"
-                    as={Link}
+                    as="a"
+                    download
                     fontSize="2xl"
-                    href={ROUTES.DOCUMENT_PDF(certificate.id)}
+                    href={`http://localhost:8081/api/registrocalificado/getDocumento?IdRegistroCalificado=${certificate.id}`}
                     icon={<AiOutlineFileSearch />}
                     title="Revisar documento"
                   />

@@ -415,8 +415,6 @@ const getALLRC = async ({
           url = PATHS.GET_REGISTROS_CALIFICADOS
         }
 
-        console.log(url)
-
         const response = await fetch(url, {
           method: 'GET',
           headers: {
@@ -438,7 +436,7 @@ const getALLRC = async ({
   })
 }
 
-const updateStateSubItem = async ({id,}: {id: string}): Promise<string> => {
+const updateStateSubItem = async ({ id }: { id: string }): Promise<string> => {
   return new Promise((resolve, reject) => {
     setTimeout(async () => {
       try {

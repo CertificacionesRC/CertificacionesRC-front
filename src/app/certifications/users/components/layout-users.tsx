@@ -8,7 +8,7 @@ import CreateModal from '@/app/certifications/users/components/modals/create'
 import UpdateModal from '@/app/certifications/users/components/modals/update'
 import UsersTable from '@/app/certifications/users/components/table'
 
-function Layout({ users }: { users: ICustomUser[] }) {
+function LayoutUsers({ users }: { users: ICustomUser[] }) {
   const { user, isOpenCreate, isOpenEdit, handleCreate, handleEdit, handleClose } = useUserModal()
 
   return (
@@ -31,4 +31,4 @@ function Layout({ users }: { users: ICustomUser[] }) {
   )
 }
 
-export default Layout
+export default LayoutUsers

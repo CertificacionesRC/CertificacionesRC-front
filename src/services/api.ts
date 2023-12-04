@@ -414,7 +414,6 @@ const getALLRC = async ({
           url = PATHS.GET_REGISTROS_CALIFICADOS
         }
 
-
         const response = await fetch(url, {
           method: 'GET',
           headers: {
@@ -436,20 +435,18 @@ const getALLRC = async ({
   })
 }
 
-const updateStateSubItem = async ({id,}: {id: string}): Promise<string> => {
+const updateStateSubItem = async ({ id }: { id: string }): Promise<string> => {
   return new Promise((resolve, reject) => {
     setTimeout(async () => {
       try {
         const url = PATHS.UPDATE_STATE_SUBITEM + `/${id}`
         const session = await getSession()
-        const response = await fetch(url, {
+        await fetch(url, {
           method: 'PATCH',
           headers: {
             Authorization: `Bearer ${session?.token}`,
           },
         })
-
-        const data = await response.json()
 
         resolve('SubItem actualizado correctamente')
       } catch (error) {

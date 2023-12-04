@@ -16,7 +16,7 @@ function LayoutItems({ certificate }: Props) {
           {certificate.academicProgram?.faculty ?? 'Desconocido'}
         </Text>
         <Spacer />
-        <Button as={Link} href={ROUTES.DOCUMENT_PDF('sample.pdf')} variant="solid">
+        <Button as={Link} href={ROUTES.DOCUMENT_PDF(certificate.id)} variant="solid">
           Generar documento
         </Button>
       </Flex>

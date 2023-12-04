@@ -87,5 +87,5 @@ export interface IQualifiedRegistration {
   status?: string
   exhibit?: string
   id: number
-  observation?: string
+  observation?: IObservacion
 }

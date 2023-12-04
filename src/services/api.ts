@@ -29,6 +29,7 @@ export const PATHS = {
   GET_REGISTROS_CALIFICADOS: BASE_URL + 'registrocalificado/findAll',
   GET_REGISTROS_CALIFICADOS_BY_STATE: BASE_URL + 'registrocalificado/findAllByEstado',
   GET_REGISTROS_CALIFICADOS_BY_DATE: BASE_URL + 'registrocalificado/findAllByDate',
+  UPDATE_STATE_REGISTROS_CALIFICADOS: BASE_URL + 'registrocalificado/updateStateRegistroCalificado',
 }
 
 const TIME_OUT = 0
@@ -474,6 +475,29 @@ const updateStateItem = async ({id,}: {id: string}): Promise<string> => {
   })
 }
 
+const updateStatetRC = async ({ register, observation, state }: { register: IQualifiedRegistration; observation: string; state: string }): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    setTimeout(async () => {
+      try {
+        const session = await getSession()
+        const url = PATHS.UPDATE_STATE_REGISTROS_CALIFICADOS + `?estado=${state}`
+        await axios.post(url, {
+            contenido: observation,
+            registroCalificado: register
+        }, {
+          headers: {
+            Authorization: `Bearer ${session.token}`,
+          },
+        })
+
+        resolve('Registro actualizado correctamente')
+      } catch (error) {
+        reject('Error al actualizar el contenido del subitem')
+      }
+    }, TIME_OUT)
+  })
+}
+
 export const api = {
   createCustomUser,
   getAllCustomUsers,
@@ -490,5 +514,6 @@ export const api = {
   getProgramTypes,
   getExistsRC,
   getALLRC,
+  updateStatetRC,
   signIn,
 }

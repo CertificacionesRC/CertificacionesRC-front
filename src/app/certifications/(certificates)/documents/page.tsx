@@ -32,7 +32,7 @@ async function DocumentsPage({ searchParams: { endDate, startDate, state } }: Pr
       <Stack spacing="4">
         <Flex justifyContent="space-between">
           <Text as="h1" fontWeight="semibold" fontSize="xl">
-            Historial de certificados
+            Documentos
           </Text>
           <TableFilters showInputState state={stateParam} startDate={startDate} endDate={endDate} />
         </Flex>

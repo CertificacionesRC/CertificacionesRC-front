@@ -1,8 +1,13 @@
-import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Card, IconButton, Box } from '@chakra-ui/react'
+'use client'
+import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Card, IconButton, Box, useToast } from '@chakra-ui/react'
 import { AiOutlineFileSearch } from 'react-icons/ai'
 import { CERTIFICATE_STATE_MOCKS } from '@/utils/constants'
 import { IQualifiedRegistration } from '@/utils/models'
+import { BiSolidLike, BiSolidDislike } from 'react-icons/bi'
+import { MdMessage } from 'react-icons/md'
 import dayjs from 'dayjs'
+import { api } from '@/services/api'
+import { revalidate } from '@/utils/actions'
 
 interface Props {
   certificates: IQualifiedRegistration[]
@@ -11,6 +16,33 @@ interface Props {
 const header = ['Codigo', 'Autor', 'Fecha creación', 'Estado', 'Colaboradores', 'Acciones']
 
 function CertificatesTable({ certificates }: Props) {
+  const toast = useToast()
+
+  const changeSate = ({
+    certificate,
+    content,
+    state,
+  }: {
+    certificate: IQualifiedRegistration
+    content: string
+    state: string
+  }) => {
+    return api
+      .updateStatetRC({ register: certificate, observation: content, state })
+      .then(async (message) => {
+        await revalidate('/documents')
+        toast({
+          status: 'success',
+          title: message,
+        })
+      })
+      .catch((error) => {
+        toast({
+          status: 'error',
+          title: error,
+        })
+      })
+  }
   return (
     <Card>
       <TableContainer>
@@ -43,16 +75,43 @@ function CertificatesTable({ certificates }: Props) {
                     'Desconocico'
                   )}
                 </Td>
-                <Td>
+                <Td display="flex" gap={'10px'}>
                   <IconButton
                     aria-label="Revisar documento"
                     as="a"
                     download
-                    fontSize="2xl"
+                    fontSize="xl"
                     href={`http://localhost:8081/api/registrocalificado/getDocumento?IdRegistroCalificado=${certificate.id}`}
                     icon={<AiOutlineFileSearch />}
                     title="Revisar documento"
                   />
+                  <IconButton
+                    aria-label="Aprobar documento"
+                    fontSize="xl"
+                    icon={<BiSolidLike />}
+                    title="Aprobar documento"
+                    onClick={() =>
+                      changeSate({
+                        certificate: certificate,
+                        content: certificate.observation?.contenido ?? '',
+                        state: 'Aprobado',
+                      })
+                    }
+                  />
+                  <IconButton
+                    aria-label="Rechazar documento"
+                    fontSize="xl"
+                    icon={<BiSolidDislike />}
+                    title="Rechazar documento"
+                    onClick={() =>
+                      changeSate({
+                        certificate: certificate,
+                        content: certificate.observation?.contenido ?? '',
+                        state: 'Rechazado',
+                      })
+                    }
+                  />
+                  <IconButton aria-label="Comentarios" fontSize="xl" icon={<MdMessage />} title="Comentarios" />
                 </Td>
               </Tr>
             ))}

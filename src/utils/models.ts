@@ -22,6 +22,7 @@ export interface ISession {
 export interface IItem {
   id: string
   content?: string
+  state?: string
   guide?: string
   name: string
   subItems: ISubItem[]
@@ -30,9 +31,9 @@ export interface IItem {
 export interface ISubItem {
   id: string
   content?: string
+  state?: string
   guide?: string
   name: string
-  files?: []
   subItems: ISubItem[]
 }
 

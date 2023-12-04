@@ -11,7 +11,7 @@ async function DocumentItem({ params: { id } }: Props) {
   const item = await api.getItem({ id })
   const guia = item.guide ?? ''
 
-  return <EditorItem id={item.id} content={item.content} name={item.name} help={guia} />
+  return <EditorItem item={item} help={guia} />
 }
 
 export default DocumentItem

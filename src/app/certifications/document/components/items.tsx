@@ -10,12 +10,14 @@ import {
   Card,
   List,
   ListItem,
+  Spacer,
   Text,
 } from '@chakra-ui/react'
 
 import { api } from '@/services/api'
 import { ReadonlyURLSearchParams, useRouter, usePathname, useSearchParams } from 'next/navigation'
 import { ROUTES } from '@/utils/routes'
+import { FaCircleCheck } from 'react-icons/fa6'
 import Link from 'next/link'
 import useSWR from 'swr'
 
@@ -48,6 +50,7 @@ function Items() {
   const currentIndex1 = param1 ? [Number(param1)] : []
   const param2 = searchParams.get('subitem')
   const currentIndex2 = param2 ? [Number(param2)] : []
+  console.log(data[0])
 
   return (
     <Accordion index={currentIndex1}>
@@ -69,6 +72,12 @@ function Items() {
                   <Box display="flex" gap="16px">
                     <Text>{index + 1}.</Text> <Text>{item.name}</Text>
                   </Box>
+                  {item.state === 'Completado' && (
+                    <Box marginLeft={8} color="#5BAE40">
+                      <FaCircleCheck />
+                    </Box>
+                  )}
+
                   <AccordionIcon
                     ml="auto"
                     bg="gray.200"
@@ -100,6 +109,11 @@ function Items() {
                                 </Text>
                                 <Text fontWeight="medium">{subitem.name}</Text>
                               </Box>
+                              {subitem.state === 'Completado' && (
+                                <Box marginLeft={8} color="#5BAE40">
+                                  <FaCircleCheck />
+                                </Box>
+                              )}
                               <AccordionIcon ml="auto" />
                             </AccordionButton>
                             <AccordionPanel>
@@ -123,6 +137,11 @@ function Items() {
                                       </Text>
                                       <Text fontWeight="medium">{deepItem.name}</Text>
                                     </Box>
+                                    {deepItem.state === 'Completado' && (
+                                      <Box marginLeft={8} color="#5BAE40">
+                                        <FaCircleCheck />
+                                      </Box>
+                                    )}
                                   </ListItem>
                                 ))}
                               </List>
@@ -144,6 +163,11 @@ function Items() {
                                 </Text>
                                 <Text fontWeight="medium">{subitem.name}</Text>
                               </Box>
+                              {subitem.state === 'Completado' && (
+                                <Box marginLeft={8} color="#5BAE40">
+                                  <FaCircleCheck />
+                                </Box>
+                              )}
                             </AccordionButton>
                           </AccordionItem>
                         )
@@ -164,7 +188,13 @@ function Items() {
                   href={ROUTES.DOCUMENT_ITEM(item.id)}
                 >
                   {index + 1}. {item.name}
+                  {item.state === 'Completado' && (
+                    <Box marginLeft={8} color="#5BAE40">
+                      <FaCircleCheck />
+                    </Box>
+                  )}
                 </AccordionButton>
+
                 <Box position="absolute" left="0" insetY="0" w="2" bg="primary.500" />
               </AccordionItem>
             )}

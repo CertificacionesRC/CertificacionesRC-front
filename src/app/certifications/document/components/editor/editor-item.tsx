@@ -8,6 +8,8 @@ import { revalidate } from '@/utils/actions'
 import { useRef, useState } from 'react'
 import ModalEditor from './modal-editor'
 import type { Editor as TinyMCEEditor } from 'tinymce'
+import { IItem } from '@/utils/models'
+import { FaRegCheckCircle } from 'react-icons/fa'
 
 const apiKey = 'ci3orvf7aeottyrtj86t4msks9v565y92jw8v2ve3qmodfc8'
 const initialData = '<p>This is the initial content of the editor.</p>'
@@ -22,22 +24,30 @@ const tinySetup = {
     'removeformat | help| myCustomToolbarButton',
 }
 
-export default function EditorItem({
-  id,
-  content,
-  name,
-  help,
-}: {
-  id: string
-  content?: string
-  name?: string
-  help: string
-}) {
+export default function EditorItem({ item, help }: { item: IItem; help: string }) {
   const [isLoading, setIsLoading] = useState(true)
   const helpModal = useDisclosure()
   const editorRef = useRef<TinyMCEEditor>()
   const editorId = useId()
   const toast = useToast()
+
+  const updateState = () => {
+    api
+      .updateStateItem({ id: item.id })
+      .then(() => {
+        toast({
+          title: 'Estado cambiado',
+          status: 'success',
+        })
+      })
+      .catch((error) => {
+        toast({
+          title: error,
+          status: 'error',
+        })
+      })
+      .finally(() => {})
+  }
 
   const updateContent = () => {
     if (editorRef.current) {
@@ -45,7 +55,7 @@ export default function EditorItem({
       api
         .updateContentItem({
           content,
-          id,
+          id: item.id,
         })
         .then(async () => {
           await revalidate('/document/subitem/[id]')
@@ -70,10 +80,11 @@ export default function EditorItem({
     <>
       <Stack position="relative" spacing="4">
         <Text fontSize="2xl" fontWeight="bold" color="textColor">
-          {id}. {name}
+          {item.id}. {item.name}
         </Text>
         <Flex gap="10px" justifyContent="end">
           <IconButton aria-label="ayuda" title="ayuda" onClick={() => helpModal.onOpen()} icon={<FiHelpCircle />} />
+          <IconButton aria-label="check" title="check" onClick={() => updateState()} icon={<FaRegCheckCircle />} />
           <Button isLoading={isLoading} onClick={updateContent}>
             Guardar
           </Button>
@@ -83,7 +94,7 @@ export default function EditorItem({
           id={editorId}
           onLoadContent={() => setIsLoading(false)}
           onInit={(_, editor) => (editorRef.current = editor)}
-          initialValue={content ?? initialData}
+          initialValue={item.content ?? initialData}
           apiKey={apiKey}
           init={tinySetup}
         />

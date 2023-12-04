@@ -16,6 +16,7 @@ export const adaptItem = (response: any): IItem => {
     id: response.id,
     content: response.contenido,
     guide: response.guia,
+    state: response.estado,
     name: response.nombre,
     subItems: response.subItems.map(adaptSubItem),
   }
@@ -26,8 +27,8 @@ export const adaptSubItem = (response: any): ISubItem => {
     id: response.id,
     content: response.contenido,
     guide: response.guia,
+    state: response.estado,
     name: response.nombre,
-    files: response.archivo,
     subItems: response.subItems?.map(adaptSubItem) ?? [],
   }
 }

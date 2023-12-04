@@ -10,7 +10,6 @@ import {
   Card,
   List,
   ListItem,
-  Spacer,
   Text,
 } from '@chakra-ui/react'
 

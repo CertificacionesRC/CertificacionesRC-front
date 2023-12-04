@@ -1,6 +1,5 @@
 import { Button, Flex, Spacer, Stack, Text } from '@chakra-ui/react'
 import { IQualifiedRegistration } from '@/utils/models'
-import { ROUTES } from '@/utils/routes'
 import Items from '@/app/certifications/document/components/items'
 import Link from 'next/link'
 
@@ -16,7 +15,11 @@ function LayoutItems({ certificate }: Props) {
           {certificate.academicProgram?.faculty ?? 'Desconocido'}
         </Text>
         <Spacer />
-        <Button as={Link} href={ROUTES.DOCUMENT_PDF(certificate.id)} variant="solid">
+        <Button
+          as={Link}
+          href={`http://localhost:8081/api/registrocalificado/getDocumento?IdRegistroCalificado=${certificate.id}`}
+          variant="solid"
+        >
           Generar documento
         </Button>
       </Flex>

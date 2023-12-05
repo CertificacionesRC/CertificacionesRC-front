@@ -1,7 +1,6 @@
 import { Button, Flex, Spacer, Stack, Text } from '@chakra-ui/react'
 import { IQualifiedRegistration } from '@/utils/models'
 import Items from '@/app/certifications/document/components/items'
-import Link from 'next/link'
 
 interface Props {
   certificate: IQualifiedRegistration
@@ -16,8 +15,9 @@ function LayoutItems({ certificate }: Props) {
         </Text>
         <Spacer />
         <Button
-          as={Link}
+          as={'a'}
           href={`http://localhost:8081/api/registrocalificado/getDocumento?IdRegistroCalificado=${certificate.id}`}
+          download
           variant="solid"
         >
           Generar documento

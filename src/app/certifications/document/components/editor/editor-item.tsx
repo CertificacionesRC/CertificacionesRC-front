@@ -39,7 +39,7 @@ export default function EditorItem({ item, help }: { item: IItem; help: string }
           id: item.id,
         })
         .then(async () => {
-          await revalidate('/document/subitem/[id]')
+          await revalidate('/document?item=0')
           toast({
             title: 'Cambios guardados',
             status: 'success',

@@ -56,6 +56,17 @@ export const adaptCollaborator = (response: any) => {
   return collaborators
 }
 
+export const reverseAdaptCollaborator = (collaborators: string[] | undefined) => {
+  let response = ""
+  const collabo: string[] = collaborators === undefined ? [] : collaborators
+
+  if (collabo.length > 0) {
+    response = collabo.join(', ')
+  }
+
+  return response
+}
+
 export const adaptRegistroCalificado = (response: any): IQualifiedRegistration => {
   return {
     academicProgram: response.programaAcademico ? adaptAcademicProram(response.programaAcademico) : undefined,

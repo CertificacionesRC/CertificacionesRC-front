@@ -24,9 +24,13 @@ function Items() {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
-  const { data, error } = useSWR({ url: 'items' }, () => {
-    return api.getItems()
-  })
+  const { data, error } = useSWR(
+    { url: 'items' },
+    () => {
+      return api.getItems()
+    },
+    { revalidateOnFocus: true, revalidateOnReconnect: true, revalidateIfStale: true }
+  )
 
   if (error) return <span>Error</span>
   if (!data) return <span>Cargando...</span>

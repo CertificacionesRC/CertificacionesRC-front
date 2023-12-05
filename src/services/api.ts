@@ -1,5 +1,5 @@
 import { ICustomUser, IItem, IProgramType, IQualifiedRegistration, ISession, ISubItem } from '@/utils/models'
-import { adapters } from './adapters'
+import { adapters, reverseAdaptCollaborator } from './adapters'
 import { getSession } from '@/utils/actions'
 import axios from 'axios'
 
@@ -469,7 +469,7 @@ const updateStateItem = async ({id,}: {id: string}): Promise<string> => {
 
         resolve('Item actualizado correctamente')
       } catch (error) {
-        reject('Error al actualizar el Item')
+        reject('Error al actualizar el Item. Actulizar subitems primero')
       }
     }, TIME_OUT)
   })
@@ -483,7 +483,21 @@ const updateStatetRC = async ({ register, observation, state }: { register: IQua
         const url = PATHS.UPDATE_STATE_REGISTROS_CALIFICADOS + `?estado=${state}`
         await axios.post(url, {
             contenido: observation,
-            registroCalificado: register
+            registroCalificado: { programaAcademico: {
+              id: register?.academicProgram?.id,
+              nombre: register?.academicProgram?.name,
+              tipo: register?.academicProgram?.type,
+              facultad: register?.academicProgram?.faculty,
+              registroCalificado: register?.academicProgram?.qualifiedRegistration
+            },
+            autor: register?.author,
+            colaboradores: reverseAdaptCollaborator(register?.collaborators),
+            fecha_creacion: register?.createDate,
+            id: register?.id,
+            observacion: register?.observation,
+            estado: register?.status,
+            anexo: register?.exhibit
+          }
         }, {
           headers: {
             Authorization: `Bearer ${session.token}`,

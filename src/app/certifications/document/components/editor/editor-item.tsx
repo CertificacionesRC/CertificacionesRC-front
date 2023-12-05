@@ -9,6 +9,7 @@ import { useRef, useState } from 'react'
 import ModalEditor from './modal-editor'
 import type { Editor as TinyMCEEditor } from 'tinymce'
 import { IItem } from '@/utils/models'
+import { FaRegCheckCircle } from 'react-icons/fa'
 
 const apiKey = 'ci3orvf7aeottyrtj86t4msks9v565y92jw8v2ve3qmodfc8'
 const initialData = '<p>This is the initial content of the editor.</p>'
@@ -29,6 +30,23 @@ export default function EditorItem({ item, help }: { item: IItem; help: string }
   const editorRef = useRef<TinyMCEEditor>()
   const editorId = useId()
   const toast = useToast()
+  const updateState = () => {
+    api
+      .updateStateItem({ id: item.id })
+      .then(() => {
+        toast({
+          title: 'Estado cambiado',
+          status: 'success',
+        })
+      })
+      .catch((error) => {
+        toast({
+          title: error,
+          status: 'error',
+        })
+      })
+      .finally(() => {})
+  }
 
   const updateContent = () => {
     if (editorRef.current) {
@@ -65,6 +83,7 @@ export default function EditorItem({ item, help }: { item: IItem; help: string }
         </Text>
         <Flex gap="10px" justifyContent="end">
           <IconButton aria-label="ayuda" title="ayuda" onClick={() => helpModal.onOpen()} icon={<FiHelpCircle />} />
+          <IconButton aria-label="check" title="check" onClick={() => updateState()} icon={<FaRegCheckCircle />} />
           <Button isLoading={isLoading} onClick={updateContent}>
             Guardar
           </Button>

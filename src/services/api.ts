@@ -6,7 +6,7 @@ import axios from 'axios'
 const BASE_URL = 'http://localhost:8081/api/'
 
 export const PATHS = {
-  DISABLE_USER: BASE_URL + 'usuario/disableUsuario',
+  DISABLE_USER: BASE_URL + 'usuario/disableOrEnableUsuario',
   GET_ALL_INDEX: BASE_URL + 'item/getAllItem',
   GET_ALL_SUBINDEX: BASE_URL + 'subItem/getAllSubItem',
   GET_ALL_USERS: BASE_URL + 'usuario/findAllUsuarios',
@@ -498,6 +498,25 @@ const updateStatetRC = async ({ register, observation, state }: { register: IQua
   })
 }
 
+const disableOrEnableUser = async ({id,}: {id: string}): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    setTimeout(async () => {
+      try {
+        const session = await getSession()
+        await axios.patch(PATHS.DISABLE_USER + `/${id}`, null, {
+          headers: {
+            Authorization: `Bearer ${session.token}`,
+          },
+        })
+
+        resolve('Usuario actualizado correctamente')
+      } catch (error) {
+        reject('Error al actualizar el usuario')
+      }
+    }, TIME_OUT)
+  })
+}
+
 export const api = {
   createCustomUser,
   getAllCustomUsers,
@@ -515,5 +534,6 @@ export const api = {
   getExistsRC,
   getALLRC,
   updateStatetRC,
+  disableOrEnableUser,
   signIn,
 }

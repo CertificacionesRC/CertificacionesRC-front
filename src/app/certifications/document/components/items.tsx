@@ -49,7 +49,6 @@ function Items() {
   const currentIndex1 = param1 ? [Number(param1)] : []
   const param2 = searchParams.get('subitem')
   const currentIndex2 = param2 ? [Number(param2)] : []
-  console.log(data[0])
 
   return (
     <Accordion index={currentIndex1}>

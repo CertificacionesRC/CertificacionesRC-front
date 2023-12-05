@@ -475,7 +475,7 @@ const updateStateItem = async ({id,}: {id: string}): Promise<string> => {
   })
 }
 
-const updateStatetRC = async ({ register, observation, state }: { register: IQualifiedRegistration; observation: string; state: string }): Promise<string> => {
+const updateStatetRC = async ({ register, observation, state }: { register: IQualifiedRegistration | null; observation: string; state: string }): Promise<string> => {
   return new Promise((resolve, reject) => {
     setTimeout(async () => {
       try {
